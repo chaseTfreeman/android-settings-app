@@ -80,3 +80,14 @@ export const testAndroidDataConstants = [
         maxValue: 2000,
     },
 ]
+
+export const userSyncTestMaxValues = {
+    maxValueOUCapture: 10,
+    maxValueOUSearch: 5,
+    maxValueDataSet: 20,
+    maxValueProgram: 20,
+    maxValueProgramRule: 50,
+    maxValueReservedValue: 500,
+    maxValueMetadata: 1000,
+    maxValueData: 2000,
+}

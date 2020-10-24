@@ -2,8 +2,8 @@ import { checkSettingType } from './checkSettingType'
 import { getDataPerProgramSettingType } from './dataPerProgramType'
 import { addSettingsId } from './addSettingsId'
 
-export const prepareDataSizeRequest = ({
-    props,
+export const prepareDataSizeRequest = async ({
+    baseUrl,
     orgUnitCompleteList,
     orgUnitParent,
     programList,
@@ -11,6 +11,7 @@ export const prepareDataSizeRequest = ({
     specificSettings,
 }) => {
     const dataSizeRequest = []
+    let dataSize = 0
     const settingTypeArray = []
     const organisationUnitIDLists = {
         orgUnit: orgUnitCompleteList,
@@ -62,7 +63,7 @@ export const prepareDataSizeRequest = ({
     // should check every program (program associated to OU)
     settingTypeArray.forEach(settingType => {
         const _tempSettingType = getDataPerProgramSettingType({
-            props,
+            baseUrl,
             settingType,
             orgUnitList: organisationUnitIDLists,
             programList,
@@ -76,5 +77,12 @@ export const prepareDataSizeRequest = ({
         })
     })
 
-    return dataSizeRequest
+    await Promise.all(dataSizeRequest).then(data => {
+        dataSize = data.reduce((total, num) => total + num, 0)
+        return dataSize
+    })
+
+    dataSize = Math.round(dataSize / 1024)
+
+    return dataSize
 }
