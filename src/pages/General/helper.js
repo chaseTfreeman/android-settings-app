@@ -1,5 +1,5 @@
 import { isValidValue } from '../../utils/validators/isValidValue'
-import { validateNumber } from '../../modules/general/validatePhoneNumber'
+import { validateNumber } from '../../utils/validators/validatePhoneNumber'
 import { isValidURL } from '../../utils/validators/isValidURL'
 import { defaultEncryptDB, defaultReservedValues } from '../../components/field'
 
