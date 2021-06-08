@@ -1,8 +1,5 @@
 import { getInstance } from 'd2'
 
-const CREATED = 'CREATED'
-const DELETED = 'DELETED'
-
 class Api {
     cache = []
     ignoredStores = ['']
@@ -12,18 +9,6 @@ class Api {
      * @returns {Api}
      */
 
-    getNamespaces() {
-        return getInstance().then(d2 =>
-            d2.dataStore
-                .getAll()
-                .then(response =>
-                    response.filter(
-                        value => this.ignoredStores.indexOf(value) === -1
-                    )
-                )
-        )
-    }
-
     createNamespace(namespace, key, value = {}) {
         return getInstance()
             .then(d2 => {
@@ -32,15 +17,6 @@ class Api {
                 })
             })
             .catch(error => Promise.reject(error))
-    }
-
-    deleteNamespace(namespace) {
-        return getInstance().then(d2 =>
-            d2.dataStore.delete(namespace).then(response => {
-                this.cache[namespace] = []
-                return response
-            })
-        )
     }
 
     getKeys(namespace) {
