@@ -482,18 +482,8 @@ export const FULL_SPECIFIC = 'FULL_SPECIFIC'
 export const GLOBAL_SPECIAL = 'GLOBAL_SPECIAL'
 export const DEFAULT = 'DEFAULT'
 
-export const ProgramTitles = {
-    typeName: 'Program Name',
-    type: 'Program',
-    typePlural: 'Programs',
-    typeLowercase: 'program',
-}
-
 export const TEI_DOWNLOAD = 'teiDownload'
 export const TEI_DB_TRIMMING = 'teiDBTrimming'
 export const EVENTS_DOWNLOAD = 'eventsDownload'
 export const EVENTS_DB_TRIMMING = 'eventsDBTrimming'
 export const SETTING_DOWNLOAD = 'settingDownload'
-
-export const ENROLLMENT_DOWNLOAD = 'enrollmentDownload'
-export const PROGRAM = 'PROGRAM'

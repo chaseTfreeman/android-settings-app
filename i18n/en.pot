@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-05-28T00:19:09.592Z\n"
-"PO-Revision-Date: 2021-05-28T00:19:09.592Z\n"
+"POT-Creation-Date: 2021-06-08T02:46:36.907Z\n"
+"PO-Revision-Date: 2021-06-08T02:46:36.907Z\n"
 
 msgid "Failed to get data from Data Store"
 msgstr ""
@@ -222,12 +222,6 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-msgid "Values per {{title}}"
-msgstr ""
-
-msgid "Add/Save"
-msgstr ""
-
 msgid "30 Minutes"
 msgstr ""
 
@@ -310,21 +304,6 @@ msgid ""
 "app version 2.3.0 onwards."
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
-msgid "Number of Periods"
-msgstr ""
-
-msgid "General download sync settings"
-msgstr ""
-
-msgid "These settings apply to all Android users."
-msgstr ""
-
-msgid "Summary Settings"
-msgstr ""
-
 msgid "Recommended maximum: {{maxValue}}"
 msgstr ""
 
@@ -335,9 +314,6 @@ msgid "Check the amount of data a user would sync to their device."
 msgstr ""
 
 msgid "Run test"
-msgstr ""
-
-msgid "Default"
 msgstr ""
 
 msgid "Edit"
@@ -352,14 +328,6 @@ msgstr ""
 msgid ""
 "You have unsaved changes, if you leave you will lose your changes. Are you "
 "sure you want to leave?"
-msgstr ""
-
-msgid ""
-"This phone number is not valid. Must start with + and be at least 4 "
-"characters long."
-msgstr ""
-
-msgid "This will disable and remove all General, Program and Data set settings."
 msgstr ""
 
 msgid "Maximum number of periods to download data sets for"
@@ -581,15 +549,6 @@ msgstr ""
 msgid "data download size (KB)"
 msgstr ""
 
-msgid "{{teiDownload}} TEI"
-msgstr ""
-
-msgid "{{eventsDownload}} events per OU"
-msgstr ""
-
-msgid "{{periodDSDownload}} {{periodType}} period"
-msgstr ""
-
 msgid "TEI Analytics"
 msgstr ""
 
@@ -648,6 +607,9 @@ msgid ""
 "individual programs can also be applied."
 msgstr ""
 
+msgid "This will disable and remove all General, Program and Data set settings."
+msgstr ""
+
 msgid "General Settings"
 msgstr ""
 
@@ -671,6 +633,9 @@ msgid "Values per Data set"
 msgstr ""
 
 msgid "Add a data set specific setting"
+msgstr ""
+
+msgid "Default"
 msgstr ""
 
 msgid "data set"
@@ -702,23 +667,4 @@ msgid ""
 msgstr ""
 
 msgid "program"
-msgstr ""
-
-msgid "{{elementPlural}} global download sync settings"
-msgstr ""
-
-msgid ""
-"Applies to all {{elementPlural}} an Android user has access to. Specific "
-"{{elementSingular}} settings can be defined in the section below."
-msgstr ""
-
-msgid "{{elementPlural}} specific download sync settings"
-msgstr ""
-
-msgid ""
-"Applies only to the assigned {{elementLowerCase}}. {{elementSingular}} "
-"specific settings will overwrite the global settings above."
-msgstr ""
-
-msgid "Add a {{elementSingular}} specific setting"
 msgstr ""
