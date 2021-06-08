@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from '@dhis2/prop-types'
 import { CheckboxField as UICheckboxField } from '@dhis2/ui'
-import { FormSection } from '../sections/general/form-sections'
+import { FormSection } from './FormSection'
 
 export const CheckboxField = ({
     label,

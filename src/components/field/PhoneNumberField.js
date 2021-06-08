@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from '@dhis2/prop-types'
 import { InputField } from '@dhis2/ui'
-import { FormSection } from '../sections/general/form-sections'
+import { FormSection } from './FormSection'
 import { validateNumber } from '../../utils/validators/validatePhoneNumber'
 import { isValidValue } from '../../utils/validators/isValidValue'
 

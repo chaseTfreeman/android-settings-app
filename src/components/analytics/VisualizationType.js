@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from '@dhis2/prop-types'
 import { RadioGroup } from './RadioGroup'
-import { FormSection } from '../sections/general/form-sections'
+import { FormSection } from '../field'
 import {
     createInitialValues,
     updateAttributesList,
