@@ -1,14 +1,13 @@
 import React from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { AddNewSetting } from '../../../components/field'
+import NewProgramVisualization from './NewProgramVisualization'
 
 const ProgramAnalyticsList = ({ disable }) => {
     return (
         <>
-            <AddNewSetting
-                label={i18n.t('Add Program Visualization')}
-                disable={disable}
-            />
+            table
+            <NewProgramVisualization disable={disable} />
         </>
     )
 }
