@@ -3,5 +3,8 @@ export const createInitialValues = initialValues => ({
     program: initialValues.program || '',
     visualization: initialValues.visualization || '',
     name: initialValues.name || '',
-    group: initialValues.group || '',
+    group: initialValues.group || {
+        name: '',
+        id: '',
+    },
 })

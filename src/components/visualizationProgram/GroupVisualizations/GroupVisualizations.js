@@ -10,6 +10,18 @@ export const GroupVisualizations = ({ settings, onChange }) => {
     const handleChange = e => {
         setGroup(e.checked)
         setGroupType(e.checked)
+        onChange({
+            ...settings,
+            [e.name]: e.checked
+                ? {
+                      name: '',
+                      id: '',
+                  }
+                : {
+                      name: 'default',
+                      id: '0001', //id should change
+                  },
+        })
     }
 
     return (
@@ -21,7 +33,7 @@ export const GroupVisualizations = ({ settings, onChange }) => {
                 onChange={handleChange}
             />
 
-            {groupType && <GroupType />}
+            {groupType && <GroupType onChange={onChange} settings={settings} />}
         </>
     )
 }

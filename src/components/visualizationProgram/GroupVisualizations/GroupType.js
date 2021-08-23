@@ -4,7 +4,7 @@ import { FieldGroup, Radio } from '@dhis2/ui'
 import { SelectField, TextField } from '../../field'
 import styles from './GroupType.module.css'
 
-export const GroupType = () => {
+export const GroupType = ({ onChange, settings }) => {
     const [group, setGroup] = useState()
     const handleChange = e => {
         setGroup(e.value)
@@ -16,20 +16,29 @@ export const GroupType = () => {
                 onChange={handleChange}
                 value={group}
                 name="groupVisualization"
+                groupName={settings}
+                changeGroup={onChange}
             />
         </div>
     )
 }
 
-const NewGroup = ({ checked, ...props }) => {
+const NewGroup = ({ checked, groupName, changeGroup, ...props }) => {
     const [title, setTitle] = useState('')
 
     useEffect(() => {
         setTitle('')
-    }, [])
+    }, [checked])
 
     const handleChange = e => {
         setTitle(e.value)
+        changeGroup({
+            ...groupName,
+            group: {
+                name: e.value,
+                id: '',
+            },
+        })
     }
 
     return (
@@ -60,12 +69,23 @@ const options = [
         value: '2',
     },
 ]
-const SelectGroup = ({ checked, ...props }) => {
+
+const SelectGroup = ({ checked, groupName, changeGroup, ...props }) => {
     const [selection, setSelection] = useState()
-    const [list, setList] = useState(options)
+
+    useEffect(() => {
+        setSelection('')
+    }, [checked])
 
     const handleChange = e => {
         setSelection(e.selected)
+        changeGroup({
+            ...groupName,
+            group: {
+                name: e.selected,
+                id: e.selected,
+            },
+        })
     }
 
     return (
@@ -79,7 +99,7 @@ const SelectGroup = ({ checked, ...props }) => {
                         placeholder={i18n.t('Select a group visualization')}
                         selected={selection}
                         onChange={handleChange}
-                        options={list}
+                        options={options}
                     />
                 </div>
             )}
@@ -87,7 +107,7 @@ const SelectGroup = ({ checked, ...props }) => {
     )
 }
 
-const RadioGroup = ({ onChange, value, ...props }) => {
+const RadioGroup = ({ onChange, value, groupName, changeGroup, ...props }) => {
     const [optionSelection, setOptionSelection] = useState('')
 
     useEffect(() => {
@@ -109,6 +129,8 @@ const RadioGroup = ({ onChange, value, ...props }) => {
                         label={i18n.t('Create a new group')}
                         value="newGroup"
                         checked={optionSelection['newGroup']}
+                        groupName={groupName}
+                        changeGroup={changeGroup}
                     />
 
                     <SelectGroup
@@ -118,6 +140,8 @@ const RadioGroup = ({ onChange, value, ...props }) => {
                         label={i18n.t('Select a created group visualization')}
                         value="existingGroup"
                         checked={optionSelection['existingGroup']}
+                        groupName={groupName}
+                        changeGroup={changeGroup}
                     />
                 </>
             </FieldGroup>
