@@ -1,11 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { CheckboxField } from '../../field'
 import { GroupType } from './GroupType'
+import { useSystemId } from '../../../utils/useSystemId'
 
 export const GroupVisualizations = ({ settings, onChange }) => {
+    const { refetch: refetchId, data: id } = useSystemId()
     const [group, setGroup] = useState(false)
     const [groupType, setGroupType] = useState(false)
+
+    useEffect(() => {
+        refetchId().then(({ system }) =>
+            onChange({
+                ...settings,
+                group: {
+                    name: 'default',
+                    id: system.codes[0],
+                },
+            })
+        )
+    }, [])
 
     const handleChange = e => {
         setGroup(e.checked)
@@ -19,7 +33,7 @@ export const GroupVisualizations = ({ settings, onChange }) => {
                   }
                 : {
                       name: 'default',
-                      id: '0001', //id should change
+                      id: id.system.codes[0],
                   },
         })
     }

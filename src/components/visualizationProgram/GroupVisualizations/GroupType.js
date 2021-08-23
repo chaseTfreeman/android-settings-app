@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
-import { FieldGroup, Radio } from '@dhis2/ui'
-import { SelectField, TextField } from '../../field'
+import { FieldGroup } from '@dhis2/ui'
 import styles from './GroupType.module.css'
+import { NewGroup } from './NewGroup'
+import { SelectGroup } from './SelectGroup'
 
 export const GroupType = ({ onChange, settings }) => {
     const [group, setGroup] = useState()
+
     const handleChange = e => {
         setGroup(e.value)
     }
@@ -20,90 +22,6 @@ export const GroupType = ({ onChange, settings }) => {
                 changeGroup={onChange}
             />
         </div>
-    )
-}
-
-const NewGroup = ({ checked, groupName, changeGroup, ...props }) => {
-    const [title, setTitle] = useState('')
-
-    useEffect(() => {
-        setTitle('')
-    }, [checked])
-
-    const handleChange = e => {
-        setTitle(e.value)
-        changeGroup({
-            ...groupName,
-            group: {
-                name: e.value,
-                id: '',
-            },
-        })
-    }
-
-    return (
-        <>
-            <Radio checked={checked} {...props} />
-
-            {checked && (
-                <div className={styles.field}>
-                    <TextField
-                        dense
-                        value={title}
-                        onChange={handleChange}
-                        placeholder={i18n.t('Add a group name')}
-                    />
-                </div>
-            )}
-        </>
-    )
-}
-
-const options = [
-    {
-        label: 'option1',
-        value: '1',
-    },
-    {
-        label: 'option2',
-        value: '2',
-    },
-]
-
-const SelectGroup = ({ checked, groupName, changeGroup, ...props }) => {
-    const [selection, setSelection] = useState()
-
-    useEffect(() => {
-        setSelection('')
-    }, [checked])
-
-    const handleChange = e => {
-        setSelection(e.selected)
-        changeGroup({
-            ...groupName,
-            group: {
-                name: e.selected,
-                id: e.selected,
-            },
-        })
-    }
-
-    return (
-        <>
-            <Radio checked={checked} {...props} />
-
-            {checked && (
-                <div className={styles.field}>
-                    <SelectField
-                        dense
-                        placeholder={i18n.t('Select a group visualization')}
-                        selected={selection}
-                        onChange={handleChange}
-                        options={options}
-                    />
-                </div>
-            )}
-        </>
     )
 }
 
