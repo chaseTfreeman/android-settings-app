@@ -1,22 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import { FieldSection } from '../field'
-import { useReadProgramQuery } from '../../pages/Analytics/Program/ProgramVisualizationQueries'
 
-export const SelectVisualization = () => {
-    const { programList, loading } = useReadProgramQuery()
-    const [program, setProgram] = useState()
-    const [options, setOptions] = useState([])
+const list = [
+    {
+        id: '1',
+        name: 'dashboard 1',
+    },
+    {
+        id: '2',
+        name: 'bar chart 1',
+    },
+    {
+        id: '3',
+        name: 'lines 1',
+    },
+    {
+        id: '4',
+        name: 'dashboard 2',
+    },
+    {
+        id: '5',
+        name: 'pie 1',
+    },
+]
 
-    useEffect(() => {
+export const SelectVisualization = ({ settings, onChange }) => {
+    //const { programList, loading } = useReadProgramQuery()
+    //const [options, setOptions] = useState([])
+
+    /*useEffect(() => {
         if (programList) {
             setOptions(programList)
         }
-    }, [programList])
+    }, [programList])*/
 
     const handleChange = e => {
-        setProgram(e.selected)
+        onChange({
+            ...settings,
+            visualization: e.selected,
+        })
     }
 
     return (
@@ -26,11 +50,11 @@ export const SelectVisualization = () => {
                 name="visualization"
                 inputWidth="300px"
                 label={i18n.t('Visualization item')}
-                selected={program || ''}
+                selected={settings.visualization || ''}
                 onChange={e => handleChange(e)}
-                loading={loading}
+                //loading={loading}
             >
-                {options.map(option => (
+                {list.map(option => (
                     <SingleSelectOption
                         key={option.value || option.id}
                         label={option.label || option.name}

@@ -1,13 +1,26 @@
-import React from 'react'
-import i18n from '@dhis2/d2-i18n'
-import { AddNewSetting } from '../../../components/field'
+import React, { useEffect, useState } from 'react'
 import NewProgramVisualization from './NewProgramVisualization'
 
-const ProgramAnalyticsList = ({ disable }) => {
+const ProgramAnalyticsList = ({
+    visualizations,
+    handleVisualizations,
+    disable,
+}) => {
+    const [rows, setRows] = useState()
+
+    useEffect(() => {
+        console.log('rows changed', { rows })
+    }, [rows])
+
     return (
         <>
-            table
-            <NewProgramVisualization disable={disable} />
+            {rows && <p> Table </p>}
+
+            <NewProgramVisualization
+                disable={disable}
+                visualization={rows}
+                handleVisualization={setRows}
+            />
         </>
     )
 }

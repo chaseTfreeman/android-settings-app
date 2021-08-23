@@ -17,11 +17,14 @@ import {
     VisualizationTitle,
 } from '../../../components/visualizationProgram'
 
-const DialogVisualization = ({ open, settings, handleChange, disableSave }) => {
-    const handleClose = () => {}
-
-    const handleSave = () => {}
-
+const DialogVisualization = ({
+    open,
+    settings,
+    handleChange,
+    disableSave,
+    handleClose,
+    handleSave,
+}) => {
     return (
         <>
             {open && (
@@ -35,20 +38,26 @@ const DialogVisualization = ({ open, settings, handleChange, disableSave }) => {
                             onChange={handleChange}
                         />
 
-                        <SelectVisualization />
-
-                        {/* only if a visualization has been chosen*/}
-                        <VisualizationTitle
+                        <SelectVisualization
                             settings={settings}
                             onChange={handleChange}
                         />
 
-                        <GroupVisualizations
-                            settings={settings}
-                            onChange={handleChange}
-                        />
+                        {settings.visualization && (
+                            <>
+                                <VisualizationTitle
+                                    settings={settings}
+                                    onChange={handleChange}
+                                />
 
-                        <UserTest />
+                                <GroupVisualizations
+                                    settings={settings}
+                                    onChange={handleChange}
+                                />
+
+                                <UserTest />
+                            </>
+                        )}
                     </ModalContent>
 
                     <ModalActions>

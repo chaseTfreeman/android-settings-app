@@ -59,7 +59,11 @@ const ProgramAnalytics = () => {
                         <VisualizationsInfo type="Programs" />
                     )}
 
-                    <ProgramAnalyticsList disable={disable} />
+                    <ProgramAnalyticsList
+                        disable={disable}
+                        visualizations={programsAnalytics}
+                        handleVisualizations={setProgramAnalytics}
+                    />
 
                     <FooterStripButtons
                         onSave={saveSettings}
