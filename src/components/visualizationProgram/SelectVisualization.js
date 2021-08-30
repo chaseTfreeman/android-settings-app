@@ -37,9 +37,11 @@ export const SelectVisualization = ({ settings, onChange }) => {
     }, [programList])*/
 
     const handleChange = e => {
+        const vis = list.find(item => item.id === e.selected)
         onChange({
             ...settings,
             visualization: e.selected,
+            visualizationName: vis.name,
         })
     }
 

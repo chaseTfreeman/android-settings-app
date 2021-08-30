@@ -13,6 +13,10 @@ const options = [
         label: 'option2',
         value: '2849298',
     },
+    {
+        label: 'group3',
+        value: '2849299',
+    },
 ]
 
 export const SelectGroup = ({ checked, groupName, changeGroup, ...props }) => {
@@ -23,11 +27,12 @@ export const SelectGroup = ({ checked, groupName, changeGroup, ...props }) => {
     }, [checked])
 
     const handleChange = e => {
+        const name = options.find(group => group.value === e.selected)
         setSelection(e.selected)
         changeGroup({
             ...groupName,
             group: {
-                name: e.selected,
+                name: name.label,
                 id: e.selected,
             },
         })

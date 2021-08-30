@@ -15,9 +15,11 @@ export const SelectProgram = ({ settings, onChange }) => {
     }, [programList])
 
     const handleChange = e => {
+        const name = options.find(program => program.id === e.selected)
         onChange({
             ...settings,
             program: e.selected,
+            programName: name.name,
         })
     }
 

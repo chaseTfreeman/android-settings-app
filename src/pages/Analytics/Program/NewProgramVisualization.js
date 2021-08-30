@@ -5,6 +5,7 @@ import DialogVisualization from './DialogVisualization'
 import {
     createInitialValues,
     createVisualizationValues,
+    groupVisualizationByProgram,
     validMandatoryFields,
 } from './helper'
 import { useSystemId } from '../../../utils/useSystemId'
@@ -40,8 +41,23 @@ const NewProgramVisualization = ({
             visualizationSettings,
             id.system.codes[0]
         )
-        console.log({ visualizationSettings, vis })
-        //handleVisualization()
+
+        const a = {
+            ...visualization,
+            [id.system.codes[0]]: vis,
+        }
+
+        //const b = groupVisualizationByProgram('', a)
+
+        console.log({
+            visualizationSettings,
+            vis,
+            visualization,
+            a,
+            // b
+        })
+
+        handleVisualization({ ...a })
         handleClose()
     }
 
