@@ -5,13 +5,12 @@ import {
 import { syncDefault } from './sync-settings'
 import { infoDefault } from './info'
 import { appearanceDefault } from './appearance-settings'
+import { analyticsDefault } from './analytics-settings'
 
 export const initialSetup = {
     info: infoDefault,
     generalSettings: populateObject(DEFAULT_GENERAL),
     synchronization: syncDefault,
     appearance: appearanceDefault,
-    analytics: {
-        tei: [],
-    },
+    analytics: analyticsDefault,
 }
