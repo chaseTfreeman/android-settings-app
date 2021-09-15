@@ -5,7 +5,6 @@ import DialogVisualization from './DialogVisualization'
 import {
     createInitialValues,
     createVisualizationValues,
-    groupVisualizationByProgram,
     validMandatoryFields,
 } from './helper'
 import { useSystemId } from '../../../utils/useSystemId'
@@ -14,6 +13,7 @@ const NewProgramVisualization = ({
     disable,
     visualization,
     handleVisualization,
+    groups,
 }) => {
     const { refetch: refetchId, data: id } = useSystemId()
     const [openDialog, setOpenDialog] = useState(false)
@@ -42,22 +42,11 @@ const NewProgramVisualization = ({
             id.system.codes[0]
         )
 
-        const a = {
+        const updatedVisualizationList = {
             ...visualization,
             [id.system.codes[0]]: vis,
         }
-
-        //const b = groupVisualizationByProgram('', a)
-
-        console.log({
-            visualizationSettings,
-            vis,
-            visualization,
-            a,
-            // b
-        })
-
-        handleVisualization({ ...a })
+        handleVisualization({ ...updatedVisualizationList })
         handleClose()
     }
 
@@ -77,6 +66,7 @@ const NewProgramVisualization = ({
                     handleSave={handleSave}
                     handleClose={handleClose}
                     disableSave={disableSave}
+                    groups={groups}
                 />
             )}
         </>

@@ -6,15 +6,19 @@ import { FieldSection } from '../field'
 const list = [
     {
         id: '1',
-        name: 'dashboard 1',
+        name: 'A1 narrative',
     },
     {
         id: '2',
-        name: 'bar chart 1',
+        name: 'ANC: 1-3 trend lines last 12 months',
+    },
+    {
+        id: '6',
+        name: 'ANC: 1st to 3rd visit drop-out rate by orgunit last year',
     },
     {
         id: '3',
-        name: 'lines 1',
+        name: 'Commodities: Child health consumption districts last 4 quarters',
     },
     {
         id: '4',
@@ -50,7 +54,7 @@ export const SelectVisualization = ({ settings, onChange }) => {
             <SingleSelectField
                 dense
                 name="visualization"
-                inputWidth="300px"
+                inputWidth="350px"
                 label={i18n.t('Visualization item')}
                 selected={settings.visualization || ''}
                 onChange={e => handleChange(e)}

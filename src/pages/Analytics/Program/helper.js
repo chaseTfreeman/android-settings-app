@@ -1,5 +1,3 @@
-import filter from 'lodash/filter'
-import chain from 'lodash/chain'
 import mapValues from 'lodash/mapValues'
 import groupBy from 'lodash/groupBy'
 
@@ -20,22 +18,19 @@ export const validMandatoryFields = settings => {
     return !validateObjectByProperty(['program', 'visualization'], settings)
 }
 
-export const createVisualizationValues = (value, id) => {
-    const visualization = {
-        id: id,
-        name: value.name || value.visualizationName,
-        timestamp: new Date().toJSON(),
-        program: value.program,
-        programName: value.programName,
-        group: {
-            id: value.group.id,
-            name: value.group.name,
-        },
-    }
-    return visualization
-}
+export const createVisualizationValues = (value, id) => ({
+    id: id || value.id,
+    name: value.name || value.visualizationName,
+    timestamp: value.timestamp || new Date().toJSON(),
+    program: value.program,
+    programName: value.programName,
+    group: {
+        id: value.group.id,
+        name: value.group.name,
+    },
+})
 
-export const groupVisualizationByProgram = (id, visualizationList) => {
+export const groupVisualizationByProgram = visualizationList => {
     //check items that have same program ID
     // create group based on programs
     /*
@@ -62,26 +57,61 @@ export const groupVisualizationByProgram = (id, visualizationList) => {
         .value();
     console.log(result);*/
 
-    //const groups = groupBy(visualizationList, visualization => visualization.program)
-
-    const groups = groupBy(
+    const programGroups = groupBy(
         visualizationList,
         visualization => visualization.program
     )
     const result = {}
-    const a = mapValues(groups, vis => {
-        const groupG = groupBy(vis, group => group.group.id)
-        //console.log({vis, groupG})
+    let groupList = {}
+    const list = []
+    mapValues(programGroups, vis => {
+        const groupByGroup = groupBy(vis, group => group.group.id)
         result[vis[0].program] = {
             programName: vis[0].programName,
-            groups: groupG,
+            groups: groupByGroup,
         }
+
+        mapValues(groupByGroup, item => {
+            list.push({
+                ...item[0].group,
+                program: item[0].program,
+            })
+        })
+
+        groupList = groupBy(list, program => program.program)
     })
-    console.log({ groups, result })
-    return result //groups
+    console.log({ programGroups, result, list, groupList })
+    return {
+        groupProgram: result,
+        groupList: groupList,
+    }
 }
 
-const getGroupName = () => {}
+export const dataStoreToRows = (dataStore, programList) => {
+    const rows = {}
+
+    mapValues(dataStore, (program, i) => {
+        console.log({ program, i, dataStore })
+        program.map(group => {
+            const foundProgram = programList.find(p => p.id === i)
+            group.visualizations.map(visualization => {
+                rows[visualization.id] = {
+                    id: visualization.id,
+                    name: visualization.name,
+                    timestamp: visualization.timestamp || new Date().toJSON(),
+                    program: i,
+                    programName: program.programName || foundProgram.name,
+                    group: {
+                        id: group.id,
+                        name: group.name,
+                    },
+                }
+            })
+        })
+    })
+
+    return rows
+}
 
 /*"program": {
     "IpHINAT79UW": [

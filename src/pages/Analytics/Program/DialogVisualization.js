@@ -24,6 +24,7 @@ const DialogVisualization = ({
     disableSave,
     handleClose,
     handleSave,
+    groups,
 }) => {
     return (
         <>
@@ -53,6 +54,7 @@ const DialogVisualization = ({
                                 <GroupVisualizations
                                     settings={settings}
                                     onChange={handleChange}
+                                    groupList={groups}
                                 />
 
                                 <UserTest />

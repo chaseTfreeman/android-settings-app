@@ -8,6 +8,10 @@ export const UserTest = () => {
 
     const handleChange = () => {}
 
+    const style = {
+        marginTop: 20,
+    }
+
     return (
         <>
             <Divider margin="30px 0px 10px 0px" />
@@ -20,9 +24,11 @@ export const UserTest = () => {
                 label={i18n.t('User')}
             />
 
-            <Button small onClick={handleChange}>
-                {i18n.t('Run test')}
-            </Button>
+            <div style={style}>
+                <Button small onClick={handleChange}>
+                    {i18n.t('Run test')}
+                </Button>
+            </div>
         </>
     )
 }

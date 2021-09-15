@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { useDataMutation, useDataQuery } from '@dhis2/app-runtime'
+import isEmpty from 'lodash/isEmpty'
+import isEqual from 'lodash/isEqual'
 import Page from '../../../components/page/Page'
 import {
     saveAnalyticsKeyMutation,
@@ -15,6 +17,7 @@ const ProgramAnalytics = () => {
     const { tei, home, programs, dataSet, load } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
     const [programsAnalytics, setProgramAnalytics] = useState([])
+    const [initialValues, setInitialValues] = useState()
     const [disableSave, setDisableSave] = useState(true)
     const [disable, setDisable] = useState(false)
 
@@ -27,8 +30,15 @@ const ProgramAnalytics = () => {
     useEffect(() => {
         if (programs) {
             setProgramAnalytics(programs)
+            //setInitialValues(programs)
         }
     }, [programs])
+
+    /*useEffect(() => {
+        if (programsAnalytics) {
+            //set
+        }
+    }, [programsAnalytics])*/
 
     const saveSettings = async () => {
         const settingsToSave = {
@@ -55,7 +65,7 @@ const ProgramAnalytics = () => {
         >
             {programsAnalytics && (
                 <>
-                    {!programsAnalytics.length && (
+                    {isEmpty(programsAnalytics) && (
                         <VisualizationsInfo type="Programs" />
                     )}
 

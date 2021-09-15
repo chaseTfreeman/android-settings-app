@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { Radio } from '@dhis2/ui'
-import styles from './GroupType.module.css'
 import { SelectField } from '../../field'
+import styles from './GroupField.module.css'
 
-const options = [
-    {
-        label: 'option1',
-        value: '123456',
-    },
-    {
-        label: 'option2',
-        value: '2849298',
-    },
-    {
-        label: 'group3',
-        value: '2849299',
-    },
-]
-
-export const SelectGroup = ({ checked, groupName, changeGroup, ...props }) => {
+export const SelectGroup = ({
+    checked,
+    groupName,
+    changeGroup,
+    options,
+    ...props
+}) => {
     const [selection, setSelection] = useState()
 
     useEffect(() => {
@@ -27,12 +18,12 @@ export const SelectGroup = ({ checked, groupName, changeGroup, ...props }) => {
     }, [checked])
 
     const handleChange = e => {
-        const name = options.find(group => group.value === e.selected)
+        const value = options.find(group => group.id === e.selected)
         setSelection(e.selected)
         changeGroup({
             ...groupName,
             group: {
-                name: name.label,
+                name: value.label || value.name,
                 id: e.selected,
             },
         })

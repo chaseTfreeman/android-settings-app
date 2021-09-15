@@ -6,44 +6,10 @@ import {
     DataTableRow,
     DataTableCell,
     Button,
+    ButtonStrip,
+    IconArrowUp16,
+    IconArrowDown16,
 } from '@dhis2/ui'
-
-/*
-const programGroup = {
-    "IpHINAT79UW": [
-        {
-            id: "LzFiEpWnpkz",
-            name: "aaa",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "q2B0lNRikeG", name: "default" },
-            program: "IpHINAT79UW"
-        },
-        {
-            id: "a2IAFgfxJfd",
-            name: "ccc",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "fvjfyIh7i86", name: "default" },
-            program: "IpHINAT79UW"
-        }
-    ],
-    "eBAyeGv0exc": [
-        {
-            id: "nq15EbtILbX",
-            name: "bbb",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "t9Gi4TsF9tL", name: "default" },
-            program: "eBAyeGv0exc"
-        },
-        {
-            id: "LzFiEpWnpkz",
-            name: "ddd",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "t9Gi4TsF9tL", name: "default" },
-            program: "eBAyeGv0exc"
-        }
-    ],
-}
- */
 
 const VisualizationTable = ({ rows }) => {
     const [openRowIndex, setOpenRowIndex] = useState(null)
@@ -66,7 +32,7 @@ const VisualizationTable = ({ rows }) => {
             <DataTable>
                 <DataTableBody>
                     {Object.keys(rows).map((item, i) => {
-                        console.log({ item, i, a: rows[item] })
+                        /*console.log({ item, i, a: rows[item] })*/
                         return (
                             <DataTableRow
                                 expanded={openRowIndex === i}
@@ -128,12 +94,12 @@ const GroupVisualizationRow = ({ group }) => {
             <DataTable>
                 <DataTableBody>
                     {Object.keys(group.groups).map((item, i) => {
-                        console.log({
+                        /*console.log({
                             item,
                             i,
                             groups: group.groups,
                             a: group.groups[item],
-                        })
+                        })*/
                         return (
                             <DataTableRow
                                 expanded={openRowIndex === i}
@@ -191,17 +157,29 @@ const GroupVisualizationRow = ({ group }) => {
 const VisualizationRow = ({ visualizations }) => {
     const style = {
         margin: 8,
-        padding: 4,
+        //padding: 4,
         backgroundColor: 'lightblue',
+        padding: 12,
+        border: '1px solid rgb(232, 237, 242)',
     }
 
     return (
         <>
             {visualizations.map(visualization => (
                 <div style={style} key={visualization.id}>
-                    Here you find a visualization! {visualization.name}{' '}
+                    {visualization.name}
+                    <ReorderButtons />
                 </div>
             ))}
         </>
+    )
+}
+
+const ReorderButtons = () => {
+    return (
+        <ButtonStrip>
+            <Button small icon={<IconArrowUp16 />}></Button>
+            <Button small icon={<IconArrowDown16 />}></Button>
+        </ButtonStrip>
     )
 }
