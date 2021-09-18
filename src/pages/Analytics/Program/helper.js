@@ -1,7 +1,9 @@
 import mapValues from 'lodash/mapValues'
 import groupBy from 'lodash/groupBy'
+import find from 'lodash/find'
 
 import { validateObjectByProperty } from '../../../utils/validators'
+import { program } from '../../../modules/userSyncTest/settingType'
 
 export const createInitialValues = initialValues => ({
     id: initialValues.id || '',
@@ -91,11 +93,11 @@ export const dataStoreToRows = (dataStore, programList) => {
     const rows = {}
 
     mapValues(dataStore, (program, i) => {
-        console.log({ program, i, dataStore })
+        /*console.log({ program, i, dataStore })*/
         program.map(group => {
             const foundProgram = programList.find(p => p.id === i)
             group.visualizations.map(visualization => {
-                rows[visualization.id] = {
+                rows[`${i}-${visualization.id}`] = {
                     id: visualization.id,
                     name: visualization.name,
                     timestamp: visualization.timestamp || new Date().toJSON(),
@@ -109,125 +111,110 @@ export const dataStoreToRows = (dataStore, programList) => {
             })
         })
     })
+    console.log('datastore to rows', { rows })
+    return rows
+}
+
+export const updateRows = (current, rows) => {
+    const programFound = Object.keys(rows).find(
+        program => program === current.program
+    )
+
+    if (programFound) {
+        const groupFound = Object.keys(rows[programFound].groups).find(
+            group => group === current.group.id
+        )
+
+        if (groupFound) {
+            rows[programFound] = {
+                ...rows[programFound],
+                groups: {
+                    ...rows[programFound].groups,
+                    [groupFound]: [
+                        ...rows[programFound].groups[groupFound],
+                        current,
+                    ],
+                },
+            }
+        } else {
+            rows[programFound] = {
+                ...rows[programFound],
+                groups: {
+                    ...rows[programFound].groups,
+                    [current.group.id]: [current],
+                },
+            }
+        }
+    } else {
+        rows[current.program] = {
+            programName: current.programName,
+            groups: {
+                [current.group.id]: [current],
+            },
+        }
+    }
 
     return rows
 }
 
-/*"program": {
-    "IpHINAT79UW": [
-        {
-            "id": "0000000001",
-            "name": "default",
-            "visualizations": [
-                {
-                    "id": "cvOBhmU6Kwk",
-                    "timestamp": "2021-07-01T02:55:16.8770"
-                },
-                {
-                    "id": "ZxX6DSNoRcH",
-                    "timestamp": "2021-07-01T02:55:16.8770"
+export const prepareRows = (visualizations, programList) => {
+    const rows = {}
+    mapValues(visualizations, (program, i) => {
+        let groups = {}
+        program.map(group => {
+            const visual = []
+            const foundProgram = programList.find(p => p.id === i)
+            group.program = i
+            group.programName = program.programName || foundProgram.name
+            group.visualizations.map(visualization => {
+                const vis = {
+                    ...visualization,
+                    timestamp: visualization.timestamp || new Date().toJSON(),
+                    program: i,
+                    programName: program.programName || foundProgram.name,
+                    group: {
+                        id: group.id,
+                        name: group.name,
+                    },
                 }
-            ]
-        }
-    ]
-}*/
+                visual.push(vis)
+                groups = {
+                    ...groups,
+                    [group.id]: visual,
+                }
+                rows[i] = {
+                    programName: program.programName || foundProgram.name,
+                    groups: {
+                        //[group.id]: visual
+                        ...groups,
+                    },
+                }
+            })
+        })
+    })
 
-/*
-const group = {
-    "IpHINAT79UW": [
-        {
-            id: "LzFiEpWnpkz",
-            name: "aaa",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "q2B0lNRikeG", name: "default" },
-            program: "IpHINAT79UW"
-        },
-        {
-            id: "a2IAFgfxJfd",
-            name: "ccc",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "fvjfyIh7i86", name: "default" },
-            program: "IpHINAT79UW"
-        }
-    ],
-    "eBAyeGv0exc": [
-        {
-            id: "nq15EbtILbX",
-            name: "bbb",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "t9Gi4TsF9tL", name: "default" },
-            program: "eBAyeGv0exc"
-        },
-        {
-            id: "LzFiEpWnpkz",
-            name: "ddd",
-            timestamp: "2021-08-30T01:39:46.303Z",
-            group: { id: "t9Gi4TsF9tL", name: "default" },
-            program: "eBAyeGv0exc"
-        }
-    ],
-}
- */
-
-/*
-const result = {
-    lxAQ7Zs9VYR: {
-        groups: {
-            123456: [
-                {
-                    id: "OqiwGhElnUX",
-                    name: "",
-                    group: { id: "2849298", name: "2849298" },
-                    timestamp: "2021-08-30T13:26:54.535Z",
-                    program: "IpHINAT79UW",
-                }
-            ],
-            2849298: [
-                {
-                    id: "OqiwGhElnUX",
-                    name: "",
-                    group: { id: "2849298", name: "2849298" },
-                    timestamp: "2021-08-30T13:26:54.535Z",
-                    program: "IpHINAT79UW",
-                },
-                {
-                    id: "OqiwGhElnUX",
-                    name: "",
-                    group: { id: "2849298", name: "2849298" },
-                    timestamp: "2021-08-30T13:26:54.535Z",
-                    program: "IpHINAT79UW",
-                }
-            ]
-        }
-    },
-    IpHINAT79UW: {
-        groups: {
-            123456: [
-                {
-                    id: "OqiwGhElnUX",
-                    name: "",
-                    group: { id: "2849298", name: "2849298" },
-                    timestamp: "2021-08-30T13:26:54.535Z",
-                    program: "IpHINAT79UW",
-                }
-            ],
-            2849298: [
-                {
-                    id: "OqiwGhElnUX",
-                    name: "",
-                    group: { id: "2849298", name: "2849298" },
-                    timestamp: "2021-08-30T13:26:54.535Z",
-                    program: "IpHINAT79UW",
-                },
-                {
-                    id: "OqiwGhElnUX",
-                    name: "",
-                    group: { id: "2849298", name: "2849298" },
-                    timestamp: "2021-08-30T13:26:54.535Z",
-                    program: "IpHINAT79UW",
-                }
-            ]
-        }
+    console.log('groups', getGroupList(rows))
+    return {
+        visualizationsByPrograms: rows,
+        groupList: getGroupList(rows), //visualizations
     }
 }
-*/
+
+export const getGroupList = visualizations => {
+    const groupList = {}
+
+    mapValues(visualizations, (program, i) => {
+        const programGroup = []
+        mapValues(program.groups, group => {
+            programGroup.push({
+                id: group[0].group.id,
+                name: group[0].group.name,
+                program: i,
+                programName: program.programName,
+            })
+            groupList[i] = programGroup
+        })
+    })
+
+    return groupList
+}
