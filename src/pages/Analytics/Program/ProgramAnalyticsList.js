@@ -4,11 +4,7 @@ import isEqual from 'lodash/isEqual'
 import NewProgramVisualization from './NewProgramVisualization'
 import VisualizationTable from './VisualizationTable'
 import { useReadProgramQuery } from './ProgramVisualizationQueries'
-import {
-    dataStoreToRows,
-    groupVisualizationByProgram,
-    prepareRows,
-} from './helper'
+import { prepareRows, rowsToDataStore } from './helper'
 
 const ProgramAnalyticsList = ({
     visualizations,
@@ -18,59 +14,38 @@ const ProgramAnalyticsList = ({
     const { programList } = useReadProgramQuery()
     const [rows, setRows] = useState()
     const [initialRows, setInitialRows] = useState()
-    const [tableRows, setTableRows] = useState()
     const [groups, setGroups] = useState()
 
     useEffect(() => {
         if (visualizations && programList) {
-            console.log({ visualizations, programList })
-            //setRows(dataStoreToRows(visualizations, programList))
-            /*const rows = dataStoreToRows(visualizations, programList)
-            const { groupProgram, groupList } = groupVisualizationByProgram(
-                rows
-            )
-            setTableRows(groupProgram)
-            setGroups(groupList)*/
             const { visualizationsByPrograms, groupList } = prepareRows(
                 visualizations,
                 programList
             )
-            console.log({ visualizationsByPrograms, groupList })
-
-            setTableRows(visualizationsByPrograms)
+            setRows(visualizationsByPrograms)
             setGroups(groupList)
             setInitialRows(visualizationsByPrograms)
         }
     }, [visualizations, programList])
 
-    /*useEffect(() => {
-        console.log('rows changed', { rows })
-
-        if (rows) {
-            const { groupProgram, groupList } = groupVisualizationByProgram(
-                rows
-            )
-            console.log('table rows', { groupList, groupProgram })
-            setTableRows(groupProgram)
-            setGroups(groupList)
-            //handleVisualizations(groupProgram)
-        }
-    }, [rows])*/
-
     useEffect(() => {
-        if (tableRows && initialRows && !isEqual(tableRows, initialRows)) {
-            console.log('rows changed, update visualizations')
+        if (rows && initialRows && !isEqual(rows, initialRows)) {
+            /*const updtated = rowsToDataStore(rows)
+            console.log('rows changed, update visualizations', {updtated, rows, visualizations})
+            handleVisualizations(updtated)*/
+            handleVisualizations(rowsToDataStore(rows))
+            //handleVisualizations(rows)
         }
-    }, [tableRows])
+    }, [rows])
 
     return (
         <>
-            {!isEmpty(tableRows) && <VisualizationTable rows={tableRows} />}
+            {!isEmpty(rows) && <VisualizationTable rows={rows} />}
 
             <NewProgramVisualization
                 disable={disable}
-                visualization={tableRows}
-                handleVisualization={setTableRows}
+                visualization={rows}
+                handleVisualization={setRows}
                 groups={groups}
                 handleGroups={setGroups}
             />

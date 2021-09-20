@@ -14,10 +14,10 @@ import ProgramAnalyticsList from './ProgramAnalyticsList'
 import VisualizationsInfo from '../../../components/noticeAlert/VisualizationsInfo'
 
 const ProgramAnalytics = () => {
-    const { tei, home, programs, dataSet, load } = useReadAnalyticsDataStore()
+    const { tei, home, program, dataSet, load } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
     const [programsAnalytics, setProgramAnalytics] = useState([])
-    const [initialValues, setInitialValues] = useState()
+    const [initialValues, setInitialValues] = useState([])
     const [disableSave, setDisableSave] = useState(true)
     const [disable, setDisable] = useState(false)
 
@@ -28,28 +28,30 @@ const ProgramAnalytics = () => {
     }, [hasAuthority])
 
     useEffect(() => {
-        if (programs) {
-            setProgramAnalytics(programs)
-            //setInitialValues(programs)
+        if (program) {
+            setProgramAnalytics(program)
+            setInitialValues(program)
         }
-    }, [programs])
+    }, [program])
 
-    /*useEffect(() => {
-        if (programsAnalytics) {
-            //set
-        }
-    }, [programsAnalytics])*/
+    useEffect(() => {
+        initialValues &&
+        programsAnalytics &&
+        !isEqual(programsAnalytics, initialValues)
+            ? setDisableSave(false)
+            : setDisableSave(true)
+    }, [programsAnalytics])
 
     const saveSettings = async () => {
         const settingsToSave = {
             tei,
             dhisVisualizations: {
                 home,
-                program: '',
+                program: programsAnalytics,
                 dataSet,
             },
         }
-        await mutate({ settingsToSave })
+        await mutate({ settings: settingsToSave })
     }
 
     const resetSettings = () => {

@@ -1,9 +1,6 @@
 import mapValues from 'lodash/mapValues'
 import groupBy from 'lodash/groupBy'
-import find from 'lodash/find'
-
 import { validateObjectByProperty } from '../../../utils/validators'
-import { program } from '../../../modules/userSyncTest/settingType'
 
 export const createInitialValues = initialValues => ({
     id: initialValues.id || '',
@@ -111,42 +108,43 @@ export const dataStoreToRows = (dataStore, programList) => {
             })
         })
     })
-    console.log('datastore to rows', { rows })
+    //console.log('datastore to rows', { rows })
     return rows
 }
 
 export const updateRows = (current, rows) => {
-    const programFound = Object.keys(rows).find(
+    const updatedRow = Object.assign({}, rows)
+    const programFound = Object.keys(updatedRow).find(
         program => program === current.program
     )
 
     if (programFound) {
-        const groupFound = Object.keys(rows[programFound].groups).find(
+        const groupFound = Object.keys(updatedRow[programFound].groups).find(
             group => group === current.group.id
         )
 
         if (groupFound) {
-            rows[programFound] = {
-                ...rows[programFound],
+            updatedRow[programFound] = {
+                ...updatedRow[programFound],
                 groups: {
-                    ...rows[programFound].groups,
+                    ...updatedRow[programFound].groups,
                     [groupFound]: [
-                        ...rows[programFound].groups[groupFound],
+                        ...updatedRow[programFound].groups[groupFound],
                         current,
                     ],
                 },
             }
         } else {
-            rows[programFound] = {
-                ...rows[programFound],
+            updatedRow[programFound] = {
+                ...updatedRow[programFound],
                 groups: {
-                    ...rows[programFound].groups,
+                    ...updatedRow[programFound].groups,
                     [current.group.id]: [current],
                 },
             }
         }
     } else {
-        rows[current.program] = {
+        updatedRow[current.program] = {
             programName: current.programName,
             groups: {
                 [current.group.id]: [current],
@@ -154,7 +152,7 @@ export const updateRows = (current, rows) => {
         }
     }
 
-    return rows
+    return updatedRow
 }
 
 export const prepareRows = (visualizations, programList) => {
@@ -193,7 +191,7 @@ export const prepareRows = (visualizations, programList) => {
         })
     })
 
-    console.log('groups', getGroupList(rows))
+    //console.log('groups', getGroupList(rows))
     return {
         visualizationsByPrograms: rows,
         groupList: getGroupList(rows), //visualizations
@@ -217,4 +215,33 @@ export const getGroupList = visualizations => {
     })
 
     return groupList
+}
+
+export const rowsToDataStore = rows => {
+    const updatedRows = {}
+
+    mapValues(rows, (program, i) => {
+        const groups = []
+        mapValues(program.groups, group => {
+            const visualizations = []
+            let groupUpdated = {}
+            group.map(visualization => {
+                const vis = {
+                    id: visualization.id,
+                    name: visualization.name,
+                    timestamp: visualization.timestamp,
+                }
+                visualizations.push(vis)
+                groupUpdated = {
+                    id: visualization.group.id,
+                    name: visualization.group.name,
+                    visualizations: visualizations,
+                }
+            })
+            groups.push(groupUpdated)
+            updatedRows[i] = groups
+        })
+    })
+    console.log({ updatedRows })
+    return updatedRows
 }
