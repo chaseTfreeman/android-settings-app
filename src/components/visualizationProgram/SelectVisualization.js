@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import { FieldSection } from '../field'
+import ItemSelector from './VisualizationSearch/ItemSelector'
 
 const list = [
     {
@@ -50,24 +51,28 @@ export const SelectVisualization = ({ settings, onChange }) => {
     }
 
     return (
-        <FieldSection>
-            <SingleSelectField
-                dense
-                name="visualization"
-                inputWidth="350px"
-                label={i18n.t('Visualization item')}
-                selected={settings.visualization || ''}
-                onChange={e => handleChange(e)}
-                //loading={loading}
-            >
-                {list.map(option => (
-                    <SingleSelectOption
-                        key={option.value || option.id}
-                        label={option.label || option.name}
-                        value={option.value || option.id}
-                    />
-                ))}
-            </SingleSelectField>
-        </FieldSection>
+        <>
+            <FieldSection>
+                <SingleSelectField
+                    dense
+                    name="visualization"
+                    inputWidth="350px"
+                    label={i18n.t('Visualization item')}
+                    selected={settings.visualization || ''}
+                    onChange={e => handleChange(e)}
+                    //loading={loading}
+                >
+                    {list.map(option => (
+                        <SingleSelectOption
+                            key={option.value || option.id}
+                            label={option.label || option.name}
+                            value={option.value || option.id}
+                        />
+                    ))}
+                </SingleSelectField>
+            </FieldSection>
+
+            <ItemSelector />
+        </>
     )
 }
