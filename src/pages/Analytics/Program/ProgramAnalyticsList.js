@@ -30,11 +30,7 @@ const ProgramAnalyticsList = ({
 
     useEffect(() => {
         if (rows && initialRows && !isEqual(rows, initialRows)) {
-            /*const updtated = rowsToDataStore(rows)
-            console.log('rows changed, update visualizations', {updtated, rows, visualizations})
-            handleVisualizations(updtated)*/
             handleVisualizations(rowsToDataStore(rows))
-            //handleVisualizations(rows)
         }
     }, [rows])
 

@@ -1,5 +1,4 @@
 import mapValues from 'lodash/mapValues'
-import groupBy from 'lodash/groupBy'
 import { validateObjectByProperty } from '../../../utils/validators'
 
 export const createInitialValues = initialValues => ({
@@ -28,89 +27,6 @@ export const createVisualizationValues = (value, id) => ({
         name: value.group.name,
     },
 })
-
-export const groupVisualizationByProgram = visualizationList => {
-    //check items that have same program ID
-    // create group based on programs
-    /*
-    var data = [{
-        "name": "jim",
-        "color": "blue",
-        "age": "22"
-    }, {
-        "name": "Sam",
-        "color": "blue",
-        "age": "33"
-    }, {
-        "name": "eddie",
-        "color": "green",
-        "age": "77"
-    }];
-
-    var result = _.chain(data)
-        .groupBy("color")
-        .pairs()
-        .map(function (currentItem) {
-            return _.object(_.zip(["color", "users"], currentItem));
-        })
-        .value();
-    console.log(result);*/
-
-    const programGroups = groupBy(
-        visualizationList,
-        visualization => visualization.program
-    )
-    const result = {}
-    let groupList = {}
-    const list = []
-    mapValues(programGroups, vis => {
-        const groupByGroup = groupBy(vis, group => group.group.id)
-        result[vis[0].program] = {
-            programName: vis[0].programName,
-            groups: groupByGroup,
-        }
-
-        mapValues(groupByGroup, item => {
-            list.push({
-                ...item[0].group,
-                program: item[0].program,
-            })
-        })
-
-        groupList = groupBy(list, program => program.program)
-    })
-    console.log({ programGroups, result, list, groupList })
-    return {
-        groupProgram: result,
-        groupList: groupList,
-    }
-}
-
-export const dataStoreToRows = (dataStore, programList) => {
-    const rows = {}
-
-    mapValues(dataStore, (program, i) => {
-        /*console.log({ program, i, dataStore })*/
-        program.map(group => {
-            const foundProgram = programList.find(p => p.id === i)
-            group.visualizations.map(visualization => {
-                rows[`${i}-${visualization.id}`] = {
-                    id: visualization.id,
-                    name: visualization.name,
-                    timestamp: visualization.timestamp || new Date().toJSON(),
-                    program: i,
-                    programName: program.programName || foundProgram.name,
-                    group: {
-                        id: group.id,
-                        name: group.name,
-                    },
-                }
-            })
-        })
-    })
-    //console.log('datastore to rows', { rows })
-    return rows
-}
 
 export const updateRows = (current, rows) => {
     const updatedRow = Object.assign({}, rows)
@@ -182,19 +98,15 @@ export const prepareRows = (visualizations, programList) => {
                 }
                 rows[i] = {
                     programName: program.programName || foundProgram.name,
-                    groups: {
-                        //[group.id]: visual
-                        ...groups,
-                    },
+                    groups: { ...groups },
                 }
             })
         })
     })
 
-    //console.log('groups', getGroupList(rows))
     return {
         visualizationsByPrograms: rows,
-        groupList: getGroupList(rows), //visualizations
+        groupList: getGroupList(rows),
     }
 }
 
