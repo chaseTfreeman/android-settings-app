@@ -1,0 +1,22 @@
+.row {
+    display: flex;
+    margin: 8px;
+    padding: 12px;
+    border: 1px solid rgb(232, 237, 242);
+}
+
+.col70 {
+    flex: 70%;
+}
+
+.col30 {
+    flex: 30%;
+}
+
+.table {
+    border-bottom-color: #ffffff !important;
+}
+
+.rowPadding {
+    margin: 0 -12px;
+}

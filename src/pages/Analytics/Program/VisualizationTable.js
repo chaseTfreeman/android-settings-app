@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
+import styles from '../../../components/visualizationProgram/VisualizationTable/VisualizationTable.module.css'
 import {
     DataTable,
     DataTableBody,
@@ -16,14 +17,6 @@ const VisualizationTable = ({ rows }) => {
 
     const toggleOpenRow = index =>
         setOpenRowIndex(openRowIndex === index ? null : index)
-
-    const style = {
-        margin: 8,
-        padding: 4,
-        backgroundColor: 'lightblue',
-    }
-
-    //const expandableContent = <div style={style}>More info about this row!</div>
 
     const expandableContent = item => <GroupVisualizationRow group={item} />
 
@@ -51,28 +44,6 @@ const VisualizationTable = ({ rows }) => {
                             </DataTableRow>
                         )
                     })}
-
-                    {/*<DataTableRow
-                        expanded={openRowIndex === 1}
-                        onExpandToggle={() => toggleOpenRow(1)}
-                        expandableContent={expandableContent}
-                    >
-                        <DataTableCell>Antenatal Program</DataTableCell>
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell>02/26/1991</DataTableCell>
-                    </DataTableRow>
-
-                    <DataTableRow
-                        expanded={openRowIndex === 2}
-                        onExpandToggle={() => toggleOpenRow(2)}
-                        expandableContent={expandableContent}
-                    >
-                        <DataTableCell>Other Program</DataTableCell>
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell></DataTableCell>
-                    </DataTableRow>*/}
                 </DataTableBody>
             </DataTable>
         </>
@@ -90,8 +61,8 @@ const GroupVisualizationRow = ({ group }) => {
     const expandableContent = item => <VisualizationRow visualizations={item} />
 
     return (
-        <div>
-            <DataTable>
+        <div className={styles.rowPadding}>
+            <DataTable className={styles.table}>
                 <DataTableBody>
                     {Object.keys(group.groups).map((item, i) => {
                         /*console.log({
@@ -120,34 +91,6 @@ const GroupVisualizationRow = ({ group }) => {
                             </DataTableRow>
                         )
                     })}
-
-                    {/*<DataTableRow
-                        expanded={openRowIndex === 0}
-                        onExpandToggle={payload => {
-                            console.log(payload)
-                            toggleOpenRow(0)
-
-                        }}
-                        expandableContent={expandableContent}
-                    >
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell>Group</DataTableCell>
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell>
-                            <Button small> Reorder this group </Button>
-                        </DataTableCell>
-                    </DataTableRow>*/}
-
-                    {/*<DataTableRow
-                        expanded={openRowIndex === 1}
-                        onExpandToggle={() => toggleOpenRow(1)}
-                        expandableContent={expandableContent}
-                    >
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell>Second group</DataTableCell>
-                        <DataTableCell></DataTableCell>
-                        <DataTableCell><Button small> Reorder this group </Button></DataTableCell>
-                    </DataTableRow>*/}
                 </DataTableBody>
             </DataTable>
         </div>
@@ -155,31 +98,35 @@ const GroupVisualizationRow = ({ group }) => {
 }
 
 const VisualizationRow = ({ visualizations }) => {
-    const style = {
-        margin: 8,
-        //padding: 4,
-        backgroundColor: 'lightblue',
-        padding: 12,
-        border: '1px solid rgb(232, 237, 242)',
+    const moveUp = position => {
+        const list = visualizations.slice(position) //remove item from list
+        list.splice(position, 0, visualizations[position - 1]) //add prev item
+        console.log({ position, list, visualizations })
     }
+
+    const moveDown = () => {}
 
     return (
         <>
-            {visualizations.map(visualization => (
-                <div style={style} key={visualization.id}>
-                    {visualization.name}
-                    <ReorderButtons />
+            {visualizations.map((visualization, i) => (
+                <div className={styles.row} key={visualization.id}>
+                    <div className={styles.col70}> {visualization.name} </div>
+                    <ReorderButtons
+                        className={styles.col30}
+                        moveUp={() => moveUp(i)}
+                        moveDown={() => moveDown(i)}
+                    />
                 </div>
             ))}
         </>
     )
 }
 
-const ReorderButtons = () => {
+const ReorderButtons = ({ moveUp, moveDown, ...props }) => {
     return (
-        <ButtonStrip>
-            <Button small icon={<IconArrowUp16 />}></Button>
-            <Button small icon={<IconArrowDown16 />}></Button>
+        <ButtonStrip {...props}>
+            <Button small icon={<IconArrowUp16 />} onClick={moveUp} />
+            <Button small icon={<IconArrowDown16 />} onClick={moveDown} />
         </ButtonStrip>
     )
 }
