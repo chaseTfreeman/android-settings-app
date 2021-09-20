@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createRef } from 'react'
-import { Popover, FlyoutMenu, Input } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import { Popover, FlyoutMenu } from '@dhis2/ui'
 import { useDataEngine } from '@dhis2/app-runtime'
 import ItemSearchField from './ItemSearchField'
 import ContentMenuItem from './ContentMenuItem'
@@ -31,7 +32,6 @@ const ItemSelector = ({ setSelection, clearSelection }) => {
     const closeMenu = () => {
         setIsOpen(false)
         setFilter('')
-        //selection('')
         clearSelection()
         setMaxOptions(new Set())
     }
@@ -39,11 +39,9 @@ const ItemSelector = ({ setSelection, clearSelection }) => {
     const openMenu = () => setIsOpen(true)
 
     const addItem = item => () => {
-        console.log('add item', { item })
         setDisable(true)
         closeMenu()
         setFilter(item.name || item.displayName)
-        //selection(item.id)
         setSelection(item)
     }
 
@@ -104,6 +102,11 @@ const ItemSelector = ({ setSelection, clearSelection }) => {
             )}
         </>
     )
+}
+
+ItemSelector.propTypes = {
+    setSelection: PropTypes.func,
+    clearSelection: PropTypes.func,
 }
 
 export default ItemSelector

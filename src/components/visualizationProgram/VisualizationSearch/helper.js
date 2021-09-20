@@ -23,7 +23,6 @@ import {
     TODAY,
     YESTERDAY,
 } from './periods'
-//import {itemTypeMap} from "./itemTypes";
 
 const PIVOT_TABLE = 'PIVOT_TABLE'
 const SINGLE_VALUE = 'SINGLE_VALUE'
@@ -32,7 +31,7 @@ const COLUMN = 'COLUMN'
 const PIE = 'PIE'
 
 export const validateAndroidVisualization = visualizations => {
-    console.log({ visualizations })
+    //console.log({ visualizations })
     //return visualizations.map( visualization => checkVisualizationType(visualization))
     return visualizations.map(visualization =>
         checkVisualizationType(visualization)

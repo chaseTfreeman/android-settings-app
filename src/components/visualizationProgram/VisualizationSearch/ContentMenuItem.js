@@ -10,7 +10,6 @@ const InvalidIcon = () => <IconCross16 color={colors.red700} />
 
 const ContentMenuItem = ({ type, name, onInsert, valid }) => {
     const ItemIcon = getItemIcon(type)
-    //console.log('visualizations', {type, name, valid})
     const renderedItemIcon = <ItemIcon color={colors.grey600} />
 
     return (

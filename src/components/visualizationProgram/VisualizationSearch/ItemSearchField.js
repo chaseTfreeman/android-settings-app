@@ -22,8 +22,7 @@ const ItemSearchField = ({ value, disabled, onChange, onFocus, onClear }) => {
             />
 
             <Button small onClick={onClear} className={classes.field}>
-                {' '}
-                {i18n.t('Clear')}{' '}
+                {i18n.t('Clear')}
             </Button>
         </div>
     )
