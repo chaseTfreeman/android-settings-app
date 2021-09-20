@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import { FieldSection } from '../field'
@@ -32,27 +32,32 @@ const list = [
 ]
 
 export const SelectVisualization = ({ settings, onChange }) => {
-    //const { programList, loading } = useReadProgramQuery()
-    //const [options, setOptions] = useState([])
-
-    /*useEffect(() => {
-        if (programList) {
-            setOptions(programList)
-        }
-    }, [programList])*/
-
     const handleChange = e => {
-        const vis = list.find(item => item.id === e.selected)
+        //const vis = list.find(item => item.id === e.selected)
+        console.log('on change', { e })
         onChange({
+            ...settings,
+            visualization: e.id,
+            visualizationName: e.name || e.displayName,
+        })
+        /*onChange({
             ...settings,
             visualization: e.selected,
             visualizationName: vis.name,
+        })*/
+    }
+
+    const clearSelection = () => {
+        onChange({
+            ...settings,
+            visualizations: '',
+            visualizationName: '',
         })
     }
 
     return (
         <>
-            <FieldSection>
+            {/*<FieldSection>
                 <SingleSelectField
                     dense
                     name="visualization"
@@ -70,9 +75,12 @@ export const SelectVisualization = ({ settings, onChange }) => {
                         />
                     ))}
                 </SingleSelectField>
-            </FieldSection>
+            </FieldSection>*/}
 
-            <ItemSelector />
+            <ItemSelector
+                setSelection={handleChange}
+                clearSelection={clearSelection}
+            />
         </>
     )
 }

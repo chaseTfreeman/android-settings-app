@@ -8,24 +8,19 @@ import { validateAndroidVisualization } from './helper'
 import useDebounce from '../../../utils/useDebounce'
 import classes from './styles/ItemSelector.module.css'
 
-const ItemSelector = () => {
+const ItemSelector = ({ setSelection, clearSelection }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [filter, setFilter] = useState('')
     const [items, setItems] = useState(null)
     const [maxOptions, setMaxOptions] = useState(new Set())
-    const [isSelected, setIsSelected] = useState()
-    const [selection, setSelection] = useState('')
+    const [disableFields, setDisable] = useState(false)
     const dataEngine = useDataEngine()
     const debouncedFilterText = useDebounce(filter, 350)
 
     useEffect(() => {
         const text =
             debouncedFilterText.length >= 3 ? debouncedFilterText : null
-        const query = getDashboardsQQuery(
-            //debouncedFilterText,
-            text,
-            Array.from(maxOptions)
-        )
+        const query = getDashboardsQQuery(text, Array.from(maxOptions))
 
         dataEngine.query({ items: query }).then(res => {
             validateAndroidVisualization(res.items.visualizations)
@@ -36,22 +31,30 @@ const ItemSelector = () => {
     const closeMenu = () => {
         setIsOpen(false)
         setFilter('')
+        //selection('')
+        clearSelection()
         setMaxOptions(new Set())
     }
 
     const openMenu = () => setIsOpen(true)
 
-    const addItem = item => {
-        //console.log('add item', {item})
-        /* if (debouncedFilterText) {
-            setIsSelected(true)
-            setSelection(item.name)
-        }*/
+    const addItem = item => () => {
+        console.log('add item', { item })
+        setDisable(true)
+        closeMenu()
+        setFilter(item.name || item.displayName)
+        //selection(item.id)
+        setSelection(item)
+    }
+
+    const clearField = () => {
+        closeMenu()
+        setDisable(false)
     }
 
     const getMenus = () => {
         const displayItems = items.slice(0, 5)
-        //console.log('display items', {displayItems})
+
         return displayItems.map(item => (
             <ContentMenuItem
                 key={item.id || item.key}
@@ -76,6 +79,8 @@ const ItemSelector = () => {
                     value={filter}
                     onChange={updateFilter}
                     onFocus={openMenu}
+                    onClear={clearField}
+                    disabled={disableFields}
                 />
             </span>
             {isOpen && (
@@ -97,7 +102,6 @@ const ItemSelector = () => {
                     </div>
                 </Popover>
             )}
-            {isSelected && <Input value={selection} />}
         </>
     )
 }
