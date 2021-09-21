@@ -138,12 +138,11 @@ export const rowsToDataStore = rows => {
             const visualizations = []
             let groupUpdated = {}
             group.map(visualization => {
-                const vis = {
+                visualizations.push({
                     id: visualization.id,
                     name: visualization.name,
                     timestamp: visualization.timestamp,
-                }
-                visualizations.push(vis)
+                })
                 groupUpdated = {
                     id: visualization.group.id,
                     name: visualization.group.name,
@@ -154,6 +153,6 @@ export const rowsToDataStore = rows => {
             updatedRows[i] = groups
         })
     })
-    console.log({ updatedRows })
+    //console.log({ updatedRows })
     return updatedRows
 }

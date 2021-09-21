@@ -69,4 +69,6 @@ export const RadioGroup = ({
     )
 }
 
-RadioGroup.propTypes = {}
+RadioGroup.propTypes = {
+    onChange: PropTypes.func,
+}
