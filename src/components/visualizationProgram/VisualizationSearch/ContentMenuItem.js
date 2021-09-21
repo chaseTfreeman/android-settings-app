@@ -1,12 +1,7 @@
 import React from 'react'
-import { MenuItem, colors, IconCheckmark16, IconCross16 } from '@dhis2/ui'
+import { MenuItem, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import { getItemIcon } from './itemTypes'
-import classes from './styles/ContentMenuItem.module.css'
-
-const ValidIcon = () => <IconCheckmark16 color={colors.green700} />
-
-const InvalidIcon = () => <IconCross16 color={colors.red700} />
 
 const ContentMenuItem = ({ type, name, onInsert, valid }) => {
     const ItemIcon = getItemIcon(type)
@@ -16,14 +11,7 @@ const ContentMenuItem = ({ type, name, onInsert, valid }) => {
         <MenuItem
             onClick={onInsert}
             icon={renderedItemIcon}
-            label={
-                <div className={classes.menuItem}>
-                    <div className={classes.label}>
-                        <span>{name}</span>
-                    </div>
-                    {valid ? <ValidIcon /> : <InvalidIcon />}
-                </div>
-            }
+            label={name}
             dataTest={`menu-item-${name}`}
             disabled={!valid}
         />

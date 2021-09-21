@@ -24,12 +24,7 @@ import {
     TODAY,
     YESTERDAY,
 } from './periods'
-
-const PIVOT_TABLE = 'PIVOT_TABLE'
-const SINGLE_VALUE = 'SINGLE_VALUE'
-const LINE = 'LINE'
-const COLUMN = 'COLUMN'
-const PIE = 'PIE'
+import { COLUMN, LINE, PIE, PIVOT_TABLE, SINGLE_VALUE } from './itemTypes'
 
 export const validateAndroidVisualization = visualizations => {
     return visualizations.map(visualization =>

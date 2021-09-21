@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ItemSelector from './VisualizationSearch/ItemSelector'
+import { FieldSection } from '../field'
 
 export const SelectVisualization = ({ settings, onChange }) => {
     const handleChange = e => {
-        console.log('on change', { e })
         onChange({
             ...settings,
             visualization: e.id,
@@ -15,16 +15,18 @@ export const SelectVisualization = ({ settings, onChange }) => {
     const clearSelection = () => {
         onChange({
             ...settings,
-            visualizations: '',
+            visualization: '',
             visualizationName: '',
         })
     }
 
     return (
-        <ItemSelector
-            setSelection={handleChange}
-            clearSelection={clearSelection}
-        />
+        <FieldSection>
+            <ItemSelector
+                setSelection={handleChange}
+                clearSelection={clearSelection}
+            />
+        </FieldSection>
     )
 }
 
