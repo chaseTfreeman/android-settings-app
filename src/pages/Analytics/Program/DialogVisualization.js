@@ -57,7 +57,7 @@ const DialogVisualization = ({
                                     groupList={groups}
                                 />
 
-                                <UserTest />
+                                {/*<UserTest />*/}
                             </>
                         )}
                     </ModalContent>

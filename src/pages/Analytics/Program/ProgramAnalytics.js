@@ -12,6 +12,7 @@ import { authorityQuery } from '../../../modules/apiLoadFirstSetup'
 import FooterStripButtons from '../../../components/footerStripButton/FooterStripButtons'
 import ProgramAnalyticsList from './ProgramAnalyticsList'
 import VisualizationsInfo from '../../../components/noticeAlert/VisualizationsInfo'
+import { createDataStoreGroupRows } from './helper'
 
 const ProgramAnalytics = () => {
     const { tei, home, program, dataSet, load } = useReadAnalyticsDataStore()
@@ -47,7 +48,7 @@ const ProgramAnalytics = () => {
             tei,
             dhisVisualizations: {
                 home,
-                program: programsAnalytics,
+                program: createDataStoreGroupRows(programsAnalytics),
                 dataSet,
             },
         }

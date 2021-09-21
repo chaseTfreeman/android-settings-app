@@ -20,3 +20,12 @@
 .rowPadding {
     margin: 0 -12px;
 }
+
+.title {
+    color: var(--colors-grey800);
+    font-weight: 500;
+}
+
+.subtitle {
+    color: var(--colors-grey800);
+}

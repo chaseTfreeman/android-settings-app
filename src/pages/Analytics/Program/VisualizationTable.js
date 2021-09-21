@@ -11,6 +11,7 @@ import {
     IconArrowUp16,
     IconArrowDown16,
 } from '@dhis2/ui'
+import classes from '../../../components/visualizationProgram/VisualizationTable/VisualizationTable.module.css'
 
 const VisualizationTable = ({ rows }) => {
     const [openRowIndex, setOpenRowIndex] = useState(null)
@@ -35,7 +36,7 @@ const VisualizationTable = ({ rows }) => {
                                 )}
                                 key={item}
                             >
-                                <DataTableCell>
+                                <DataTableCell className={classes.title}>
                                     {rows[item].programName}
                                 </DataTableCell>
                                 <DataTableCell></DataTableCell>
@@ -86,7 +87,7 @@ const GroupVisualizationRow = ({ group }) => {
                                 </DataTableCell>
                                 <DataTableCell></DataTableCell>
                                 <DataTableCell>
-                                    <Button small> Reorder this group </Button>
+                                    {/*<Button small> Reorder this group </Button>*/}
                                 </DataTableCell>
                             </DataTableRow>
                         )
@@ -111,11 +112,11 @@ const VisualizationRow = ({ visualizations }) => {
             {visualizations.map((visualization, i) => (
                 <div className={styles.row} key={visualization.id}>
                     <div className={styles.col70}> {visualization.name} </div>
-                    <ReorderButtons
+                    {/*<ReorderButtons
                         className={styles.col30}
                         moveUp={() => moveUp(i)}
                         moveDown={() => moveDown(i)}
-                    />
+                    />*/}
                 </div>
             ))}
         </>

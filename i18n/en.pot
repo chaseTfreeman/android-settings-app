@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-02T00:36:10.164Z\n"
-"PO-Revision-Date: 2021-08-02T00:36:10.164Z\n"
+"POT-Creation-Date: 2021-09-21T14:10:55.982Z\n"
+"PO-Revision-Date: 2021-09-21T14:10:55.982Z\n"
 
 msgid "Edit"
 msgstr ""
@@ -338,6 +338,36 @@ msgstr ""
 msgid "User"
 msgstr ""
 
+msgid "Use a group visualization"
+msgstr ""
+
+msgid "Add a group name"
+msgstr ""
+
+msgid "Create a new group"
+msgstr ""
+
+msgid "Select a created group visualization"
+msgstr ""
+
+msgid "Select a group visualization"
+msgstr ""
+
+msgid "Visualization user test"
+msgstr ""
+
+msgid "Visualization item"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Visualization title"
+msgstr ""
+
+msgid "This will override the visualization title when shown in app"
+msgstr ""
+
 msgid "Maximum number of periods to download data sets for"
 msgstr ""
 
@@ -575,10 +605,13 @@ msgstr ""
 msgid "data download size (KB)"
 msgstr ""
 
-msgid "Manage visualizations for program."
+msgid "Add Program visualization"
 msgstr ""
 
 msgid "Add Program Visualization"
+msgstr ""
+
+msgid "Manage visualizations for program."
 msgstr ""
 
 msgid "TEI Analytics"

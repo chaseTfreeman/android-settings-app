@@ -153,6 +153,23 @@ export const rowsToDataStore = rows => {
             updatedRows[i] = groups
         })
     })
-    //console.log({ updatedRows })
     return updatedRows
+}
+
+export const createGroup = group => ({
+    id: group.id,
+    name: group.name,
+    visualizations: group.visualizations,
+})
+
+export const createDataStoreGroupRows = datastore => {
+    const dataStoreGroups = Object.assign({}, datastore)
+    const result = {}
+    mapValues(dataStoreGroups, (program, i) => {
+        const groups = []
+        program.map(group => groups.push(createGroup(group)))
+        result[i] = groups
+    })
+
+    return result
 }
