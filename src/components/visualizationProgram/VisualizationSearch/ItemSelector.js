@@ -51,7 +51,7 @@ const ItemSelector = ({ setSelection, clearSelection }) => {
     }
 
     const getMenus = () => {
-        const displayItems = items.slice(0, 7)
+        const displayItems = items.slice(0, 5)
 
         return displayItems.map(item => (
             <ContentMenuItem

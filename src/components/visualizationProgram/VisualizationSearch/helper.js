@@ -24,7 +24,14 @@ import {
     TODAY,
     YESTERDAY,
 } from './periods'
-import { COLUMN, LINE, PIE, PIVOT_TABLE, SINGLE_VALUE } from './itemTypes'
+import {
+    COLUMN,
+    LINE,
+    PIE,
+    PIVOT_TABLE,
+    SINGLE_VALUE,
+    RADAR,
+} from './itemTypes'
 
 export const validateAndroidVisualization = visualizations => {
     return visualizations.map(visualization =>
@@ -35,9 +42,9 @@ export const validateAndroidVisualization = visualizations => {
 const checkVisualizationType = visualization => {
     if (isValidVisualizationType(visualization.type)) {
         mapValues(visualization.relativePeriods, (period, i) => {
-            isValidPeriod(i) && period
-                ? (visualization.valid = true)
-                : (visualization.valid = false)
+            if (isValidPeriod(i) && period) {
+                visualization.valid = true
+            }
         })
     } else {
         visualization.valid = false
@@ -71,6 +78,8 @@ const relativePeriodsList = [
 ]
 
 const isValidVisualizationType = visualizationType =>
-    [PIVOT_TABLE, LINE, COLUMN, PIE, SINGLE_VALUE].includes(visualizationType)
+    [PIVOT_TABLE, LINE, COLUMN, PIE, SINGLE_VALUE, RADAR].includes(
+        visualizationType
+    )
 
 const isValidPeriod = period => relativePeriodsList.includes(period)
