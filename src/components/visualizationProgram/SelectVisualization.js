@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ItemSelector from './VisualizationSearch/ItemSelector'
 import { FieldSection } from '../field'
+import { VisualizationSearch } from '../analyticVisualization/VisualizationSearch'
 
 export const SelectVisualization = ({ settings, onChange }) => {
     const handleChange = e => {
@@ -22,7 +22,7 @@ export const SelectVisualization = ({ settings, onChange }) => {
 
     return (
         <FieldSection>
-            <ItemSelector
+            <VisualizationSearch
                 setSelection={handleChange}
                 clearSelection={clearSelection}
             />

@@ -9,7 +9,7 @@ import { validateAndroidVisualization } from './helper'
 import useDebounce from '../../../utils/useDebounce'
 import classes from './styles/ItemSelector.module.css'
 
-const ItemSelector = ({ setSelection, clearSelection }) => {
+export const ItemSelector = ({ setSelection, clearSelection }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [filter, setFilter] = useState('')
     const [items, setItems] = useState(null)
@@ -108,5 +108,3 @@ ItemSelector.propTypes = {
     setSelection: PropTypes.func,
     clearSelection: PropTypes.func,
 }
-
-export default ItemSelector
