@@ -11,11 +11,11 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import buttonStyles from '../../../styles/Button.module.css'
 import {
+    GroupVisualizations,
     SelectDataset,
     SelectVisualization,
     VisualizationTitle,
 } from '../../../components/analyticVisualization'
-import { GroupVisualizations } from '../../../components/visualizationProgram'
 
 const DialogVisualization = ({
     open,

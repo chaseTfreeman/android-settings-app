@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import NewProgramVisualization from './NewProgramVisualization'
-import VisualizationTable from './VisualizationTable'
+import { ProgramTable } from '../../../components/analyticVisualization'
 import { useReadProgramQuery } from './ProgramVisualizationQueries'
 import { prepareRows, rowsToDataStore } from './helper'
 
@@ -36,7 +36,7 @@ const ProgramAnalyticsList = ({
 
     return (
         <>
-            {!isEmpty(rows) && <VisualizationTable rows={rows} />}
+            {!isEmpty(rows) && <ProgramTable rows={rows} />}
 
             <NewProgramVisualization
                 disable={disable}

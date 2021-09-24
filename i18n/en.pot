@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-21T14:10:55.982Z\n"
-"PO-Revision-Date: 2021-09-21T14:10:55.982Z\n"
+"POT-Creation-Date: 2021-09-24T10:23:33.757Z\n"
+"PO-Revision-Date: 2021-09-24T10:23:33.757Z\n"
 
 msgid "Edit"
 msgstr ""
@@ -23,6 +23,48 @@ msgid "Failed to get data from Data Store"
 msgstr ""
 
 msgid "Settings were successfully saved"
+msgstr ""
+
+msgid "Use a group visualization"
+msgstr ""
+
+msgid "Add a group name"
+msgstr ""
+
+msgid "Create a new group"
+msgstr ""
+
+msgid "Select a created group visualization"
+msgstr ""
+
+msgid "Select a group visualization"
+msgstr ""
+
+msgid "Dataset"
+msgstr ""
+
+msgid "Program"
+msgstr ""
+
+msgid "Visualization user test"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Run test"
+msgstr ""
+
+msgid "Visualization item"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Visualization title"
+msgstr ""
+
+msgid "This will override the visualization title when shown in app"
 msgstr ""
 
 msgid "Data Element"
@@ -47,9 +89,6 @@ msgid "Choose element"
 msgstr ""
 
 msgid "Choose element type"
-msgstr ""
-
-msgid "Program"
 msgstr ""
 
 msgid "Program Stage"
@@ -329,43 +368,7 @@ msgstr ""
 msgid "Check the amount of data a user would sync to their device."
 msgstr ""
 
-msgid "Run test"
-msgstr ""
-
 msgid "Search for a user"
-msgstr ""
-
-msgid "User"
-msgstr ""
-
-msgid "Use a group visualization"
-msgstr ""
-
-msgid "Add a group name"
-msgstr ""
-
-msgid "Create a new group"
-msgstr ""
-
-msgid "Select a created group visualization"
-msgstr ""
-
-msgid "Select a group visualization"
-msgstr ""
-
-msgid "Visualization user test"
-msgstr ""
-
-msgid "Visualization item"
-msgstr ""
-
-msgid "Clear"
-msgstr ""
-
-msgid "Visualization title"
-msgstr ""
-
-msgid "This will override the visualization title when shown in app"
 msgstr ""
 
 msgid "Maximum number of periods to download data sets for"
@@ -603,6 +606,15 @@ msgid "metadata download size (KB)"
 msgstr ""
 
 msgid "data download size (KB)"
+msgstr ""
+
+msgid "Manage visualizations for data set."
+msgstr ""
+
+msgid "Add Data set visualization"
+msgstr ""
+
+msgid "Add Data set Visualization"
 msgstr ""
 
 msgid "Add Program visualization"

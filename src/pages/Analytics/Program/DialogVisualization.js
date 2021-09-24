@@ -13,9 +13,8 @@ import {
     GroupVisualizations,
     SelectProgram,
     SelectVisualization,
-    //UserTest,
     VisualizationTitle,
-} from '../../../components/visualizationProgram'
+} from '../../../components/analyticVisualization'
 
 const DialogVisualization = ({
     open,

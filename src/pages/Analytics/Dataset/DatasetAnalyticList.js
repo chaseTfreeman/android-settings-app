@@ -4,7 +4,7 @@ import isEqual from 'lodash/isEqual'
 import { useReadDatasetQuery } from './DatasetVisualizationQueries'
 import NewDatasetVisualization from './NewDatasetVisualization'
 import { prepareRows, rowsToDataStore } from './helper'
-import { DatasetTable } from '../../../components/visualizationProgram/VisualizationTable'
+import { DatasetTable } from '../../../components/analyticVisualization'
 
 const DatasetAnalyticList = ({
     visualizations,
