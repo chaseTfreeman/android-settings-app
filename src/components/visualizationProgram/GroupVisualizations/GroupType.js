@@ -3,7 +3,7 @@ import PropTypes from '@dhis2/prop-types'
 import { RadioGroup } from './RadioGroup'
 import styles from './GroupType.module.css'
 
-export const GroupType = ({ onChange, settings, groupList }) => {
+export const GroupType = ({ onChange, settings, groupList, type }) => {
     const [group, setGroup] = useState()
 
     const handleChange = e => {
@@ -19,12 +19,14 @@ export const GroupType = ({ onChange, settings, groupList }) => {
                 groupName={settings}
                 changeGroup={onChange}
                 groups={groupList}
+                type={type}
             />
         </div>
     )
 }
 
 GroupType.propTypes = {
+    type: PropTypes.string,
     onChange: PropTypes.func,
     settings: PropTypes.object,
     groupList: PropTypes.object,

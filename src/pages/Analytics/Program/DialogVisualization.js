@@ -13,7 +13,7 @@ import {
     GroupVisualizations,
     SelectProgram,
     SelectVisualization,
-    UserTest,
+    //UserTest,
     VisualizationTitle,
 } from '../../../components/visualizationProgram'
 
@@ -55,6 +55,7 @@ const DialogVisualization = ({
                                     settings={settings}
                                     onChange={handleChange}
                                     groupList={groups}
+                                    type="program"
                                 />
 
                                 {/*<UserTest />*/}

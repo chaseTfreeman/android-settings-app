@@ -12,7 +12,6 @@ const programsQuery = {
 
 /**
  * Query to get program list
- * return only list of program with registration and repeatable program stage
  * */
 
 export const useReadProgramQuery = () => {

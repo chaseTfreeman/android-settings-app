@@ -11,6 +11,7 @@ export const RadioGroup = ({
     groupName,
     changeGroup,
     groups,
+    type,
     ...props
 }) => {
     const [optionSelection, setOptionSelection] = useState('')
@@ -26,10 +27,10 @@ export const RadioGroup = ({
 
     useEffect(() => {
         if (groups) {
-            const program = Object.keys(groups).find(
-                item => item === groupName.program
+            const element = Object.keys(groups).find(
+                item => item === groupName[type]
             )
-            setGroupOptions(groups[program])
+            setGroupOptions(groups[element])
         }
     }, [groups])
 

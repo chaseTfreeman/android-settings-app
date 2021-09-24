@@ -5,7 +5,12 @@ import { CheckboxField } from '../../field'
 import { GroupType } from './GroupType'
 import { useSystemId } from '../../../utils/useSystemId'
 
-export const GroupVisualizations = ({ settings, onChange, groupList }) => {
+export const GroupVisualizations = ({
+    settings,
+    onChange,
+    groupList,
+    type,
+}) => {
     const { refetch: refetchId, data: id } = useSystemId()
     const [group, setGroup] = useState(false)
     const [groupType, setGroupType] = useState(false)
@@ -53,6 +58,7 @@ export const GroupVisualizations = ({ settings, onChange, groupList }) => {
                     onChange={onChange}
                     settings={settings}
                     groupList={groupList}
+                    type={type}
                 />
             )}
         </>
