@@ -42,7 +42,12 @@ export const validateAndroidVisualization = visualizations => {
 const checkVisualizationType = visualization => {
     if (isValidVisualizationType(visualization.type)) {
         mapValues(visualization.relativePeriods, (period, i) => {
-            if (isValidPeriod(i) && period) {
+            if (
+                isValidPeriod(i) &&
+                period &&
+                isValidDimension(visualization.rowDimensions, 1) &&
+                isValidDimension(visualization.columnDimensions, 2)
+            ) {
                 visualization.valid = true
             }
         })
@@ -83,3 +88,6 @@ const isValidVisualizationType = visualizationType =>
     )
 
 const isValidPeriod = period => relativePeriodsList.includes(period)
+
+const isValidDimension = (type, numberOfDimensions) =>
+    type.length <= numberOfDimensions

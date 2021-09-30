@@ -5,7 +5,8 @@ export const getDashboardsQQuery = (query = '', maxItems = []) => {
             query,
             count: 11,
             max: maxItems,
-            fields: 'id,displayName,type,relativePeriods',
+            fields:
+                'id,displayName,type,relativePeriods,rowDimensions,columnDimensions',
             order: 'displayName:asc',
         },
     }
