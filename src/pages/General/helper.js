@@ -3,7 +3,12 @@ import {
     isValidValue,
     validateNumber,
 } from '../../utils/validators'
-import { defaultEncryptDB, defaultReservedValues } from '../../components/field'
+import {
+    defaultEncryptDB,
+    defaultReservedValues,
+    defaultShareScreen,
+    defaultTrackerImporterVersion,
+} from '../../components/field'
 
 /**
  * Return a settings object with properties that have a valid value
@@ -39,4 +44,8 @@ export const createInitialValues = prevGeneralDetails => ({
     smsResultSender: prevGeneralDetails.smsResultSender || '',
     reservedValues: prevGeneralDetails.reservedValues || defaultReservedValues,
     encryptDB: prevGeneralDetails.encryptDB || defaultEncryptDB,
+    trackerImporterVersion:
+        prevGeneralDetails.trackerImporterVersion ||
+        defaultTrackerImporterVersion,
+    shareScreen: prevGeneralDetails.shareScreen || defaultShareScreen,
 })

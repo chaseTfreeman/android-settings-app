@@ -8,8 +8,10 @@ import {
     MatomoId,
     MatomoUrl,
     ReservedValues,
+    ShareScreen,
     SmsGateway,
     SmsResultSender,
+    TrackerImporter,
 } from '../../components/field'
 import FooterStripButtons from '../../components/footerStripButton/FooterStripButtons'
 import DisableSettings from './DisableSettings'
@@ -111,6 +113,16 @@ const GeneralSettings = () => {
                         disabled={disable}
                     />
                     <EncryptDB
+                        value={settings}
+                        onChange={setSettings}
+                        disabled={disable}
+                    />
+                    <TrackerImporter
+                        value={settings}
+                        onChange={setSettings}
+                        disabled={disable}
+                    />
+                    <ShareScreen
                         value={settings}
                         onChange={setSettings}
                         disabled={disable}

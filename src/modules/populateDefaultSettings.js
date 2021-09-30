@@ -1,7 +1,10 @@
 import { programSettingsDefault } from '../constants/program-settings'
 import { dataSetSettingsDefault } from '../constants/data-set-settings'
 import { androidSettingsDefault } from '../constants/android-settings'
-import { defaultTrackerImporterVersion } from '../components/field'
+import {
+    defaultShareScreen,
+    defaultTrackerImporterVersion,
+} from '../components/field'
 
 export const DEFAULT_PROGRAM = 'DEFAULT_PROGRAM'
 export const DEFAULT_DATASET = 'DEFAULT_DATASET'
@@ -16,6 +19,7 @@ export const populateObject = type => {
                 reservedValues: androidSettingsDefault.reservedValues,
                 encryptDB: androidSettingsDefault.encryptDB,
                 trackerImporterVersion: defaultTrackerImporterVersion,
+                shareScreen: defaultShareScreen,
             }
             break
         case DEFAULT_GLOBAL:
