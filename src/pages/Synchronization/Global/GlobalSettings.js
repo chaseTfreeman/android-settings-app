@@ -3,7 +3,11 @@ import i18n from '@dhis2/d2-i18n'
 import { useDataMutation, useDataQuery } from '@dhis2/app-runtime'
 import isEqual from 'lodash/isEqual'
 import Page from '../../../components/page/Page'
-import { DataSync, MetadataSync } from '../../../components/field'
+import {
+    DataSync,
+    MetadataSync,
+    TrackerImporter,
+} from '../../../components/field'
 import ManualSyncAlert from '../../../components/noticeAlert/ManualSyncAlert'
 import FooterStripButtons from '../../../components/footerStripButton/FooterStripButtons'
 import { authorityQuery } from '../../../modules/apiLoadFirstSetup'
@@ -78,6 +82,12 @@ const GlobalSettings = () => {
                     />
 
                     <DataSync
+                        value={settings}
+                        onChange={setSettings}
+                        disabled={disable}
+                    />
+
+                    <TrackerImporter
                         value={settings}
                         onChange={setSettings}
                         disabled={disable}
