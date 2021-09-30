@@ -16,8 +16,8 @@ export const validMandatoryFields = settings => {
     return !validateObjectByProperty(['dataset', 'visualization'], settings)
 }
 
-export const createVisualizationValues = (value, id) => ({
-    id: id || value.id,
+export const createVisualizationValues = value => ({
+    id: value.visualization || value.id,
     name: value.name || value.visualizationName,
     timestamp: value.timestamp || new Date().toJSON(),
     dataset: value.dataset,

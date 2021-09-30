@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { AddNewSetting } from '../../../components/field'
-import { useSystemId } from '../../../utils/useSystemId'
 import {
     createInitialValues,
     createVisualizationValues,
@@ -18,7 +17,6 @@ const NewDatasetVisualization = ({
     groups,
     handleGroups,
 }) => {
-    const { refetch: refetchId, data: id } = useSystemId()
     const [openDialog, setOpenDialog] = useState(false)
     const [visualizationSettings, setSettings] = useState(
         createInitialValues('')
@@ -31,7 +29,6 @@ const NewDatasetVisualization = ({
 
     const handleOpenDialog = () => {
         setOpenDialog(true)
-        refetchId()
     }
 
     const handleClose = () => {
@@ -41,8 +38,7 @@ const NewDatasetVisualization = ({
 
     const handleSave = () => {
         const currentVisualization = createVisualizationValues(
-            visualizationSettings,
-            id.system.codes[0]
+            visualizationSettings
         )
         const updatedVisualizationList = updateRows(
             currentVisualization,

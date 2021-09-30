@@ -9,7 +9,6 @@ import {
     updateRows,
     validMandatoryFields,
 } from './helper'
-import { useSystemId } from '../../../utils/useSystemId'
 
 const NewProgramVisualization = ({
     disable,
@@ -18,7 +17,6 @@ const NewProgramVisualization = ({
     groups,
     handleGroups,
 }) => {
-    const { refetch: refetchId, data: id } = useSystemId()
     const [openDialog, setOpenDialog] = useState(false)
     const [visualizationSettings, setSettings] = useState(
         createInitialValues('')
@@ -31,7 +29,6 @@ const NewProgramVisualization = ({
 
     const handleOpenDialog = () => {
         setOpenDialog(true)
-        refetchId()
     }
 
     const handleClose = () => {
@@ -41,8 +38,7 @@ const NewProgramVisualization = ({
 
     const handleSave = () => {
         const currentVisualization = createVisualizationValues(
-            visualizationSettings,
-            id.system.codes[0]
+            visualizationSettings
         )
 
         const updatedVisualizationList = updateRows(
