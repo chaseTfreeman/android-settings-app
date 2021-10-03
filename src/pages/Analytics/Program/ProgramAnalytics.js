@@ -17,8 +17,8 @@ import { createDataStoreGroupRows } from './helper'
 const ProgramAnalytics = () => {
     const { tei, home, program, dataSet, load } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
-    const [programsAnalytics, setProgramAnalytics] = useState([])
-    const [initialValues, setInitialValues] = useState([])
+    const [programsAnalytics, setProgramAnalytics] = useState({})
+    const [initialValues, setInitialValues] = useState({})
     const [disableSave, setDisableSave] = useState(true)
     const [disable, setDisable] = useState(false)
 
@@ -56,7 +56,7 @@ const ProgramAnalytics = () => {
     }
 
     const resetSettings = () => {
-        setProgramAnalytics([])
+        setProgramAnalytics({})
     }
 
     return (
