@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-30T14:11:02.346Z\n"
-"PO-Revision-Date: 2021-09-30T14:11:02.346Z\n"
+"POT-Creation-Date: 2021-10-03T17:03:35.820Z\n"
+"PO-Revision-Date: 2021-10-03T17:03:35.820Z\n"
 
 msgid "Edit"
 msgstr ""
@@ -323,6 +323,12 @@ msgstr ""
 msgid "Reserved values downloaded per TEI attribute"
 msgstr ""
 
+msgid "Take screenshots and share it"
+msgstr ""
+
+msgid "Allow user to take screenshots and share their screen."
+msgstr ""
+
 msgid "SMS Gateway phone number"
 msgstr ""
 
@@ -332,7 +338,13 @@ msgstr ""
 msgid "SMS Result Sender phone number"
 msgstr ""
 
-msgid "tracker importer"
+msgid "Use new version of Tracker Importer"
+msgstr ""
+
+msgid ""
+"Use new tracker endpoints dedicated to importing and querying tracker "
+"objects (including tracked entities, enrollments, events, and "
+"relationships)."
 msgstr ""
 
 msgid "Reset all values to default"
@@ -618,6 +630,15 @@ msgid "Add Data set visualization"
 msgstr ""
 
 msgid "Add Data set Visualization"
+msgstr ""
+
+msgid "Add Home visualization"
+msgstr ""
+
+msgid "Add Home Visualization"
+msgstr ""
+
+msgid "Manage visualizations for Home screen."
 msgstr ""
 
 msgid "Add Program visualization"

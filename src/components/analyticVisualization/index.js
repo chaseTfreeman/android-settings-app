@@ -1,5 +1,6 @@
 export * from './GroupVisualizations/GroupVisualizations'
 export * from './VisualizationTable/DatasetTable'
+export * from './VisualizationTable/HomeVisualizationTable'
 export * from './VisualizationTable/ProgramTable'
 export * from './SelectDataset'
 export * from './SelectProgram'
