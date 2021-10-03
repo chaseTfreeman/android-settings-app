@@ -29,5 +29,5 @@ GroupType.propTypes = {
     type: PropTypes.string,
     onChange: PropTypes.func,
     settings: PropTypes.object,
-    groupList: PropTypes.object,
+    groupList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }

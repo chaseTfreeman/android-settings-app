@@ -31,6 +31,7 @@ export const RadioGroup = ({
                 item => item === groupName[type]
             )
             setGroupOptions(groups[element])
+            type ? setGroupOptions(groups[element]) : setGroupOptions(groups)
         }
     }, [groups])
 

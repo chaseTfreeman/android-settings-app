@@ -68,5 +68,5 @@ export const GroupVisualizations = ({
 GroupVisualizations.propTypes = {
     settings: PropTypes.object,
     onChange: PropTypes.func,
-    groupList: PropTypes.object,
+    groupList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
