@@ -2,7 +2,7 @@ import React from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { CheckboxField } from './CheckboxField'
 
-const CODE = 'shareScreen'
+const CODE = 'allowScreenCapture'
 
 export const defaultShareScreen = false
 

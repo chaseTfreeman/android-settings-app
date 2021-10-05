@@ -19,7 +19,7 @@ export const populateObject = type => {
                 reservedValues: androidSettingsDefault.reservedValues,
                 encryptDB: androidSettingsDefault.encryptDB,
                 trackerImporterVersion: defaultTrackerImporterVersion,
-                shareScreen: defaultShareScreen,
+                allowScreenCapture: defaultShareScreen,
             }
             break
         case DEFAULT_GLOBAL:

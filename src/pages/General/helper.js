@@ -47,5 +47,6 @@ export const createInitialValues = prevGeneralDetails => ({
     trackerImporterVersion:
         prevGeneralDetails.trackerImporterVersion ||
         defaultTrackerImporterVersion,
-    shareScreen: prevGeneralDetails.shareScreen || defaultShareScreen,
+    allowScreenCapture:
+        prevGeneralDetails.allowScreenCapture || defaultShareScreen,
 })
