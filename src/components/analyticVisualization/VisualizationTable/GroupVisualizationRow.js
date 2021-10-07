@@ -8,13 +8,15 @@ import {
 } from '@dhis2/ui'
 import { VisualizationRow } from './VisualizationRow'
 
-export const GroupVisualizationRow = ({ group }) => {
+export const GroupVisualizationRow = ({ group, menuActions }) => {
     const [openRowIndex, setOpenRowIndex] = useState(null)
 
     const toggleOpenRow = index =>
         setOpenRowIndex(openRowIndex === index ? null : index)
 
-    const expandableContent = item => <VisualizationRow visualizations={item} />
+    const expandableContent = item => (
+        <VisualizationRow visualizations={item} menuActions={menuActions} />
+    )
 
     return (
         <div className={styles.rowPadding}>

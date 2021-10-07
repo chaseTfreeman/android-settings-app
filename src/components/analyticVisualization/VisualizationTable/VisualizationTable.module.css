@@ -29,3 +29,12 @@
 .subtitle {
     color: var(--colors-grey800);
 }
+
+.boxContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.buttonContainer {
+    align-items: center;
+}
