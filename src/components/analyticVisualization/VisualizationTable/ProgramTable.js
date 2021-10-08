@@ -1,21 +1,19 @@
 import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
-import {
-    DataTable,
-    DataTableBody,
-    DataTableCell,
-    DataTableRow,
-} from '@dhis2/ui'
-import { GroupVisualizationRow } from './GroupVisualizationRow'
-import classes from './VisualizationTable.module.css'
-import { removeSettingsFromList } from '../../../utils/utils'
+import PropTypes from '@dhis2/prop-types'
 import DialogDelete from '../../dialog/DialogDelete'
+import DialogDeleteInfo from '../../dialog/DialogDeleteInfo'
+import { ElementGroupTable } from './ElementGroupTable'
+import { removeSettingsFromList } from '../../../utils/utils'
+import { removeElement, updateGroup } from './helper'
 
 export const ProgramTable = ({ rows, changeRows }) => {
     const [openDeleteDialog, setOpenDialog] = useState(false)
     const [specificSetting, setSpecificSetting] = useState({})
     const [openEditDialog, setOpenEditDialog] = useState(false)
     const [group, setGroup] = useState([])
+    const [openDeleteGroup, setDeleteGroup] = useState(false)
+    const [elementName, setName] = useState()
 
     const menuActions = {
         edit: (...arg) => {
@@ -24,26 +22,32 @@ export const ProgramTable = ({ rows, changeRows }) => {
         delete: (row, group) => {
             setSpecificSetting(row)
             setGroup(group)
+            setName(row.name)
             setOpenDialog(true)
         },
     }
 
     const handleDialogClose = () => {
         setOpenDialog(false)
+        setSpecificSetting({})
+        setGroup([])
+        setName('')
     }
 
     const handleDelete = () => {
         const updatedList = removeSettingsFromList(specificSetting, group)
-        const { program, group: programGroup } = updatedList[0]
+        const { program, group: programGroup } = specificSetting
+        const updatedGroups = updateGroup(
+            rows[program].groups,
+            programGroup.id,
+            updatedList
+        )
 
         changeRows({
             ...rows,
             [program]: {
                 ...rows[program],
-                groups: {
-                    ...rows[program].groups,
-                    [programGroup.id]: updatedList,
-                },
+                groups: updatedGroups,
             },
         })
         handleDialogClose()
@@ -51,54 +55,73 @@ export const ProgramTable = ({ rows, changeRows }) => {
 
     const handleEditClose = () => {
         setOpenEditDialog(false)
+        setSpecificSetting({})
+        setGroup([])
+        setName('')
+    }
+
+    const handleDeleteGroup = () => {
+        const visualizations = Object.assign({}, rows)
+        const currentProgramGroups = visualizations[group].groups
+        const updatedGroupList = removeElement(
+            currentProgramGroups,
+            specificSetting
+        )
+
+        changeRows({
+            ...rows,
+            [group]: {
+                ...rows[group],
+                groups: updatedGroupList,
+            },
+        })
+        handleCloseDeleteGroup()
+    }
+
+    const handleCloseDeleteGroup = () => {
+        setDeleteGroup(false)
+        setSpecificSetting({})
+        setGroup([])
+        setName('')
+    }
+
+    const deleteGroup = (item, programId) => {
+        setName(rows[programId].groups[item][0].group.name)
+        setSpecificSetting(item)
+        setGroup(programId)
+        setDeleteGroup(true)
     }
 
     return (
         <>
-            <TableActions rows={rows} menuActions={menuActions} />
+            <ElementGroupTable
+                element="program"
+                rows={rows}
+                menuActions={menuActions}
+                deleteGroup={deleteGroup}
+            />
             <DialogDelete
                 open={openDeleteDialog}
-                name={specificSetting.name}
+                name={elementName}
                 onHandleDelete={handleDelete}
                 onHandleClose={handleDialogClose}
                 typeName={i18n.t('Visualization')}
+            />
+            <DialogDeleteInfo
+                open={openDeleteGroup}
+                onHandleClose={handleCloseDeleteGroup}
+                onHandleDelete={handleDeleteGroup}
+                text={i18n.t(
+                    'Are you sure you want to delete {{elementName}} visualization group?',
+                    { elementName: elementName }
+                )}
+                element={i18n.t('Visualization Group')}
             />
         </>
     )
 }
 
-const TableActions = ({ rows, menuActions }) => {
-    const [openRowIndex, setOpenRowIndex] = useState(null)
-
-    const toggleOpenRow = index =>
-        setOpenRowIndex(openRowIndex === index ? null : index)
-
-    const expandableContent = item => (
-        <GroupVisualizationRow group={item} menuActions={menuActions} />
-    )
-
-    return (
-        <DataTable>
-            <DataTableBody>
-                {Object.keys(rows).map((item, i) => {
-                    /*console.log({ item, i, a: rows[item] })*/
-                    return (
-                        <DataTableRow
-                            expanded={openRowIndex === i}
-                            onExpandToggle={() => toggleOpenRow(i)}
-                            expandableContent={expandableContent(rows[item])}
-                            key={item}
-                        >
-                            <DataTableCell className={classes.title}>
-                                {rows[item].programName}
-                            </DataTableCell>
-                            <DataTableCell></DataTableCell>
-                            <DataTableCell></DataTableCell>
-                            <DataTableCell></DataTableCell>
-                        </DataTableRow>
-                    )
-                })}
-            </DataTableBody>
-        </DataTable>
-    )
+ProgramTable.propTypes = {
+    rows: PropTypes.object,
+    changeRows: PropTypes.func,
 }

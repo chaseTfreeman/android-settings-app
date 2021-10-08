@@ -1,5 +1,6 @@
 import React from 'react'
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from '@dhis2/prop-types'
 import { TextField } from '../field'
 
 export const VisualizationTitle = ({ settings, onChange }) => {
@@ -21,4 +22,9 @@ export const VisualizationTitle = ({ settings, onChange }) => {
             )}
         />
     )
+}
+
+VisualizationTitle.propTypes = {
+    settings: PropTypes.object,
+    onChange: PropTypes.func,
 }

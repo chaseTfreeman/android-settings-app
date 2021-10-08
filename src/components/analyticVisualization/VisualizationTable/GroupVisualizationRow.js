@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
-import styles from './VisualizationTable.module.css'
+import i18n from '@dhis2/d2-i18n'
 import {
+    Button,
     DataTable,
     DataTableBody,
     DataTableCell,
     DataTableRow,
 } from '@dhis2/ui'
 import { VisualizationRow } from './VisualizationRow'
+import styles from './VisualizationTable.module.css'
 
-export const GroupVisualizationRow = ({ group, menuActions }) => {
+export const GroupVisualizationRow = ({
+    group,
+    menuActions,
+    deleteGroup,
+    element,
+}) => {
     const [openRowIndex, setOpenRowIndex] = useState(null)
 
     const toggleOpenRow = index =>
@@ -38,13 +45,25 @@ export const GroupVisualizationRow = ({ group, menuActions }) => {
                                 )}
                                 key={i}
                             >
-                                <DataTableCell></DataTableCell>
+                                <DataTableCell />
                                 <DataTableCell>
                                     {group.groups[item][0].group.name}
                                 </DataTableCell>
-                                <DataTableCell></DataTableCell>
-                                <DataTableCell>
+                                <DataTableCell />
+                                <DataTableCell align="center">
                                     {/*<Button small> Reorder this group </Button>*/}
+                                    <Button
+                                        small
+                                        secondary
+                                        onClick={() =>
+                                            deleteGroup(
+                                                item,
+                                                group.groups[item][0][element]
+                                            )
+                                        }
+                                    >
+                                        {i18n.t('Delete Group')}
+                                    </Button>
                                 </DataTableCell>
                             </DataTableRow>
                         )

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from '@dhis2/prop-types'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import NewProgramVisualization from './NewProgramVisualization'
@@ -49,6 +50,12 @@ const ProgramAnalyticsList = ({
             />
         </>
     )
+}
+
+ProgramAnalyticsList.propTypes = {
+    visualizations: PropTypes.object,
+    handleVisualizations: PropTypes.func,
+    disable: PropTypes.bool,
 }
 
 export default ProgramAnalyticsList

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from '@dhis2/prop-types'
 import { AddNewSetting } from '../../../components/field'
 import DialogVisualization from './DialogVisualization'
 import {
@@ -72,6 +73,14 @@ const NewProgramVisualization = ({
             )}
         </>
     )
+}
+
+NewProgramVisualization.propTypes = {
+    disable: PropTypes.bool,
+    visualization: PropTypes.object,
+    handleVisualization: PropTypes.func,
+    groups: PropTypes.object,
+    handleGroups: PropTypes.func,
 }
 
 export default NewProgramVisualization
