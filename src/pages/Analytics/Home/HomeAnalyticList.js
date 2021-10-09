@@ -29,7 +29,9 @@ const HomeAnalyticList = ({
 
     return (
         <>
-            {!isEmpty(rows) && <HomeVisualizationTable group={rows} />}
+            {!isEmpty(rows) && (
+                <HomeVisualizationTable group={rows} changeGroup={setRows} />
+            )}
 
             <NewHomeVisualization
                 disable={disable}
