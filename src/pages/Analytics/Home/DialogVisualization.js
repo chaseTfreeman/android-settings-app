@@ -1,4 +1,6 @@
 import React from 'react'
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from '@dhis2/prop-types'
 import {
     Modal,
     ModalTitle,
@@ -7,7 +9,6 @@ import {
     ButtonStrip,
     Button,
 } from '@dhis2/ui'
-import i18n from '@dhis2/d2-i18n'
 import buttonStyles from '../../../styles/Button.module.css'
 import {
     GroupVisualizations,
@@ -69,5 +70,15 @@ const DialogVisualization = ({
         )}
     </>
 )
+
+DialogVisualization.propTypes = {
+    open: PropTypes.bool,
+    settings: PropTypes.object,
+    handleChange: PropTypes.func,
+    disableSave: PropTypes.bool,
+    handleClose: PropTypes.func,
+    handleSave: PropTypes.func,
+    groups: PropTypes.array,
+}
 
 export default DialogVisualization

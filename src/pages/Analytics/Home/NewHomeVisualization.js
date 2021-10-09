@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from '@dhis2/prop-types'
 import { AddNewSetting } from '../../../components/field'
 import DialogVisualization from './DialogVisualization'
 import { createInitialValues, updateRows, validMandatoryFields } from './helper'
@@ -61,6 +62,14 @@ const NewHomeVisualization = ({
             )}
         </>
     )
+}
+
+NewHomeVisualization.propTypes = {
+    disable: PropTypes.bool,
+    visualization: PropTypes.array,
+    handleVisualization: PropTypes.func,
+    groups: PropTypes.array,
+    handleGroups: PropTypes.func,
 }
 
 export default NewHomeVisualization

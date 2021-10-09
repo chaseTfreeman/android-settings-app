@@ -25,11 +25,10 @@ const updateList = (groups, groupId, updatedList) => {
         updateElement(groupFound, 'visualizations', updatedList)
     )
 
-    console.log({ updatedGroup })
     return updatedGroup
 }
 
-const removeElementList = (groups, groupId) =>
+export const removeElementList = (groups, groupId) =>
     groups.filter(group => group.id !== groupId)
 
 export const updateGroupList = (groups, groupId, updatedElement) =>

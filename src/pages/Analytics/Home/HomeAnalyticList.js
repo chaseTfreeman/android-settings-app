@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from '@dhis2/prop-types'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import NewHomeVisualization from './NewHomeVisualization'
@@ -42,6 +43,12 @@ const HomeAnalyticList = ({
             />
         </>
     )
+}
+
+HomeAnalyticList.propTypes = {
+    visualizations: PropTypes.array,
+    handleVisualizations: PropTypes.func,
+    disable: PropTypes.bool,
 }
 
 export default HomeAnalyticList

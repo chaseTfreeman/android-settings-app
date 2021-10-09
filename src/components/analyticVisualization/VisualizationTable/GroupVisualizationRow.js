@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from '@dhis2/prop-types'
 import {
     Button,
     DataTable,
@@ -29,47 +30,45 @@ export const GroupVisualizationRow = ({
         <div className={styles.rowPadding}>
             <DataTable className={styles.table}>
                 <DataTableBody>
-                    {Object.keys(group.groups).map((item, i) => {
-                        /*console.log({
-                            item,
-                            i,
-                            groups: group.groups,
-                            a: group.groups[item],
-                        })*/
-                        return (
-                            <DataTableRow
-                                expanded={openRowIndex === i}
-                                onExpandToggle={() => toggleOpenRow(i)}
-                                expandableContent={expandableContent(
-                                    group.groups[item]
-                                )}
-                                key={i}
-                            >
-                                <DataTableCell />
-                                <DataTableCell>
-                                    {group.groups[item][0].group.name}
-                                </DataTableCell>
-                                <DataTableCell />
-                                <DataTableCell align="center">
-                                    {/*<Button small> Reorder this group </Button>*/}
-                                    <Button
-                                        small
-                                        secondary
-                                        onClick={() =>
-                                            deleteGroup(
-                                                item,
-                                                group.groups[item][0][element]
-                                            )
-                                        }
-                                    >
-                                        {i18n.t('Delete Group')}
-                                    </Button>
-                                </DataTableCell>
-                            </DataTableRow>
-                        )
-                    })}
+                    {Object.keys(group.groups).map((item, i) => (
+                        <DataTableRow
+                            expanded={openRowIndex === i}
+                            onExpandToggle={() => toggleOpenRow(i)}
+                            expandableContent={expandableContent(
+                                group.groups[item]
+                            )}
+                            key={i}
+                        >
+                            <DataTableCell />
+                            <DataTableCell>
+                                {group.groups[item][0].group.name}
+                            </DataTableCell>
+                            <DataTableCell />
+                            <DataTableCell align="center">
+                                <Button
+                                    small
+                                    secondary
+                                    onClick={() =>
+                                        deleteGroup(
+                                            item,
+                                            group.groups[item][0][element]
+                                        )
+                                    }
+                                >
+                                    {i18n.t('Delete Group')}
+                                </Button>
+                            </DataTableCell>
+                        </DataTableRow>
+                    ))}
                 </DataTableBody>
             </DataTable>
         </div>
     )
+}
+
+GroupVisualizationRow.propTypes = {
+    group: PropTypes.object,
+    menuActions: PropTypes.object,
+    deleteGroup: PropTypes.func,
+    element: PropTypes.string,
 }
