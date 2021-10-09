@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from '@dhis2/prop-types'
 import { AddNewSetting } from '../../../components/field'
 import {
     createInitialValues,
@@ -70,6 +71,14 @@ const NewDatasetVisualization = ({
             )}
         </>
     )
+}
+
+NewDatasetVisualization.propTypes = {
+    disable: PropTypes.bool,
+    visualization: PropTypes.object,
+    handleVisualization: PropTypes.func,
+    groups: PropTypes.object,
+    handleGroups: PropTypes.func,
 }
 
 export default NewDatasetVisualization

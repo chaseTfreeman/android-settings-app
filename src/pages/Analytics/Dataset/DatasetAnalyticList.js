@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from '@dhis2/prop-types'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import { useReadDatasetQuery } from './DatasetVisualizationQueries'
@@ -36,7 +37,9 @@ const DatasetAnalyticList = ({
 
     return (
         <>
-            {!isEmpty(rows) && <DatasetTable rows={rows} />}
+            {!isEmpty(rows) && (
+                <DatasetTable rows={rows} changeRows={setRows} />
+            )}
 
             <NewDatasetVisualization
                 disable={disable}
@@ -47,6 +50,12 @@ const DatasetAnalyticList = ({
             />
         </>
     )
+}
+
+DatasetAnalyticList.propTypes = {
+    visualizations: PropTypes.object,
+    handleVisualizations: PropTypes.func,
+    disable: PropTypes.bool,
 }
 
 export default DatasetAnalyticList
