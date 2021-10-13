@@ -18,7 +18,6 @@ export const populateObject = type => {
             object = {
                 reservedValues: androidSettingsDefault.reservedValues,
                 encryptDB: androidSettingsDefault.encryptDB,
-                trackerImporterVersion: defaultTrackerImporterVersion,
                 allowScreenCapture: defaultShareScreen,
             }
             break
@@ -26,7 +25,7 @@ export const populateObject = type => {
             object = {
                 metadataSync: androidSettingsDefault.metadataSync,
                 dataSync: androidSettingsDefault.dataSync,
-                trackerImporterVersion: defaultTrackerImporterVersion, //review if it should be here or in general
+                trackerImporterVersion: defaultTrackerImporterVersion,
             }
             break
         case DEFAULT_PROGRAM:

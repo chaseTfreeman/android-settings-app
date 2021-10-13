@@ -7,7 +7,6 @@ import {
     defaultEncryptDB,
     defaultReservedValues,
     defaultShareScreen,
-    defaultTrackerImporterVersion,
 } from '../../components/field'
 
 /**
@@ -44,9 +43,6 @@ export const createInitialValues = prevGeneralDetails => ({
     smsResultSender: prevGeneralDetails.smsResultSender || '',
     reservedValues: prevGeneralDetails.reservedValues || defaultReservedValues,
     encryptDB: prevGeneralDetails.encryptDB || defaultEncryptDB,
-    trackerImporterVersion:
-        prevGeneralDetails.trackerImporterVersion ||
-        defaultTrackerImporterVersion,
     allowScreenCapture:
         prevGeneralDetails.allowScreenCapture || defaultShareScreen,
 })
