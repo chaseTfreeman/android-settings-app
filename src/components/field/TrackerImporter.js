@@ -4,7 +4,7 @@ import { CheckboxField } from './CheckboxField'
 import { useApiVersion } from '../../utils/useApiVersion'
 
 const CODE = 'trackerImporterVersion'
-const minApiVersion = '2.36.5'
+const minApiVersion = '2.37'
 
 export const defaultTrackerImporterVersion = 'V1'
 export const newTrackerVersion = 'V2'
