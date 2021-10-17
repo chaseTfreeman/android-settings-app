@@ -39,25 +39,22 @@ export const updateRows = (current, rows) => {
             group => group === current.group.id
         )
 
-        if (groupFound) {
-            updatedRow[datasetFound] = {
-                ...updatedRow[datasetFound],
-                groups: {
-                    ...updatedRow[datasetFound].groups,
-                    [groupFound]: [
-                        ...updatedRow[datasetFound].groups[groupFound],
-                        current,
-                    ],
-                },
-            }
-        } else {
-            updatedRow[datasetFound] = {
-                ...updatedRow[datasetFound],
-                groups: {
-                    ...updatedRow[datasetFound].groups,
-                    [current.group.id]: [current],
-                },
-            }
+        const updatedGroups = groupFound
+            ? {
+                  ...updatedRow[datasetFound].groups,
+                  [groupFound]: [
+                      ...updatedRow[datasetFound].groups[groupFound],
+                      current,
+                  ],
+              }
+            : {
+                  ...updatedRow[datasetFound].groups,
+                  [current.group.id]: [current],
+              }
+
+        updatedRow[datasetFound] = {
+            ...updatedRow[datasetFound],
+            groups: updatedGroups,
         }
     } else {
         updatedRow[current.dataset] = {

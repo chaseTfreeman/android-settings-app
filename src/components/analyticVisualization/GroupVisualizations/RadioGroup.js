@@ -33,7 +33,7 @@ export const RadioGroup = ({
             setGroupOptions(groups[element])
             type ? setGroupOptions(groups[element]) : setGroupOptions(groups)
         }
-    }, [groups])
+    }, [groups, groupName[type]])
 
     return (
         <>
@@ -63,6 +63,7 @@ export const RadioGroup = ({
                             groupName={groupName}
                             changeGroup={changeGroup}
                             options={groupOptions}
+                            elementType={type}
                         />
                     )}
                 </>

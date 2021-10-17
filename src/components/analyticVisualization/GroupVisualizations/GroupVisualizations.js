@@ -12,8 +12,8 @@ export const GroupVisualizations = ({
     type,
 }) => {
     const { refetch: refetchId, data: id } = useSystemId()
-    const [group, setGroup] = useState(false)
-    const [groupType, setGroupType] = useState(false)
+    const [group, setGroup] = useState(true)
+    const [groupType, setGroupType] = useState(true)
 
     useEffect(() => {
         refetchId().then(({ system }) =>

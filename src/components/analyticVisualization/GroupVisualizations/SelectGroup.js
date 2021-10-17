@@ -9,13 +9,14 @@ export const SelectGroup = ({
     groupName,
     changeGroup,
     options,
+    elementType,
     ...props
 }) => {
     const [selection, setSelection] = useState()
 
     useEffect(() => {
         setSelection('')
-    }, [checked])
+    }, [checked, groupName[elementType]])
 
     const handleChange = e => {
         const value = options.find(group => group.id === e.selected)
