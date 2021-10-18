@@ -33,7 +33,7 @@ VisualizationRow.propTypes = {
 const ActionButtons = ({ menuActions, row, disabled, group, groupId }) => (
     <>
         <ButtonStrip className={styles.buttonContainer}>
-            <Button
+            {/*<Button
                 small
                 secondary
                 onClick={() => {
@@ -42,7 +42,7 @@ const ActionButtons = ({ menuActions, row, disabled, group, groupId }) => (
                 disabled={disabled}
             >
                 {i18n.t('Edit')}
-            </Button>
+            </Button>*/}
             <Button
                 small
                 secondary
