@@ -125,7 +125,7 @@ const VisualizationTable = ({ group, menuActions, deleteGroup }) => {
                         key={item.id}
                     >
                         <DataTableCell className={classes.title}>
-                            {item.name}
+                            {item.name === 'default' ? '' : item.name}
                         </DataTableCell>
                         <DataTableCell />
                         <DataTableCell align="center">

@@ -41,7 +41,9 @@ export const GroupVisualizationRow = ({
                         >
                             <DataTableCell />
                             <DataTableCell>
-                                {group.groups[item][0].group.name}
+                                {group.groups[item][0].group.name === 'default'
+                                    ? ''
+                                    : group.groups[item][0].group.name}
                             </DataTableCell>
                             <DataTableCell />
                             <DataTableCell align="center">

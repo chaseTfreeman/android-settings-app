@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from '@dhis2/prop-types'
 import i18n from '@dhis2/d2-i18n'
 import isEmpty from 'lodash/isEmpty'
+import reject from 'lodash/reject'
 import { FieldGroup } from '@dhis2/ui'
 import { NewGroup } from './NewGroup'
 import { SelectGroup } from './SelectGroup'
@@ -31,8 +32,9 @@ export const RadioGroup = ({
             const element = Object.keys(groups).find(
                 item => item === groupName[type]
             )
-            setGroupOptions(groups[element])
-            type ? setGroupOptions(groups[element]) : setGroupOptions(groups)
+            const list = type ? groups[element] : groups
+            const updatedList = reject(list, { name: 'default' })
+            setGroupOptions(updatedList)
         }
     }, [groups, groupName[type]])
 
