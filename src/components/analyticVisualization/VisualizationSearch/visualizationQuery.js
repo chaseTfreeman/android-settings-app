@@ -6,7 +6,7 @@ export const getDashboardsQQuery = (query = '', maxItems = []) => {
             count: 11,
             max: maxItems,
             fields:
-                'id,displayName,type,relativePeriods,rowDimensions,columnDimensions',
+                'id,displayName,type,relativePeriods,rowDimensions,columnDimensions,userOrganisationUnit,userOrganisationUnitChildren,userOrganisationUnitGrandChildren',
             order: 'displayName:asc',
         },
     }

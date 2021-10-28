@@ -46,7 +46,8 @@ const checkVisualizationType = visualization => {
                 isValidPeriod(i) &&
                 period &&
                 isValidDimension(visualization.rowDimensions, 1) &&
-                isValidDimension(visualization.columnDimensions, 2)
+                isValidDimension(visualization.columnDimensions, 2) &&
+                isValidOrgUnit(visualization)
             ) {
                 visualization.valid = true
             }
@@ -91,3 +92,8 @@ const isValidPeriod = period => relativePeriodsList.includes(period)
 
 const isValidDimension = (type, numberOfDimensions) =>
     type.length <= numberOfDimensions
+
+const isValidOrgUnit = visualization =>
+    visualization.userOrganisationUnit ||
+    visualization.userOrganisationUnitChildren ||
+    visualization.userOrganisationUnitGrandChildren
