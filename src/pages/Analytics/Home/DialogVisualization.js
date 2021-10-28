@@ -47,7 +47,6 @@ const DialogVisualization = ({
                                 settings={settings}
                                 onChange={handleChange}
                                 groupList={groups}
-                                //type="dataset"
                             />
                         </>
                     )}

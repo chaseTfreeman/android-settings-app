@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from '@dhis2/prop-types'
 import i18n from '@dhis2/d2-i18n'
+import isEmpty from 'lodash/isEmpty'
 import { FieldGroup } from '@dhis2/ui'
 import { NewGroup } from './NewGroup'
 import { SelectGroup } from './SelectGroup'
@@ -50,7 +51,7 @@ export const RadioGroup = ({
                         changeGroup={changeGroup}
                     />
 
-                    {groupOptions && (
+                    {!isEmpty(groupOptions) && (
                         <SelectGroup
                             dense
                             onChange={onChange}
