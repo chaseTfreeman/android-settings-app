@@ -3,7 +3,7 @@ export const getDashboardsQQuery = (query = '') => {
         resource: `visualizations`,
         params: {
             query,
-            count: 11,
+            pageSize: 100,
             fields:
                 'id,displayName,type,relativePeriods,rowDimensions,columnDimensions,userOrganisationUnit,userOrganisationUnitChildren,userOrganisationUnitGrandChildren',
             order: 'displayName:asc',

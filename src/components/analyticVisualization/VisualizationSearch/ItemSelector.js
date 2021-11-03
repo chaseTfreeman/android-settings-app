@@ -59,7 +59,7 @@ export const ItemSelector = ({ setSelection, clearSelection }) => {
 
     const getMenus = () => {
         const hasMore = items.length > 5
-        const displayItems = maxOptions ? items.slice(0, 10) : items.slice(0, 5)
+        const displayItems = maxOptions ? items : items.slice(0, 5)
 
         return (
             <ContentMenuGroup
@@ -101,6 +101,7 @@ export const ItemSelector = ({ setSelection, clearSelection }) => {
                             className={classes.menu}
                             dataTest="item-menu"
                             maxWidth="700px"
+                            maxHeight="250px"
                         >
                             {getItems()}
                         </FlyoutMenu>
