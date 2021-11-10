@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import ContentMenuItem from './ContentMenuItem'
+import isEmpty from 'lodash/isEmpty'
 import { MenuItem } from '@dhis2/ui'
+import ContentMenuItem from './ContentMenuItem'
 import classes from './styles/ContentMenuGroup.module.css'
 
 const ContentMenuGroup = ({ items, hasMore, onChangeItemsLimit, addItem }) => {
@@ -15,6 +16,13 @@ const ContentMenuGroup = ({ items, hasMore, onChangeItemsLimit, addItem }) => {
 
     return (
         <>
+            {isEmpty(items) && (
+                <ContentMenuItem
+                    name={i18n.t('No visualization found')}
+                    valid={false}
+                />
+            )}
+
             {items.map(item => (
                 <ContentMenuItem
                     key={item.id || item.key}
