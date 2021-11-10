@@ -38,7 +38,7 @@ export const VisualizationRow = ({
 )
 
 VisualizationRow.propTypes = {
-    visualizations: PropTypes.array,
+    visualizationList: PropTypes.array,
     deleteVisualization: PropTypes.func,
     disabled: PropTypes.bool,
 }

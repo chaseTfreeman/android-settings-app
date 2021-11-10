@@ -18,23 +18,17 @@ import classes from './VisualizationTable.module.css'
 export const HomeVisualizationTable = ({ group, changeGroup }) => {
     const [openDeleteDialog, setOpenDialog] = useState(false)
     const [specificSetting, setSpecificSetting] = useState({})
-    //const [openEditDialog, setOpenEditDialog] = useState(false)
     const [section, setSection] = useState([])
     const [openDeleteGroup, setDeleteGroup] = useState(false)
     const [elementName, setName] = useState()
     const [groupId, setGroupId] = useState()
 
-    const menuActions = {
-        edit: (...arg) => {
-            console.log('edit', { arg })
-        },
-        delete: (row, currentGroup, groupId) => {
-            setSpecificSetting(row)
-            setSection(currentGroup)
-            setGroupId(groupId)
-            setName(row.name)
-            setOpenDialog(true)
-        },
+    const deleteVisualization = (row, currentGroup, groupId) => {
+        setSpecificSetting(row)
+        setSection(currentGroup)
+        setGroupId(groupId)
+        setName(row.name)
+        setOpenDialog(true)
     }
 
     const handleDialogClose = () => {
@@ -71,7 +65,7 @@ export const HomeVisualizationTable = ({ group, changeGroup }) => {
         <>
             <VisualizationTable
                 group={group}
-                menuActions={menuActions}
+                deleteVisualization={deleteVisualization}
                 deleteGroup={deleteGroup}
             />
             <DialogDelete
@@ -100,7 +94,12 @@ HomeVisualizationTable.propTypes = {
     changeGroup: PropTypes.func,
 }
 
-const VisualizationTable = ({ group, menuActions, deleteGroup }) => {
+const VisualizationTable = ({
+    group,
+    deleteVisualization,
+    deleteGroup,
+    disabled,
+}) => {
     const [openRowIndex, setOpenRowIndex] = useState(null)
 
     const toggleOpenRow = index =>
@@ -108,9 +107,9 @@ const VisualizationTable = ({ group, menuActions, deleteGroup }) => {
 
     const expandableContent = item => (
         <VisualizationRow
-            visualizations={item.visualizations}
-            menuActions={menuActions}
-            id={item.id}
+            visualizationList={item.visualizations}
+            deleteVisualization={deleteVisualization}
+            disabled={disabled}
         />
     )
 
@@ -124,7 +123,7 @@ const VisualizationTable = ({ group, menuActions, deleteGroup }) => {
                         expandableContent={expandableContent(item)}
                         key={item.id}
                     >
-                        <DataTableCell className={classes.title}>
+                        <DataTableCell className={classes.tableTitle}>
                             {item.name === 'default' ? '' : item.name}
                         </DataTableCell>
                         <DataTableCell />
@@ -146,6 +145,6 @@ const VisualizationTable = ({ group, menuActions, deleteGroup }) => {
 
 VisualizationTable.propTypes = {
     group: PropTypes.array,
-    menuActions: PropTypes.object,
+    deleteVisualization: PropTypes.func,
     deleteGroup: PropTypes.func,
 }
