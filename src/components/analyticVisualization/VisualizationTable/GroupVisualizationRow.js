@@ -13,9 +13,10 @@ import styles from './VisualizationTable.module.css'
 
 export const GroupVisualizationRow = ({
     group,
-    menuActions,
+    deleteVisualization,
     deleteGroup,
     element,
+    disabled,
 }) => {
     const [openRowIndex, setOpenRowIndex] = useState(null)
 
@@ -23,46 +24,51 @@ export const GroupVisualizationRow = ({
         setOpenRowIndex(openRowIndex === index ? null : index)
 
     const expandableContent = item => (
-        <VisualizationRow visualizations={item} menuActions={menuActions} />
+        <VisualizationRow
+            visualizationList={item}
+            deleteVisualization={deleteVisualization}
+            disabled={disabled}
+        />
     )
+
+    const createGroupRow = () => {
+        return Object.entries(group.groups).map(([item, groupRow], i) => {
+            const groupName =
+                groupRow[0].group.name === 'default'
+                    ? ''
+                    : groupRow[0].group.name
+            const elementId = groupRow[0][element]
+
+            return (
+                <DataTableRow
+                    expanded={openRowIndex === i}
+                    onExpandToggle={() => toggleOpenRow(i)}
+                    expandableContent={expandableContent(groupRow)}
+                    key={i}
+                >
+                    <DataTableCell className={styles.tableSubtitle}>
+                        {groupName}
+                    </DataTableCell>
+                    <DataTableCell />
+                    <DataTableCell align="center">
+                        <Button
+                            small
+                            secondary
+                            onClick={() => deleteGroup(item, elementId)}
+                            disabled={disabled}
+                        >
+                            {i18n.t('Delete Group')}
+                        </Button>
+                    </DataTableCell>
+                </DataTableRow>
+            )
+        })
+    }
 
     return (
         <div className={styles.rowPadding}>
             <DataTable className={styles.table}>
-                <DataTableBody>
-                    {Object.keys(group.groups).map((item, i) => (
-                        <DataTableRow
-                            expanded={openRowIndex === i}
-                            onExpandToggle={() => toggleOpenRow(i)}
-                            expandableContent={expandableContent(
-                                group.groups[item]
-                            )}
-                            key={i}
-                        >
-                            <DataTableCell />
-                            <DataTableCell>
-                                {group.groups[item][0].group.name === 'default'
-                                    ? ''
-                                    : group.groups[item][0].group.name}
-                            </DataTableCell>
-                            <DataTableCell />
-                            <DataTableCell align="center">
-                                <Button
-                                    small
-                                    secondary
-                                    onClick={() =>
-                                        deleteGroup(
-                                            item,
-                                            group.groups[item][0][element]
-                                        )
-                                    }
-                                >
-                                    {i18n.t('Delete Group')}
-                                </Button>
-                            </DataTableCell>
-                        </DataTableRow>
-                    ))}
-                </DataTableBody>
+                <DataTableBody>{createGroupRow()}</DataTableBody>
             </DataTable>
         </div>
     )
@@ -70,7 +76,8 @@ export const GroupVisualizationRow = ({
 
 GroupVisualizationRow.propTypes = {
     group: PropTypes.object,
-    menuActions: PropTypes.object,
     deleteGroup: PropTypes.func,
+    deleteVisualization: PropTypes.func,
+    disabled: PropTypes.bool,
     element: PropTypes.string,
 }

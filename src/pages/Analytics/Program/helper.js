@@ -78,7 +78,7 @@ export const prepareRows = (visualizations, programList) => {
             group.program = i
             group.programName = program.programName || foundProgram.name
             group.visualizations.map(visualization => {
-                const vis = {
+                visual.push({
                     ...visualization,
                     timestamp: visualization.timestamp || new Date().toJSON(),
                     program: i,
@@ -87,8 +87,7 @@ export const prepareRows = (visualizations, programList) => {
                         id: group.id,
                         name: group.name,
                     },
-                }
-                visual.push(vis)
+                })
                 groups = {
                     ...groups,
                     [group.id]: visual,
@@ -106,6 +105,12 @@ export const prepareRows = (visualizations, programList) => {
         groupList: getGroupList(rows),
     }
 }
+
+export const createGroup = (group, visualizations) => ({
+    id: group.id,
+    name: group.name,
+    visualizations: group.visualizations || visualizations,
+})
 
 export const getGroupList = visualizations => {
     const groupList = {}
@@ -140,11 +145,7 @@ export const rowsToDataStore = rows => {
                     name: visualization.name,
                     timestamp: visualization.timestamp,
                 })
-                groupUpdated = {
-                    id: visualization.group.id,
-                    name: visualization.group.name,
-                    visualizations: visualizations,
-                }
+                groupUpdated = createGroup(visualization.group, visualizations)
             })
             groups.push(groupUpdated)
             updatedRows[i] = groups
@@ -152,12 +153,6 @@ export const rowsToDataStore = rows => {
     })
     return updatedRows
 }
-
-export const createGroup = group => ({
-    id: group.id,
-    name: group.name,
-    visualizations: group.visualizations,
-})
 
 export const createDataStoreGroupRows = datastore => {
     const dataStoreGroups = Object.assign({}, datastore)

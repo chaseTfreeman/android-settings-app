@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-10T08:13:56.585Z\n"
-"PO-Revision-Date: 2021-11-10T08:13:56.585Z\n"
+"POT-Creation-Date: 2021-11-10T06:32:26.798Z\n"
+"PO-Revision-Date: 2021-11-10T06:32:26.798Z\n"
 
 msgid "Edit"
 msgstr ""
@@ -25,64 +25,16 @@ msgstr ""
 msgid "Settings were successfully saved"
 msgstr ""
 
-msgid "Use a group visualization"
-msgstr ""
-
-msgid "Add a group name"
-msgstr ""
-
-msgid "Create a new group"
-msgstr ""
-
-msgid "Select a created group visualization"
-msgstr ""
-
-msgid "Select a group visualization"
-msgstr ""
-
-msgid "Dataset"
-msgstr ""
-
-msgid "Program"
-msgstr ""
-
-msgid "Visualization user test"
-msgstr ""
-
-msgid "User"
-msgstr ""
-
-msgid "Run test"
-msgstr ""
-
-msgid "Show fewer"
-msgstr ""
-
-msgid "Show more"
-msgstr ""
-
-msgid "Visualization item"
-msgstr ""
-
-msgid "Clear"
+msgid "Delete Group"
 msgstr ""
 
 msgid "Visualization"
 msgstr ""
 
-msgid "Visualization Group"
-msgstr ""
-
 msgid "Are you sure you want to delete {{elementName}} visualization group?"
 msgstr ""
 
-msgid "Delete Group"
-msgstr ""
-
-msgid "Visualization title"
-msgstr ""
-
-msgid "This will override the visualization title when shown in app"
+msgid "Visualization Group"
 msgstr ""
 
 msgid "Data Element"
@@ -107,6 +59,9 @@ msgid "Choose element"
 msgstr ""
 
 msgid "Choose element type"
+msgstr ""
+
+msgid "Program"
 msgstr ""
 
 msgid "Program Stage"
@@ -344,12 +299,6 @@ msgstr ""
 msgid "Reserved values downloaded per TEI attribute"
 msgstr ""
 
-msgid "Take screenshots and share it"
-msgstr ""
-
-msgid "Allow user to take screenshots and share their screen."
-msgstr ""
-
 msgid "SMS Gateway phone number"
 msgstr ""
 
@@ -357,16 +306,6 @@ msgid "Must start with + and be at least 4 characters long."
 msgstr ""
 
 msgid "SMS Result Sender phone number"
-msgstr ""
-
-msgid "Use new version of Tracker Importer"
-msgstr ""
-
-msgid ""
-"Use new tracker endpoints dedicated to importing and querying tracker "
-"objects (including tracked entities, enrollments, events, and "
-"relationships). Be aware that some functionality is not yet ready in the "
-"new endpoints, but they support their primary use-cases."
 msgstr ""
 
 msgid "Reset all values to default"
@@ -403,7 +342,13 @@ msgstr ""
 msgid "Check the amount of data a user would sync to their device."
 msgstr ""
 
+msgid "Run test"
+msgstr ""
+
 msgid "Search for a user"
+msgstr ""
+
+msgid "User"
 msgstr ""
 
 msgid "Maximum number of periods to download data sets for"
@@ -613,34 +558,13 @@ msgstr ""
 msgid "data download size (KB)"
 msgstr ""
 
-msgid "Manage visualizations for data set."
-msgstr ""
-
-msgid "Add Data set visualization"
-msgstr ""
-
-msgid "Add Data set Visualization"
-msgstr ""
-
-msgid "Add Home visualization"
-msgstr ""
-
-msgid "Add Home Visualization"
-msgstr ""
-
-msgid "Manage visualizations for Home screen."
-msgstr ""
-
-msgid "Add Program visualization"
-msgstr ""
-
-msgid "Add Program Visualization"
-msgstr ""
-
 msgid "Manage visualizations for program."
 msgstr ""
 
 msgid "Could not find any program visualisations"
+msgstr ""
+
+msgid "Add Program Visualization"
 msgstr ""
 
 msgid "TEI Analytics"

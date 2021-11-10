@@ -38,7 +38,11 @@ const ProgramAnalyticsList = ({
     return (
         <>
             {!isEmpty(rows) && (
-                <ProgramTable rows={rows} changeRows={setRows} />
+                <ProgramTable
+                    rows={rows}
+                    changeRows={setRows}
+                    disabled={disable}
+                />
             )}
 
             <NewProgramVisualization

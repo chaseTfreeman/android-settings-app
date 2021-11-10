@@ -14,10 +14,14 @@ import AnalyticsSpecificTEI from './AnalyticsSpecificTEI'
 import { removeSummarySettings } from './helper'
 
 const AnalyticsTEI = () => {
-    const { tei, dhisVisualizations, load } = useReadAnalyticsDataStore()
+    const {
+        tei,
+        dhisVisualizations,
+        errorDataStore,
+        load,
+    } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
     const [analyticSettings, setAnalyticSettings] = useState([])
-    const [initialValues, setInitialValues] = useState()
     const [disableSave, setDisableSave] = useState(true)
     const [disable, setDisable] = useState(false)
 
@@ -29,15 +33,12 @@ const AnalyticsTEI = () => {
 
     useEffect(() => {
         if (tei) {
-            setInitialValues(tei)
             setAnalyticSettings(tei)
         }
     }, [tei])
 
     useEffect(() => {
-        initialValues &&
-        analyticSettings &&
-        !isEqual(analyticSettings, initialValues)
+        tei && analyticSettings && !isEqual(analyticSettings, tei)
             ? setDisableSave(false)
             : setDisableSave(true)
     }, [analyticSettings])
@@ -62,6 +63,7 @@ const AnalyticsTEI = () => {
                 'Manage Tracked Entity Instance (TEI) analytics for tracker programs. The settings below apply to all tracker programs an Android user has access to.'
             )}
             loading={load}
+            error={errorDataStore}
             unsavedChanges={!disableSave}
         >
             {analyticSettings && (

@@ -1,16 +1,8 @@
-.row {
+.rowContainer {
     display: flex;
-    margin: 8px;
-    padding: 12px;
+    margin: 8px 8px 8px 40px;
+    padding: 0 12px;
     border: 1px solid rgb(232, 237, 242);
-}
-
-.col70 {
-    flex: 70%;
-}
-
-.col30 {
-    flex: 30%;
 }
 
 .table {
@@ -21,13 +13,13 @@
     margin: 0 -12px;
 }
 
-.title {
-    color: var(--colors-grey800);
+.tableTitle {
     font-weight: 500;
 }
 
-.subtitle {
-    color: var(--colors-grey800);
+.tableSubtitle {
+    color: var(--colors-grey800)!important;
+    font-weight: 500;
 }
 
 .boxContainer {
@@ -35,6 +27,10 @@
     grid-template-columns: 3fr 1fr;
 }
 
-.buttonContainer {
-    align-items: center;
+.table > tbody > tr > td:first-child {
+    padding-left: 40px;
+}
+
+.boxContainer > div {
+    align-self: center
 }

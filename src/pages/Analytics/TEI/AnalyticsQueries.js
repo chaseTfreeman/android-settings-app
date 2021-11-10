@@ -65,7 +65,7 @@ const dataElementsQuery = {
 
 export const useReadDataElementsQuery = ({ programId }) =>
     useDataQuery(dataElementsQuery, {
-        variables: { programId },
+        variables: { programId: programId || '' },
         lazy: true,
     })
 
@@ -90,7 +90,7 @@ const attributesQuery = {
 
 export const useReadAttributesQuery = ({ programId }) =>
     useDataQuery(attributesQuery, {
-        variables: { programId },
+        variables: { programId: programId || '' },
         lazy: true,
     })
 
@@ -110,7 +110,7 @@ const programIndicatorsQuery = {
 
 export const useReadProgramIndicatorsQuery = ({ programId }) =>
     useDataQuery(programIndicatorsQuery, {
-        variables: { programId },
+        variables: { programId: programId || '' },
         lazy: true,
     })
 

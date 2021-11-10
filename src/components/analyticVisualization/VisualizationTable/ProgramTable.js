@@ -1,30 +1,24 @@
 import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from '@dhis2/prop-types'
+import { VisualizationTable } from './VisualizationTable'
 import DialogDelete from '../../dialog/DialogDelete'
-import DialogDeleteInfo from '../../dialog/DialogDeleteInfo'
-import { ElementGroupTable } from './ElementGroupTable'
+import DialogDeleteElement from '../../dialog/DialogDeleteElement'
 import { removeSettingsFromList } from '../../../utils/utils'
 import { removeElement, updateGroup } from './helper'
 
-export const ProgramTable = ({ rows, changeRows }) => {
+export const ProgramTable = ({ rows, changeRows, disabled }) => {
     const [openDeleteDialog, setOpenDialog] = useState(false)
     const [specificSetting, setSpecificSetting] = useState({})
-    const [openEditDialog, setOpenEditDialog] = useState(false)
     const [group, setGroup] = useState([])
     const [openDeleteGroup, setDeleteGroup] = useState(false)
     const [elementName, setName] = useState()
 
-    const menuActions = {
-        edit: (...arg) => {
-            console.log('edit', { arg })
-        },
-        delete: (row, group) => {
-            setSpecificSetting(row)
-            setGroup(group)
-            setName(row.name)
-            setOpenDialog(true)
-        },
+    const deleteRow = (row, group) => {
+        setSpecificSetting(row)
+        setGroup(group)
+        setName(row.name)
+        setOpenDialog(true)
     }
 
     const handleDialogClose = () => {
@@ -53,13 +47,6 @@ export const ProgramTable = ({ rows, changeRows }) => {
         handleDialogClose()
     }
 
-    const handleEditClose = () => {
-        setOpenEditDialog(false)
-        setSpecificSetting({})
-        setGroup([])
-        setName('')
-    }
-
     const handleDeleteGroup = () => {
         const visualizations = Object.assign({}, rows)
         const currentProgramGroups = visualizations[group].groups
@@ -86,7 +73,8 @@ export const ProgramTable = ({ rows, changeRows }) => {
     }
 
     const deleteGroup = (item, programId) => {
-        setName(rows[programId].groups[item][0].group.name)
+        const name = rows[programId].groups[item][0].group.name
+        setName(name)
         setSpecificSetting(item)
         setGroup(programId)
         setDeleteGroup(true)
@@ -94,11 +82,12 @@ export const ProgramTable = ({ rows, changeRows }) => {
 
     return (
         <>
-            <ElementGroupTable
+            <VisualizationTable
                 element="program"
                 rows={rows}
-                menuActions={menuActions}
+                deleteVisualization={deleteRow}
                 deleteGroup={deleteGroup}
+                disabled={disabled}
             />
             <DialogDelete
                 open={openDeleteDialog}
@@ -107,7 +96,7 @@ export const ProgramTable = ({ rows, changeRows }) => {
                 onHandleClose={handleDialogClose}
                 typeName={i18n.t('Visualization')}
             />
-            <DialogDeleteInfo
+            <DialogDeleteElement
                 open={openDeleteGroup}
                 onHandleClose={handleCloseDeleteGroup}
                 onHandleDelete={handleDeleteGroup}
@@ -122,6 +111,7 @@ export const ProgramTable = ({ rows, changeRows }) => {
 }
 
 ProgramTable.propTypes = {
+    disabled: PropTypes.bool,
     rows: PropTypes.object,
     changeRows: PropTypes.func,
 }
