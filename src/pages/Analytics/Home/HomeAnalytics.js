@@ -4,7 +4,7 @@ import { useDataMutation, useDataQuery } from '@dhis2/app-runtime'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import Page from '../../../components/page/Page'
-import VisualizationsInfo from '../../../components/noticeAlert/VisualizationsInfo'
+import { VisualizationsInfo } from '../../../components/noticeAlert'
 import FooterStripButtons from '../../../components/footerStripButton/FooterStripButtons'
 import HomeAnalyticList from './HomeAnalyticList'
 import {
@@ -14,7 +14,14 @@ import {
 import { authorityQuery } from '../../../modules/apiLoadFirstSetup'
 
 const HomeAnalytics = () => {
-    const { tei, home, program, dataSet, load } = useReadAnalyticsDataStore()
+    const {
+        tei,
+        home,
+        program,
+        dataSet,
+        load,
+        errorDataStore,
+    } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
     const [homeAnalytics, setHomeAnalytics] = useState([])
     const [initialValues, setInitialValues] = useState([])
@@ -61,6 +68,7 @@ const HomeAnalytics = () => {
             title={i18n.t('Home')}
             desc={i18n.t('Manage visualizations for Home screen.')}
             loading={load}
+            error={errorDataStore}
             unsavedChanges={!disableSave}
         >
             {homeAnalytics && (

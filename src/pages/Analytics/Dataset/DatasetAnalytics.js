@@ -10,12 +10,19 @@ import {
     useReadAnalyticsDataStore,
 } from '../analyticsDatastoreQuery'
 import { authorityQuery } from '../../../modules/apiLoadFirstSetup'
-import VisualizationsInfo from '../../../components/noticeAlert/VisualizationsInfo'
+import { VisualizationsInfo } from '../../../components/noticeAlert'
 import DatasetAnalyticList from './DatasetAnalyticList'
 import { createDataStoreGroupRows } from './helper'
 
 const DatasetAnalytics = () => {
-    const { tei, home, program, dataSet, load } = useReadAnalyticsDataStore()
+    const {
+        tei,
+        home,
+        program,
+        dataSet,
+        load,
+        errorDataStore,
+    } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
     const [datasetAnalytics, setDatasetAnalytics] = useState({})
     const [initialValues, setInitialValues] = useState({})
@@ -65,6 +72,7 @@ const DatasetAnalytics = () => {
             title={i18n.t('Data set')}
             desc={i18n.t('Manage visualizations for data set.')}
             loading={load}
+            error={errorDataStore}
             unsavedChanges={!disableSave}
         >
             {datasetAnalytics && (

@@ -60,7 +60,7 @@ export const useReadAnalyticsDataStore = () => {
 
     return {
         load: loading,
-        error,
+        errorDataStore: error,
         tei: teiAnalytics,
         dhisVisualizations: visualizations,
         home,
