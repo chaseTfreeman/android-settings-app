@@ -11,11 +11,18 @@ import {
 import { authorityQuery } from '../../../modules/apiLoadFirstSetup'
 import FooterStripButtons from '../../../components/footerStripButton/FooterStripButtons'
 import ProgramAnalyticsList from './ProgramAnalyticsList'
-import VisualizationsInfo from '../../../components/noticeAlert/VisualizationsInfo'
+import { VisualizationsInfo } from '../../../components/noticeAlert'
 import { createDataStoreGroupRows } from './helper'
 
 const ProgramAnalytics = () => {
-    const { tei, home, program, dataSet, load } = useReadAnalyticsDataStore()
+    const {
+        tei,
+        home,
+        program,
+        dataSet,
+        load,
+        errorDataStore,
+    } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
     const [programsAnalytics, setProgramAnalytics] = useState({})
     const [initialValues, setInitialValues] = useState({})
@@ -64,12 +71,17 @@ const ProgramAnalytics = () => {
             title={i18n.t('Program')}
             desc={i18n.t('Manage visualizations for program.')}
             loading={load}
+            error={errorDataStore}
             unsavedChanges={!disableSave}
         >
             {programsAnalytics && (
                 <>
                     {isEmpty(programsAnalytics) && (
-                        <VisualizationsInfo type="Programs" />
+                        <VisualizationsInfo
+                            title={i18n.t(
+                                'Could not find any program visualisations'
+                            )}
+                        />
                     )}
 
                     <ProgramAnalyticsList
