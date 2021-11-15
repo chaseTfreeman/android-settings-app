@@ -11,6 +11,7 @@ import ProgramsAppearance from '../pages/Appearance/Programs/ProgramsAppearance'
 import DatasetsAppearance from '../pages/Appearance/Datasets/DatasetsAppearance'
 import AnalyticsTEI from '../pages/Analytics/TEI/AnalyticsTEI'
 import ProgramAnalytics from '../pages/Analytics/Program/ProgramAnalytics'
+import DatasetAnalytics from '../pages/Analytics/Dataset/DatasetAnalytics'
 
 export const overviewPage = {
     code: 'home',
@@ -134,7 +135,7 @@ export const analyticsPages = [
         path: '/analytics/dataset',
         linkText: i18n.t('Set Data set Visualizations'),
         description: i18n.t('Manage visualizations for data sets'),
-        component: <div> Data set </div>,
+        component: <DatasetAnalytics />,
     },
 ]
 
@@ -145,5 +146,3 @@ export const menuSection = [
     ...appearancePages,
     ...analyticsPages,
 ]
-
-// TODO: replace div "component" with the real section/Page component
