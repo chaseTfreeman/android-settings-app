@@ -1,10 +1,10 @@
 import React from 'react'
 import { MenuItem, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import { getItemIcon } from './itemTypes'
+import { getVisualizationIcon } from './visualizationTypes'
 
-const ContentMenuItem = ({ type, name, onInsert, valid }) => {
-    const ItemIcon = getItemIcon(type)
+export const ContentMenuItem = ({ type, name, onInsert, valid }) => {
+    const ItemIcon = getVisualizationIcon(type)
     const renderedItemIcon = <ItemIcon color={colors.grey600} />
 
     return (
@@ -24,5 +24,3 @@ ContentMenuItem.propTypes = {
     onInsert: PropTypes.func,
     valid: PropTypes.bool,
 }
-
-export default ContentMenuItem

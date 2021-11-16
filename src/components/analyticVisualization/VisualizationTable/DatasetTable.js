@@ -2,29 +2,23 @@ import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from '@dhis2/prop-types'
 import DialogDelete from '../../dialog/DialogDelete'
-import DialogDeleteInfo from '../../dialog/DialogDeleteInfo'
-import { ElementGroupTable } from './ElementGroupTable'
+import DialogDeleteElement from '../../dialog/DialogDeleteElement'
+import { VisualizationTable } from './VisualizationTable'
 import { removeElement, updateGroup } from './helper'
 import { removeSettingsFromList } from '../../../utils/utils'
 
-export const DatasetTable = ({ rows, changeRows }) => {
+export const DatasetTable = ({ rows, changeRows, disabled }) => {
     const [openDeleteDialog, setOpenDialog] = useState(false)
     const [specificSetting, setSpecificSetting] = useState({})
-    const [openEditDialog, setOpenEditDialog] = useState(false)
     const [group, setGroup] = useState([])
     const [openDeleteGroup, setDeleteGroup] = useState(false)
     const [elementName, setName] = useState()
 
-    const menuActions = {
-        edit: (...arg) => {
-            console.log('edit', { arg })
-        },
-        delete: (row, group) => {
-            setSpecificSetting(row)
-            setGroup(group)
-            setName(row.name)
-            setOpenDialog(true)
-        },
+    const deleteVisualization = (row, group) => {
+        setSpecificSetting(row)
+        setGroup(group)
+        setName(row.name)
+        setOpenDialog(true)
     }
 
     const handleDialogClose = () => {
@@ -79,7 +73,8 @@ export const DatasetTable = ({ rows, changeRows }) => {
     }
 
     const deleteGroup = (item, datasetId) => {
-        setName(rows[datasetId].groups[item][0].group.name)
+        const name = rows[datasetId].groups[item][0].group.name
+        setName(name)
         setSpecificSetting(item)
         setGroup(datasetId)
         setDeleteGroup(true)
@@ -87,11 +82,12 @@ export const DatasetTable = ({ rows, changeRows }) => {
 
     return (
         <>
-            <ElementGroupTable
+            <VisualizationTable
                 element="dataset"
                 rows={rows}
-                menuActions={menuActions}
+                deleteVisualization={deleteVisualization}
                 deleteGroup={deleteGroup}
+                disabled={disabled}
             />
             <DialogDelete
                 open={openDeleteDialog}
@@ -100,7 +96,7 @@ export const DatasetTable = ({ rows, changeRows }) => {
                 typeName={i18n.t('Visualization')}
                 name={elementName}
             />
-            <DialogDeleteInfo
+            <DialogDeleteElement
                 open={openDeleteGroup}
                 onHandleClose={handleCloseDeleteGroup}
                 onHandleDelete={handleDeleteGroup}
@@ -115,6 +111,7 @@ export const DatasetTable = ({ rows, changeRows }) => {
 }
 
 DatasetTable.propTypes = {
+    disabled: PropTypes.bool,
     rows: PropTypes.object,
     changeRows: PropTypes.func,
 }

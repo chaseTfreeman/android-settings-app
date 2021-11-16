@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from '@dhis2/prop-types'
-import { VisualizationSelectField } from '../field'
+import { SelectField } from '../field'
 import { useReadProgramQuery } from '../../pages/Analytics/Program/ProgramVisualizationQueries'
 
 export const SelectProgram = ({ settings, onChange }) => {
     const { programList, loading } = useReadProgramQuery()
-    const [options, setOptions] = useState([])
-
-    useEffect(() => {
-        if (programList) {
-            setOptions(programList)
-        }
-    }, [programList])
+    const options = programList || []
 
     const handleChange = e => {
         const name = options.find(program => program.id === e.selected)
@@ -24,7 +18,9 @@ export const SelectProgram = ({ settings, onChange }) => {
     }
 
     return (
-        <VisualizationSelectField
+        <SelectField
+            dense
+            inputWidth="350px"
             name="program"
             label={i18n.t('Program')}
             selected={settings.program || ''}

@@ -24,8 +24,8 @@ const DatasetAnalytics = () => {
         errorDataStore,
     } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
-    const [datasetAnalytics, setDatasetAnalytics] = useState({})
-    const [initialValues, setInitialValues] = useState({})
+    const [datasetAnalytics, setDatasetAnalytics] = useState()
+    const [initialValues, setInitialValues] = useState()
     const [disableSave, setDisableSave] = useState(true)
     const [disable, setDisable] = useState(false)
 
@@ -78,7 +78,11 @@ const DatasetAnalytics = () => {
             {datasetAnalytics && (
                 <>
                     {isEmpty(datasetAnalytics) && (
-                        <VisualizationsInfo type="Data sets" />
+                        <VisualizationsInfo
+                            title={i18n.t(
+                                'Could not find any data set visualisations'
+                            )}
+                        />
                     )}
 
                     <DatasetAnalyticList

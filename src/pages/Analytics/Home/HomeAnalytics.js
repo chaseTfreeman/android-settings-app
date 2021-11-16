@@ -24,7 +24,6 @@ const HomeAnalytics = () => {
     } = useReadAnalyticsDataStore()
     const { data: hasAuthority } = useDataQuery(authorityQuery)
     const [homeAnalytics, setHomeAnalytics] = useState([])
-    const [initialValues, setInitialValues] = useState([])
     const [disableSave, setDisableSave] = useState(true)
     const [disable, setDisable] = useState(false)
 
@@ -37,12 +36,11 @@ const HomeAnalytics = () => {
     useEffect(() => {
         if (home) {
             setHomeAnalytics(home)
-            setInitialValues(home)
         }
     }, [home])
 
     useEffect(() => {
-        initialValues && homeAnalytics && !isEqual(homeAnalytics, initialValues)
+        home && homeAnalytics && !isEqual(homeAnalytics, home)
             ? setDisableSave(false)
             : setDisableSave(true)
     }, [homeAnalytics])
@@ -74,7 +72,11 @@ const HomeAnalytics = () => {
             {homeAnalytics && (
                 <>
                     {isEmpty(homeAnalytics) && (
-                        <VisualizationsInfo type="Home" />
+                        <VisualizationsInfo
+                            title={i18n.t(
+                                'Could not find any home visualisations'
+                            )}
+                        />
                     )}
 
                     <HomeAnalyticList

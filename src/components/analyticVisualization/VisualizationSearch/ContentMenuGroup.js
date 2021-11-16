@@ -3,10 +3,15 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import isEmpty from 'lodash/isEmpty'
 import { MenuItem } from '@dhis2/ui'
-import ContentMenuItem from './ContentMenuItem'
-import classes from './styles/ContentMenuGroup.module.css'
+import { ContentMenuItem } from './ContentMenuItem'
+import styles from './styles/ContentMenuGroup.module.css'
 
-const ContentMenuGroup = ({ items, hasMore, onChangeItemsLimit, addItem }) => {
+export const ContentMenuGroup = ({
+    items,
+    hasMore,
+    onChangeItemsLimit,
+    addItem,
+}) => {
     const [seeMore, setSeeMore] = useState(false)
 
     const toggleSeeMore = () => {
@@ -33,19 +38,19 @@ const ContentMenuGroup = ({ items, hasMore, onChangeItemsLimit, addItem }) => {
                 />
             ))}
 
-            {hasMore ? (
+            {hasMore && (
                 <MenuItem
                     dense
                     onClick={toggleSeeMore}
                     label={
-                        <button className={classes.showMoreButton}>
+                        <button className={styles.showMoreButton}>
                             {seeMore
                                 ? i18n.t('Show fewer')
                                 : i18n.t('Show more')}
                         </button>
                     }
                 />
-            ) : null}
+            )}
         </>
     )
 }
@@ -56,5 +61,3 @@ ContentMenuGroup.propTypes = {
     onChangeItemsLimit: PropTypes.func,
     addItem: PropTypes.func,
 }
-
-export default ContentMenuGroup

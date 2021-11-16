@@ -31,7 +31,7 @@ import {
     PIVOT_TABLE,
     SINGLE_VALUE,
     RADAR,
-} from './itemTypes'
+} from './visualizationTypes'
 
 export const validateAndroidVisualization = visualizations => {
     return visualizations.map(visualization =>

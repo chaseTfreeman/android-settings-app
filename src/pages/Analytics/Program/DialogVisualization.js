@@ -10,7 +10,7 @@ import {
     ModalActions,
 } from '@dhis2/ui'
 import {
-    GroupVisualizations,
+    VisualizationGroup,
     SelectProgram,
     SelectVisualization,
     VisualizationTitle,
@@ -48,7 +48,7 @@ const DialogVisualization = ({
                                 onChange={handleChange}
                             />
 
-                            <GroupVisualizations
+                            <VisualizationGroup
                                 settings={settings}
                                 onChange={handleChange}
                                 groupList={groups}

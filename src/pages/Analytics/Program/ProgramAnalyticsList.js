@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from '@dhis2/prop-types'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
-import NewProgramVisualization from './NewProgramVisualization'
 import { ProgramTable } from '../../../components/analyticVisualization'
 import { useReadProgramQuery } from './ProgramVisualizationQueries'
 import { prepareRows, rowsToDataStore } from './helper'
+import NewProgramVisualization from './NewProgramVisualization'
 
 const ProgramAnalyticsList = ({
     visualizations,

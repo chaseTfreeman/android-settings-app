@@ -11,19 +11,15 @@ const HomeAnalyticList = ({
     disable,
 }) => {
     const [rows, setRows] = useState()
-    const [initialRows, setInitialRows] = useState()
-    const [groups, setGroups] = useState()
 
     useEffect(() => {
         if (visualizations) {
             setRows(visualizations)
-            setGroups(visualizations)
-            setInitialRows(visualizations)
         }
     }, [visualizations])
 
     useEffect(() => {
-        if (rows && initialRows && !isEqual(rows, initialRows)) {
+        if (rows && visualizations && !isEqual(rows, visualizations)) {
             handleVisualizations(rows)
         }
     }, [rows])
@@ -31,15 +27,17 @@ const HomeAnalyticList = ({
     return (
         <>
             {!isEmpty(rows) && (
-                <HomeVisualizationTable group={rows} changeGroup={setRows} />
+                <HomeVisualizationTable
+                    group={rows}
+                    changeGroup={setRows}
+                    disable={disable}
+                />
             )}
 
             <NewHomeVisualization
                 disable={disable}
                 visualization={rows}
                 handleVisualization={setRows}
-                groups={groups}
-                handleGroups={setGroups}
             />
         </>
     )

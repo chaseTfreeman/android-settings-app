@@ -2,12 +2,12 @@ import React, { useState, useEffect, createRef } from 'react'
 import PropTypes from 'prop-types'
 import { Popover, FlyoutMenu } from '@dhis2/ui'
 import { useDataEngine } from '@dhis2/app-runtime'
-import ContentMenuGroup from './ContentMenuGroup'
-import ItemSearchField from './ItemSearchField'
-import { getDashboardsQQuery } from './visualizationQuery'
+import { ContentMenuGroup } from './ContentMenuGroup'
+import { ItemSearchField } from './ItemSearchField'
+import { getVisualizationsQuery } from './visualizationQuery'
 import { validateAndroidVisualization } from './helper'
 import useDebounce from '../../../utils/useDebounce'
-import classes from './styles/ItemSelector.module.css'
+import styles from './styles/ItemSelector.module.css'
 
 export const ItemSelector = ({ setSelection, clearSelection }) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -21,7 +21,7 @@ export const ItemSelector = ({ setSelection, clearSelection }) => {
     useEffect(() => {
         const text =
             debouncedFilterText.length >= 3 ? debouncedFilterText : null
-        const query = getDashboardsQQuery(text)
+        const query = getVisualizationsQuery(text)
 
         dataEngine.query({ items: query }).then(res => {
             validateAndroidVisualization(res.items.visualizations)
@@ -53,10 +53,6 @@ export const ItemSelector = ({ setSelection, clearSelection }) => {
         setDisable(false)
     }
 
-    const updateMaxOptions = type => {
-        setMaxOptions(type)
-    }
-
     const getMenus = () => {
         const hasMore = items.length > 5
         const displayItems = maxOptions ? items : items.slice(0, 5)
@@ -65,13 +61,11 @@ export const ItemSelector = ({ setSelection, clearSelection }) => {
             <ContentMenuGroup
                 items={displayItems}
                 hasMore={hasMore}
-                onChangeItemsLimit={updateMaxOptions}
+                onChangeItemsLimit={setMaxOptions}
                 addItem={addItem}
             />
         )
     }
-
-    const getItems = () => getMenus()
 
     const updateFilter = ({ value }) => setFilter(value)
 
@@ -96,14 +90,14 @@ export const ItemSelector = ({ setSelection, clearSelection }) => {
                     arrow={false}
                     maxWidth={700}
                 >
-                    <div className={classes.popover}>
+                    <div className={styles.popover}>
                         <FlyoutMenu
-                            className={classes.menu}
+                            className={styles.menu}
                             dataTest="item-menu"
                             maxWidth="700px"
                             maxHeight="250px"
                         >
-                            {getItems()}
+                            {getMenus()}
                         </FlyoutMenu>
                     </div>
                 </Popover>

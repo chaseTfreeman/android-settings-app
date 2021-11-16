@@ -10,12 +10,12 @@ import {
 } from '@dhis2/ui'
 import { VisualizationRow } from './VisualizationRow'
 import DialogDelete from '../../dialog/DialogDelete'
-import DialogDeleteInfo from '../../dialog/DialogDeleteInfo'
+import DialogDeleteElement from '../../dialog/DialogDeleteElement'
 import { removeSettingsFromList } from '../../../utils/utils'
 import { removeElementList, updateGroupList } from './helper'
-import classes from './VisualizationTable.module.css'
+import styles from './VisualizationTable.module.css'
 
-export const HomeVisualizationTable = ({ group, changeGroup }) => {
+export const HomeVisualizationTable = ({ group, changeGroup, disable }) => {
     const [openDeleteDialog, setOpenDialog] = useState(false)
     const [specificSetting, setSpecificSetting] = useState({})
     const [section, setSection] = useState([])
@@ -23,11 +23,11 @@ export const HomeVisualizationTable = ({ group, changeGroup }) => {
     const [elementName, setName] = useState()
     const [groupId, setGroupId] = useState()
 
-    const deleteVisualization = (row, currentGroup, groupId) => {
-        setSpecificSetting(row)
+    const deleteVisualization = (visualization, currentGroup, groupId) => {
+        setSpecificSetting(visualization)
         setSection(currentGroup)
         setGroupId(groupId)
-        setName(row.name)
+        setName(visualization.name)
         setOpenDialog(true)
     }
 
@@ -67,6 +67,7 @@ export const HomeVisualizationTable = ({ group, changeGroup }) => {
                 group={group}
                 deleteVisualization={deleteVisualization}
                 deleteGroup={deleteGroup}
+                disabled={disable}
             />
             <DialogDelete
                 open={openDeleteDialog}
@@ -75,7 +76,7 @@ export const HomeVisualizationTable = ({ group, changeGroup }) => {
                 typeName={i18n.t('Visualization')}
                 name={elementName}
             />
-            <DialogDeleteInfo
+            <DialogDeleteElement
                 open={openDeleteGroup}
                 onHandleClose={handleCloseDeleteGroup}
                 onHandleDelete={handleDeleteGroup}
@@ -110,35 +111,43 @@ const VisualizationTable = ({
             visualizationList={item.visualizations}
             deleteVisualization={deleteVisualization}
             disabled={disabled}
+            groupId={item.id}
         />
     )
 
+    const createGroupRow = () => {
+        return group.map((item, i) => {
+            const { name, id } = item
+            const groupName = name === 'default' ? '' : name
+
+            return (
+                <DataTableRow
+                    expanded={openRowIndex === i}
+                    onExpandToggle={() => toggleOpenRow(i)}
+                    expandableContent={expandableContent(item)}
+                    key={id}
+                >
+                    <DataTableCell className={styles.tableTitle}>
+                        {groupName}
+                    </DataTableCell>
+                    <DataTableCell />
+                    <DataTableCell align="center">
+                        <Button
+                            small
+                            secondary
+                            onClick={() => deleteGroup(item)}
+                        >
+                            {i18n.t('Delete Group')}
+                        </Button>
+                    </DataTableCell>
+                </DataTableRow>
+            )
+        })
+    }
+
     return (
         <DataTable>
-            <DataTableBody>
-                {group.map((item, i) => (
-                    <DataTableRow
-                        expanded={openRowIndex === i}
-                        onExpandToggle={() => toggleOpenRow(i)}
-                        expandableContent={expandableContent(item)}
-                        key={item.id}
-                    >
-                        <DataTableCell className={classes.tableTitle}>
-                            {item.name === 'default' ? '' : item.name}
-                        </DataTableCell>
-                        <DataTableCell />
-                        <DataTableCell align="center">
-                            <Button
-                                small
-                                secondary
-                                onClick={() => deleteGroup(item)}
-                            >
-                                {i18n.t('Delete Group')}
-                            </Button>
-                        </DataTableCell>
-                    </DataTableRow>
-                ))}
-            </DataTableBody>
+            <DataTableBody>{createGroupRow()}</DataTableBody>
         </DataTable>
     )
 }
@@ -147,4 +156,5 @@ VisualizationTable.propTypes = {
     group: PropTypes.array,
     deleteVisualization: PropTypes.func,
     deleteGroup: PropTypes.func,
+    disabled: PropTypes.bool,
 }

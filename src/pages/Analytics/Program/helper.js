@@ -12,7 +12,7 @@ export const createInitialValues = initialValues => ({
     },
 })
 
-export const validMandatoryFields = settings => {
+export const invalidMandatoryFields = settings => {
     return !validateObjectByProperty(['program', 'visualization'], settings)
 }
 
@@ -28,44 +28,23 @@ export const createVisualizationValues = value => ({
     },
 })
 
-export const updateRows = (current, rows) => {
-    const updatedRow = Object.assign({}, rows)
-    const programFound = Object.keys(updatedRow).find(
-        program => program === current.program
-    )
+export const getGroupList = visualizations => {
+    const groupList = {}
 
-    if (programFound) {
-        const groupFound = Object.keys(updatedRow[programFound].groups).find(
-            group => group === current.group.id
-        )
+    mapValues(visualizations, (program, i) => {
+        const programGroup = []
+        mapValues(program.groups, group => {
+            programGroup.push({
+                id: group[0].group.id,
+                name: group[0].group.name,
+                program: i,
+                programName: program.programName,
+            })
+            groupList[i] = programGroup
+        })
+    })
 
-        const updatedGroups = groupFound
-            ? {
-                  ...updatedRow[programFound].groups,
-                  [groupFound]: [
-                      ...updatedRow[programFound].groups[groupFound],
-                      current,
-                  ],
-              }
-            : {
-                  ...updatedRow[programFound].groups,
-                  [current.group.id]: [current],
-              }
-
-        updatedRow[programFound] = {
-            ...updatedRow[programFound],
-            groups: updatedGroups,
-        }
-    } else {
-        updatedRow[current.program] = {
-            programName: current.programName,
-            groups: {
-                [current.group.id]: [current],
-            },
-        }
-    }
-
-    return updatedRow
+    return groupList
 }
 
 export const prepareRows = (visualizations, programList) => {
@@ -112,25 +91,6 @@ export const createGroup = (group, visualizations) => ({
     visualizations: group.visualizations || visualizations,
 })
 
-export const getGroupList = visualizations => {
-    const groupList = {}
-
-    mapValues(visualizations, (program, i) => {
-        const programGroup = []
-        mapValues(program.groups, group => {
-            programGroup.push({
-                id: group[0].group.id,
-                name: group[0].group.name,
-                program: i,
-                programName: program.programName,
-            })
-            groupList[i] = programGroup
-        })
-    })
-
-    return groupList
-}
-
 export const rowsToDataStore = rows => {
     const updatedRows = {}
 
@@ -164,4 +124,33 @@ export const createDataStoreGroupRows = datastore => {
     })
 
     return result
+}
+
+export const updateRows = (current, rows) => {
+    const programRow = rows[current.program]
+
+    if (programRow) {
+        const group = programRow.groups[current.group.id]
+        const updatedGroups = {
+            ...programRow.groups,
+            [current.group.id]: group ? [...group, current] : [current],
+        }
+        return {
+            ...rows,
+            [current.program]: {
+                ...programRow,
+                groups: updatedGroups,
+            },
+        }
+    }
+
+    return {
+        ...rows,
+        [current.program]: {
+            programName: current.programName,
+            groups: {
+                [current.group.id]: [current],
+            },
+        },
+    }
 }

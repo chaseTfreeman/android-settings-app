@@ -18,7 +18,7 @@ export const VisualizationTitle = ({ settings, onChange }) => {
             label={i18n.t('Visualization title')}
             onChange={handleChange}
             helpText={i18n.t(
-                'This will override the visualization title when shown in app'
+                'This will override the visualization title when shown in the app'
             )}
         />
     )
