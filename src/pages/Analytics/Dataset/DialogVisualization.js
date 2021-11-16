@@ -11,9 +11,9 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import buttonStyles from '../../../styles/Button.module.css'
 import {
-    GroupVisualizations,
     SelectDataset,
     SelectVisualization,
+    VisualizationGroup,
     VisualizationTitle,
 } from '../../../components/analyticVisualization'
 
@@ -49,7 +49,7 @@ const DialogVisualization = ({
                                 onChange={handleChange}
                             />
 
-                            <GroupVisualizations
+                            <VisualizationGroup
                                 settings={settings}
                                 onChange={handleChange}
                                 groupList={groups}

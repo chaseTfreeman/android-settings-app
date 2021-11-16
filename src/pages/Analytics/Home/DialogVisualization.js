@@ -11,8 +11,8 @@ import {
 } from '@dhis2/ui'
 import buttonStyles from '../../../styles/Button.module.css'
 import {
-    GroupVisualizations,
     SelectVisualization,
+    VisualizationGroup,
     VisualizationTitle,
 } from '../../../components/analyticVisualization'
 
@@ -43,7 +43,7 @@ const DialogVisualization = ({
                                 onChange={handleChange}
                             />
 
-                            <GroupVisualizations
+                            <VisualizationGroup
                                 settings={settings}
                                 onChange={handleChange}
                                 groupList={groups}

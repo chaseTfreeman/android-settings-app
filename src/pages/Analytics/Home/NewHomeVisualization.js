@@ -3,14 +3,16 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from '@dhis2/prop-types'
 import { AddNewSetting } from '../../../components/field'
 import DialogVisualization from './DialogVisualization'
-import { createInitialValues, updateRows, validMandatoryFields } from './helper'
+import {
+    createInitialValues,
+    invalidMandatoryFields,
+    updateRows,
+} from './helper'
 
 const NewHomeVisualization = ({
     disable,
     visualization,
     handleVisualization,
-    groups,
-    handleGroups,
 }) => {
     const [openDialog, setOpenDialog] = useState(false)
     const [visualizationSettings, setSettings] = useState(
@@ -19,7 +21,7 @@ const NewHomeVisualization = ({
     const [disableSave, setDisableSave] = useState(true)
 
     useEffect(() => {
-        setDisableSave(validMandatoryFields(visualizationSettings))
+        setDisableSave(invalidMandatoryFields(visualizationSettings))
     })
 
     const handleOpenDialog = () => {
@@ -37,7 +39,6 @@ const NewHomeVisualization = ({
             visualization
         )
         handleVisualization(updatedVisualization)
-        handleGroups(updatedVisualization)
         handleClose()
     }
 
@@ -57,7 +58,7 @@ const NewHomeVisualization = ({
                     handleSave={handleSave}
                     handleClose={handleClose}
                     disableSave={disableSave}
-                    groups={groups}
+                    groups={visualization}
                 />
             )}
         </>

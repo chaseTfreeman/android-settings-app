@@ -6,8 +6,8 @@ import {
     createInitialValues,
     createVisualizationValues,
     getGroupList,
+    invalidMandatoryFields,
     updateRows,
-    validMandatoryFields,
 } from './helper'
 import DialogVisualization from './DialogVisualization'
 
@@ -25,7 +25,7 @@ const NewDatasetVisualization = ({
     const [disableSave, setDisableSave] = useState(true)
 
     useEffect(() => {
-        setDisableSave(validMandatoryFields(visualizationSettings))
+        setDisableSave(invalidMandatoryFields(visualizationSettings))
     }, [visualizationSettings])
 
     const handleOpenDialog = () => {
