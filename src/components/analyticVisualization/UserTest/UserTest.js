@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { Button, Divider } from '@dhis2/ui'
-import { SelectField } from '../../field'
+import ItemSelector from './ItemSelector'
+import { useReadVisualizationsQuery } from './visualizationQuery'
+import { validateUserVisualization } from './helper'
 
 export const UserTest = ({ visualization }) => {
-    const optionList = []
+    const { refetch, loading, data } = useReadVisualizationsQuery({
+        visualizationId: visualization,
+    })
+    const [user, setUser] = useState()
 
-    const handleChange = () => {}
+    const handleChange = () => {
+        validateUserVisualization(user, data.visualizations)
+        console.log('run', { user, visualization, data })
+    }
 
     const style = {
         marginTop: 20,
@@ -17,12 +25,9 @@ export const UserTest = ({ visualization }) => {
             <Divider margin="30px 0px 10px 0px" />
             <p> {i18n.t('Visualization user test')} </p>
 
-            <SelectField
-                dense
-                options={optionList}
-                onChange={handleChange}
-                label={i18n.t('User')}
-            />
+            <ItemSelector selection={setUser} />
+
+            {!loading && <p> its ready </p>}
 
             <div style={style}>
                 <Button small onClick={handleChange}>

@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import i18n from '@dhis2/d2-i18n'
 import { InputField, Button } from '@dhis2/ui'
-import classes from './styles/ItemSearchField.module.css'
+import styles from './styles/ItemSearchField.module.css'
 
 const ItemSearchField = ({ value, disabled, onFocus, onChange, onClear }) => (
     <div>
         <InputField
+            dense
             name="User item search"
             label={i18n.t('User')}
             placeholder={i18n.t('Search by user')}
@@ -16,12 +17,12 @@ const ItemSearchField = ({ value, disabled, onFocus, onChange, onClear }) => (
             value={value}
             disabled={disabled}
             dataTest="item-search"
-            inputWidth="400px"
-            className={classes.field}
+            inputWidth="300px"
+            className={styles.field}
         />
 
-        <Button small className={classes.field} onClick={onClear}>
-            Clear
+        <Button small className={styles.field} onClick={onClear}>
+            {i18n.t('Clear')}
         </Button>
     </div>
 )

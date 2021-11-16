@@ -2,10 +2,10 @@ import React, { createRef, useEffect, useState } from 'react'
 import { Popover, FlyoutMenu } from '@dhis2/ui'
 import { useDataEngine } from '@dhis2/app-runtime'
 import ItemSearchField from './ItemSearchField'
-import ContentMenuItem from './ContentMenuItem'
+import ContentMenuGroup from './ContentMenuGroup'
 import { getUserQuery } from './userQuery'
 import useDebounce from '../../../utils/useDebounce'
-import classes from './styles/ItemSelector.module.css'
+import styles from './styles/ItemSelector.module.css'
 
 const ItemSelector = ({ selection }) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -32,10 +32,11 @@ const ItemSelector = ({ selection }) => {
     const openMenu = () => setIsOpen(true)
 
     const addItem = item => () => {
+        console.log({ item })
         setDisable(true)
         closeMenu()
         setFilter(item.name)
-        selection(item.id)
+        selection(item)
     }
 
     const clearField = () => {
@@ -45,18 +46,9 @@ const ItemSelector = ({ selection }) => {
 
     const getMenus = () => {
         const displayItems = items.slice(0, 5)
-        return displayItems.map(item => (
-            <ContentMenuItem
-                key={item.id || item.key}
-                name={item.displayName || item.name}
-                onInsert={addItem(item)}
-                type={item.type}
-                valid={item.valid}
-            />
-        ))
-    }
 
-    const getItems = () => getMenus()
+        return <ContentMenuGroup items={displayItems} addItem={addItem} />
+    }
 
     const updateFilter = ({ value }) => setFilter(value)
 
@@ -79,15 +71,15 @@ const ItemSelector = ({ selection }) => {
                     placement="bottom-start"
                     onClickOutside={closeMenu}
                     arrow={false}
-                    maxWidth={400}
+                    maxWidth={300}
                 >
-                    <div className={classes.popover}>
+                    <div className={styles.popover}>
                         <FlyoutMenu
-                            className={classes.menu}
+                            className={styles.menu}
                             dataTest="item-menu"
-                            maxWidth="400px"
+                            maxWidth="300px"
                         >
-                            {getItems()}
+                            {getMenus()}
                         </FlyoutMenu>
                     </div>
                 </Popover>

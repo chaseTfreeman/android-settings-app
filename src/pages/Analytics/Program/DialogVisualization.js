@@ -14,6 +14,7 @@ import {
     SelectProgram,
     SelectVisualization,
     VisualizationTitle,
+    UserTest,
 } from '../../../components/analyticVisualization'
 import buttonStyles from '../../../styles/Button.module.css'
 
@@ -55,7 +56,7 @@ const DialogVisualization = ({
                                 type="program"
                             />
 
-                            {/*<UserTest />*/}
+                            <UserTest visualization={settings.visualization} />
                         </>
                     )}
                 </ModalContent>

@@ -1,5 +1,8 @@
 .menu {
-    width: 400px;
+    width: 300px;
+}
+.menu > div {
+    box-shadow: none;
 }
 
 @media only screen and (max-width: 480px) {
