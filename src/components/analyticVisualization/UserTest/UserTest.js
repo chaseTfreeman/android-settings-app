@@ -1,9 +1,9 @@
 import React from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { Button, Divider } from '@dhis2/ui'
-import { SelectField } from '../field'
+import { SelectField } from '../../field'
 
-export const UserTest = () => {
+export const UserTest = ({ visualization }) => {
     const optionList = []
 
     const handleChange = () => {}
