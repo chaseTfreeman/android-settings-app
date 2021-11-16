@@ -23,14 +23,14 @@ export const createVisualizationValues = value => ({
 
 export const updateRows = (current, rows) => {
     const updateGroup = rows.slice()
-    const groupFround = updateGroup.find(group => group.id === current.group.id)
+    const index = findIndex(rows, { id: current.group.id })
+    const homeGroup = rows[index]
 
-    if (groupFround) {
-        const index = findIndex(rows, { id: groupFround.id })
+    if (homeGroup) {
         updateGroup[index] = {
-            ...updateGroup[index],
+            ...homeGroup,
             visualizations: [
-                ...updateGroup[index].visualizations,
+                ...homeGroup.visualizations,
                 createVisualizationValues(current),
             ],
         }

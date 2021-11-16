@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-16T03:41:34.573Z\n"
-"PO-Revision-Date: 2021-11-16T03:41:34.573Z\n"
+"POT-Creation-Date: 2021-11-16T14:37:03.167Z\n"
+"PO-Revision-Date: 2021-11-16T14:37:03.167Z\n"
 
 msgid "Edit"
 msgstr ""
@@ -25,7 +25,10 @@ msgstr ""
 msgid "Settings were successfully saved"
 msgstr ""
 
-msgid "Use a group visualization"
+msgid "Dataset"
+msgstr ""
+
+msgid "Program"
 msgstr ""
 
 msgid "Add a group name"
@@ -40,22 +43,7 @@ msgstr ""
 msgid "Select a group visualization"
 msgstr ""
 
-msgid "Dataset"
-msgstr ""
-
-msgid "Program"
-msgstr ""
-
-msgid "User"
-msgstr ""
-
-msgid "Search by user"
-msgstr ""
-
-msgid "Visualization user test"
-msgstr ""
-
-msgid "Run test"
+msgid "Use a group visualization"
 msgstr ""
 
 msgid "No visualization found"
@@ -350,12 +338,6 @@ msgstr ""
 msgid "Reserved values downloaded per TEI attribute"
 msgstr ""
 
-msgid "Take screenshots and share it"
-msgstr ""
-
-msgid "Allow user to take screenshots and share their screen."
-msgstr ""
-
 msgid "SMS Gateway phone number"
 msgstr ""
 
@@ -363,16 +345,6 @@ msgid "Must start with + and be at least 4 characters long."
 msgstr ""
 
 msgid "SMS Result Sender phone number"
-msgstr ""
-
-msgid "Use new version of Tracker Importer"
-msgstr ""
-
-msgid ""
-"Use new tracker endpoints dedicated to importing and querying tracker "
-"objects (including tracked entities, enrollments, events, and "
-"relationships). Be aware that some functionality is not yet ready in the "
-"new endpoints, but they support their primary use-cases."
 msgstr ""
 
 msgid "Reset all values to default"
@@ -409,7 +381,13 @@ msgstr ""
 msgid "Check the amount of data a user would sync to their device."
 msgstr ""
 
+msgid "Run test"
+msgstr ""
+
 msgid "Search for a user"
+msgstr ""
+
+msgid "User"
 msgstr ""
 
 msgid "Maximum number of periods to download data sets for"
@@ -830,4 +808,7 @@ msgid "program"
 msgstr ""
 
 msgid "User Sync Test"
+msgstr ""
+
+msgid "Search by user"
 msgstr ""
