@@ -11,11 +11,11 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import buttonStyles from '../../../styles/Button.module.css'
 import {
+    VisualizationGroup,
     SelectDataset,
     SelectVisualization,
-    UserTest,
-    VisualizationGroup,
     VisualizationTitle,
+    VisualizationUserTest,
 } from '../../../components/analyticVisualization'
 
 const DialogVisualization = ({
@@ -57,7 +57,10 @@ const DialogVisualization = ({
                                 type="dataset"
                             />
 
-                            <UserTest visualization={settings} />
+                            <VisualizationUserTest
+                                visualization={settings.visualization}
+                                visualizationName={settings.visualizationName}
+                            />
                         </>
                     )}
                 </ModalContent>

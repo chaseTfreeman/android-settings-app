@@ -11,10 +11,10 @@ import {
 } from '@dhis2/ui'
 import buttonStyles from '../../../styles/Button.module.css'
 import {
-    SelectVisualization,
-    UserTest,
     VisualizationGroup,
+    SelectVisualization,
     VisualizationTitle,
+    VisualizationUserTest,
 } from '../../../components/analyticVisualization'
 
 const DialogVisualization = ({
@@ -50,7 +50,10 @@ const DialogVisualization = ({
                                 groupList={groups}
                             />
 
-                            <UserTest visualization={settings} />
+                            <VisualizationUserTest
+                                visualization={settings.visualization}
+                                visualizationName={settings.visualizationName}
+                            />
                         </>
                     )}
                 </ModalContent>
