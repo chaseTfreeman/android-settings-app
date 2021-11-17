@@ -75,6 +75,7 @@ const ItemSelector = ({ selection }) => {
                             className={styles.menu}
                             dataTest="item-menu"
                             maxWidth="300px"
+                            maxHeight="120px"
                         >
                             {getMenus()}
                         </FlyoutMenu>

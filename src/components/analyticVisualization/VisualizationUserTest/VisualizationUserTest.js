@@ -60,7 +60,7 @@ export const VisualizationUserTest = ({ visualization, visualizationName }) => {
 
                 {tested && getTestingResults()}
 
-                <Field className={styles.pT20}>
+                <Field className={styles.runTest}>
                     <Button small onClick={handleChange}>
                         {i18n.t('Run test')}
                     </Button>
