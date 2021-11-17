@@ -1,4 +1,5 @@
 import find from 'lodash/find'
+import intersectionBy from 'lodash/intersectionBy'
 import isEmpty from 'lodash/isEmpty'
 
 export const validateUserVisualization = (user, visualization) =>
@@ -16,10 +17,12 @@ const visualizationHasPublicAccess = visualization =>
  * Check if a user belongs to user Group that has access to a visualization
  * */
 const userGroupHasAccess = (visualization, user) => {
-    const groupAccessList = user.userGroups.map(group =>
-        visualization.userGroupAccesses.includes(group.id)
+    const groupIntersection = intersectionBy(
+        user.userGroups,
+        visualization.userGroupAccesses,
+        'id'
     )
-    return groupAccessList.some(access => access === true)
+    return !isEmpty(groupIntersection)
 }
 
 /**
