@@ -17,7 +17,6 @@ const ItemSelector = ({ selection }) => {
 
     useEffect(() => {
         const query = getUserQuery(debouncedFilterText)
-
         dataEngine.query({ items: query }).then(res => {
             setItems(res.items.users)
         })
@@ -32,7 +31,6 @@ const ItemSelector = ({ selection }) => {
     const openMenu = () => setIsOpen(true)
 
     const addItem = item => () => {
-        console.log({ item })
         setDisable(true)
         closeMenu()
         setFilter(item.name)
@@ -46,7 +44,6 @@ const ItemSelector = ({ selection }) => {
 
     const getMenus = () => {
         const displayItems = items.slice(0, 5)
-
         return <ContentMenuGroup items={displayItems} addItem={addItem} />
     }
 

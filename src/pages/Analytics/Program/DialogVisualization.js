@@ -56,7 +56,7 @@ const DialogVisualization = ({
                                 type="program"
                             />
 
-                            <UserTest visualization={settings.visualization} />
+                            <UserTest visualization={settings} />
                         </>
                     )}
                 </ModalContent>

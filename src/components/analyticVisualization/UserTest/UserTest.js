@@ -1,39 +1,68 @@
 import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
-import { Button, Divider } from '@dhis2/ui'
+import { Button, Divider, Field, FieldSet, Legend } from '@dhis2/ui'
 import ItemSelector from './ItemSelector'
 import { useReadVisualizationsQuery } from './visualizationQuery'
 import { validateUserVisualization } from './helper'
+import styles from './styles/UserTest.module.css'
 
 export const UserTest = ({ visualization }) => {
-    const { refetch, loading, data } = useReadVisualizationsQuery({
-        visualizationId: visualization,
+    const { data } = useReadVisualizationsQuery({
+        visualizationId: visualization.visualization,
     })
     const [user, setUser] = useState()
+    const [isValid, setValid] = useState(false)
+    const [tested, setTesting] = useState(false)
 
     const handleChange = () => {
-        validateUserVisualization(user, data.visualizations)
-        console.log('run', { user, visualization, data })
+        setValid(validateUserVisualization(user, data.visualizations))
+        setTesting(true)
     }
 
-    const style = {
-        marginTop: 20,
-    }
+    const getTestingResults = () =>
+        isValid ? (
+            <p className={styles.result}>
+                {' '}
+                {i18n.t(
+                    '{{userName}} can visualize {{visualization}} visualization',
+                    {
+                        userName: user.name || user.displayName,
+                        visualization: visualization.visualizationName,
+                    }
+                )}
+            </p>
+        ) : (
+            <p className={styles.result}>
+                {' '}
+                {i18n.t(
+                    '{{userName}} can not visualize {{visualization}} visualization',
+                    {
+                        userName: user.name || user.displayName,
+                        visualization: visualization.visualizationName,
+                    }
+                )}
+            </p>
+        )
 
     return (
         <>
             <Divider margin="30px 0px 10px 0px" />
-            <p> {i18n.t('Visualization user test')} </p>
+            <FieldSet>
+                <Legend className={styles.legendTitle}>
+                    {' '}
+                    {i18n.t('Visualization user test')}{' '}
+                </Legend>
 
-            <ItemSelector selection={setUser} />
+                <ItemSelector selection={setUser} />
 
-            {!loading && <p> its ready </p>}
+                {tested && getTestingResults()}
 
-            <div style={style}>
-                <Button small onClick={handleChange}>
-                    {i18n.t('Run test')}
-                </Button>
-            </div>
+                <Field className={styles.pT20}>
+                    <Button small onClick={handleChange}>
+                        {i18n.t('Run test')}
+                    </Button>
+                </Field>
+            </FieldSet>
         </>
     )
 }

@@ -1,44 +1,29 @@
 import find from 'lodash/find'
+import isEmpty from 'lodash/isEmpty'
+
+export const validateUserVisualization = (user, visualization) =>
+    visualizationHasPublicAccess(visualization) ||
+    userGroupHasAccess(visualization, user) ||
+    userHasAccess(visualization, user)
+
 /**
- *
- * Check if visualization has authorities
- * Check if user is part of userGroup
- * Check if user is part of userAccess visualization
+ * User has at least read access to a visualization
  * */
+const visualizationHasPublicAccess = visualization =>
+    visualization.publicAccess.indexOf('r') === 0
 
-export const validateUserVisualization = (user, visualization) => {
-    if (visualizationHasPublicAccess(visualization)) {
-        return true
-    } else {
-    }
-
-    console.log(
-        'is valid?',
-        visualizationHasPublicAccess(visualization),
-        userGroupHasAccess(visualization, user)
-    )
-}
-
-const visualizationHasPublicAccess = visualization => {
-    console.log('valid public access', visualization.publicAccess.includes('r'))
-    return visualization.publicAccess.includes('r')
-}
-
+/**
+ * Check if a user belongs to user Group that has access to a visualization
+ * */
 const userGroupHasAccess = (visualization, user) => {
-    // check user group access in
-    //const userGroupFound = find(visualization.userGroupAccesses, {id: user.userGroups})
-    //visualization.userGroupAccesses.includes(user.id)
-    let userGroupFound
-    if (user.userGroups) {
-        userGroupFound = user.userGroups.map(group =>
-            visualization.userGroupAccesses.includes(group.id)
-        )
-    }
-
-    console.log('groups', { userGroupFound, visualization, user })
+    const groupAccessList = user.userGroups.map(group =>
+        visualization.userGroupAccesses.includes(group.id)
+    )
+    return groupAccessList.some(access => access === true)
 }
 
-const userHasAccess = (visualization, user) => {
-    // check user has access
-    const userAccess = visualization.userAccesses.includes(user.id)
-}
+/**
+ * Check if user has access to a visualization
+ * */
+const userHasAccess = (visualization, user) =>
+    !isEmpty(find(visualization.userAccesses, { id: user.id }))

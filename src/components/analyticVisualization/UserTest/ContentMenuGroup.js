@@ -7,7 +7,7 @@ import ContentMenuItem from './ContentMenuItem'
 const ContentMenuGroup = ({ items, addItem }) => (
     <>
         {isEmpty(items) && (
-            <ContentMenuItem label={i18n.t('No user found')} valid={false} />
+            <ContentMenuItem name={i18n.t('No user found')} valid={false} />
         )}
 
         {items.map(item => (
