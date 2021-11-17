@@ -12,6 +12,7 @@ import {
 import buttonStyles from '../../../styles/Button.module.css'
 import {
     SelectVisualization,
+    UserTest,
     VisualizationGroup,
     VisualizationTitle,
 } from '../../../components/analyticVisualization'
@@ -48,6 +49,8 @@ const DialogVisualization = ({
                                 onChange={handleChange}
                                 groupList={groups}
                             />
+
+                            <UserTest visualization={settings} />
                         </>
                     )}
                 </ModalContent>

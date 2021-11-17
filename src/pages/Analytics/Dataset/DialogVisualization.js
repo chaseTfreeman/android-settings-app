@@ -13,6 +13,7 @@ import buttonStyles from '../../../styles/Button.module.css'
 import {
     SelectDataset,
     SelectVisualization,
+    UserTest,
     VisualizationGroup,
     VisualizationTitle,
 } from '../../../components/analyticVisualization'
@@ -55,6 +56,8 @@ const DialogVisualization = ({
                                 groupList={groups}
                                 type="dataset"
                             />
+
+                            <UserTest visualization={settings} />
                         </>
                     )}
                 </ModalContent>

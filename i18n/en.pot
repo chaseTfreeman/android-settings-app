@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-16T18:40:11.473Z\n"
-"PO-Revision-Date: 2021-11-16T18:40:11.473Z\n"
+"POT-Creation-Date: 2021-11-17T04:47:58.500Z\n"
+"PO-Revision-Date: 2021-11-17T04:47:58.500Z\n"
 
 msgid "Edit"
 msgstr ""
@@ -58,7 +58,10 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-msgid "{{user}} can visualize {{visualization}}"
+msgid "{{userName}} can visualize {{visualization}} visualization"
+msgstr ""
+
+msgid "{{userName}} can not visualize {{visualization}} visualization"
 msgstr ""
 
 msgid "Visualization user test"
