@@ -136,6 +136,7 @@ const VisualizationTable = ({
                             small
                             secondary
                             onClick={() => deleteGroup(item)}
+                            disabled={disabled}
                         >
                             {i18n.t('Delete Group')}
                         </Button>
