@@ -8,34 +8,24 @@ import {
     apiFetchProgramRulesBasic,
 } from './queries/syncQueries'
 import { getMetadataSize } from './getMetadata'
+import { getDataSize } from './getData'
 
-export const runUserTest = async (user, dataEngine) => {
-    /*
-     * get org unit search
-     * get org unit capture
-     * get programs -->
-     * using program query: trackedEntityType (get: TrackedEntityAttribute),
-     * using programId = programRules, programStages (get: DataElements (optionSet --> oprion --> optionGroup), TrackedEntityInstanceAttributes), TrackedEntityInstanceFilters, EventFilters
-     * get program rules
-     * get data sets (DataSetElement --> dataElement --> optionSet --> option
-     * categoryCombo --> category --> categoryOptions
-     * using dataset id: validationRules
-     * get reserved values
-     *
-     * get metadata size
-     * get data size
-     * **/
-
+export const runUserTest = async ({
+    user,
+    dataEngine,
+    reservedValues,
+    globalSettings,
+    specificSettings,
+}) => {
     let orgUnitSearch = 0
     let orgUnit = {}
     let programs = {}
     let dataSets = {}
     let programRules = {}
     let metadataSize = 0
-    const dataSize = 0
+    let dataSize = 0
 
     await getTestElements(user, dataEngine).then(result => {
-        console.log('result after then', { result })
         orgUnitSearch = result.orgUnitSearch
         orgUnit = result.orgUnit
         programs = result.program
@@ -55,10 +45,14 @@ export const runUserTest = async (user, dataEngine) => {
         categoryComboList: dataSets.categoryCombo,
         categoryList: dataSets.category,
         indicatorList: dataSets.indicator,
-    }).then(result => {
-        metadataSize = result
-        console.log('metadata size', { result })
-    })
+    }).then(result => (metadataSize = result))
+
+    await getDataSize({
+        dataEngine,
+        orgUnit: orgUnit.idList,
+        program: specificSettings,
+        globalLimit: globalSettings,
+    }).then(result => (dataSize = result))
 
     return {
         orgUnitSearch,
@@ -66,6 +60,7 @@ export const runUserTest = async (user, dataEngine) => {
         programs: programs.total,
         dataSets: dataSets.total,
         programRules: programRules.total,
+        reservedValues: reservedValues,
 
         metadata: metadataSize,
         data: dataSize,
