@@ -25,7 +25,7 @@ const orgUnitQuery = query => ({
     resource: 'organisationUnits',
     params: {
         fields:
-            'id,name,programs[id,name,trackedEntityType[id],programTrackedEntityAttributes[id,trackedEntityAttribute[id,optionSet[id]]]],dataSets[id,name,categoryCombo[id,categories[id]],indicators[id,indicatorType[id]],dataSetElements[dataElement[id]]]',
+            'id,name,programs[id,name,trackedEntityType[id],programTrackedEntityAttributes[id,trackedEntityAttribute[id,optionSet[id]]]],dataSets[id,name,categoryCombo[id,categories[id,categoryOptions[id]]],indicators[id,indicatorType[id]],dataSetElements[dataElement[id]]]',
         filter: `path:like:${query}`,
         paging: false,
     },

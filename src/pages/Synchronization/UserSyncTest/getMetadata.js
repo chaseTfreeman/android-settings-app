@@ -1,5 +1,13 @@
 import {
+    apiFetchCategories,
+    apiFetchCategoryCombos,
+    apiFetchCategoryOptions,
+    apiFetchConstants,
+    apiFetchDataElements,
+    apiFetchDataSet,
     apiFetchEventFilters,
+    apiFetchIndicators,
+    apiFetchMe,
     apiFetchOptionGroup,
     apiFetchOptions,
     apiFetchOptionSet,
@@ -9,11 +17,13 @@ import {
     apiFetchProgramRule,
     apiFetchProgramStage,
     apiFetchRelationshipTypes,
+    apiFetchSystemSettings,
     apiFetchTrackedEntityAttributes,
     apiFetchTrackedEntityInstanceFilter,
     apiFetchTrackedEntityType,
+    apiFetchUserSettings,
 } from './metadataQueries'
-import { getSize } from './helper'
+import { formatByteSize, getByteLength } from '../../../utils/getByteLength'
 
 export const getMetadataSize = async ({
     dataEngine,
@@ -22,87 +32,46 @@ export const getMetadataSize = async ({
     trackedEntityTypeList,
     teaList,
     optionSetList,
+    dataSetList,
+    dataElementList,
+    categoryComboList,
+    categoryList,
+    indicatorList,
 }) => {
-    await apiFetchOULevel(dataEngine).then(r => {
-        const size = getSize(r)
-        console.log({ size })
-    })
+    let metadataSize = 0
 
-    await getOrgUnit(dataEngine, orgUnitList).then(r =>
-        console.log('second rsykt', { r })
-    )
-    await getProgram(dataEngine, programList).then(r =>
-        console.log('program', { r })
-    )
-    await getProgramStage(dataEngine, programList).then(r =>
-        console.log('programStage', { r })
-    )
-    await getTrackedEntityType(dataEngine, trackedEntityTypeList).then(r =>
-        console.log('trackedEntityTypeList', { r })
-    )
-    await getTEA(dataEngine, teaList).then(r => console.log('tea', { r }))
-    await getProgramRule(dataEngine, programList).then(r =>
-        console.log('programRule', { r })
-    )
-    await getTEIFilter(dataEngine, programList).then(r =>
-        console.log('tei', { r })
-    )
-    await getEventFilter(dataEngine, programList).then(r =>
-        console.log('event', { r })
-    )
-    await getRelationship(dataEngine).then(r => console.log('relation', { r }))
-    await getOptionSet(dataEngine, optionSetList).then(r =>
-        console.log('optionset', { r })
-    )
-    await getOptions(dataEngine, optionSetList).then(r =>
-        console.log('options', { r })
-    )
-    await getOptionGroups(dataEngine, optionSetList).then(r =>
-        console.log('option groups', { r })
-    )
+    await Promise.all([
+        getOrgUnit(dataEngine, orgUnitList),
+        apiFetchOULevel(dataEngine),
+        apiFetchProgram(dataEngine, programList),
+        apiFetchProgramStage(dataEngine, programList),
+        apiFetchTrackedEntityType(dataEngine, trackedEntityTypeList),
+        apiFetchTrackedEntityAttributes(dataEngine, teaList),
+        apiFetchProgramRule(dataEngine, programList),
+        apiFetchTrackedEntityInstanceFilter(dataEngine, programList),
+        apiFetchEventFilters(dataEngine, programList),
+        apiFetchRelationshipTypes(dataEngine),
+        apiFetchOptionSet(dataEngine, optionSetList),
+        apiFetchOptions(dataEngine, optionSetList),
+        apiFetchOptionGroup(dataEngine, optionSetList),
+        apiFetchDataSet(dataEngine, dataSetList),
+        apiFetchDataElements(dataEngine, dataElementList),
+        apiFetchCategoryCombos(dataEngine, categoryComboList),
+        apiFetchCategories(dataEngine, categoryList),
+        apiFetchCategoryOptions(dataEngine, categoryList),
+        apiFetchIndicators(dataEngine, indicatorList),
+        apiFetchUserSettings(dataEngine),
+        apiFetchSystemSettings(dataEngine),
+        apiFetchConstants(dataEngine),
+        apiFetchMe(dataEngine),
+    ]).then(result => result.map(data => (metadataSize += getByteLength(data))))
+
+    return formatByteSize(metadataSize)
 }
 
 const getOrgUnit = (dataEngine, orgUnitList) => {
     const orgUnitPromises = []
     orgUnitList.map(ou => orgUnitPromises.push(apiFetchOrgUnit(dataEngine, ou)))
 
-    return Promise.all(orgUnitPromises).then(result => getSize(result))
+    return Promise.all(orgUnitPromises)
 }
-
-const getProgram = (dataEngine, programList) => {
-    return apiFetchProgram(dataEngine, programList).then(r => getSize(r))
-}
-
-const getProgramStage = (dataEngine, programList) =>
-    apiFetchProgramStage(dataEngine, programList).then(r => getSize(r))
-
-const getTrackedEntityType = (dataEngine, trackedEntityTypeList) =>
-    apiFetchTrackedEntityType(dataEngine, trackedEntityTypeList).then(r =>
-        getSize(r)
-    )
-
-const getTEA = (dataEngine, teaList) =>
-    apiFetchTrackedEntityAttributes(dataEngine, teaList).then(r => getSize(r))
-
-const getProgramRule = (dataEngine, programList) =>
-    apiFetchProgramRule(dataEngine, programList).then(r => getSize(r))
-
-const getTEIFilter = (dataEngine, programList) =>
-    apiFetchTrackedEntityInstanceFilter(dataEngine, programList).then(r =>
-        getSize(r)
-    )
-
-const getEventFilter = (dataEngine, programList) =>
-    apiFetchEventFilters(dataEngine, programList).then(r => getSize(r))
-
-const getRelationship = dataEngine =>
-    apiFetchRelationshipTypes(dataEngine).then(r => getSize(r))
-
-const getOptionSet = (dataEngine, optionSetList) =>
-    apiFetchOptionSet(dataEngine, optionSetList).then(r => getSize(r))
-
-const getOptions = (dataEngine, optionSetList) =>
-    apiFetchOptions(dataEngine, optionSetList).then(r => getSize(r))
-
-const getOptionGroups = (dataEngine, optionSetList) =>
-    apiFetchOptionGroup(dataEngine, optionSetList).then(r => getSize(r))

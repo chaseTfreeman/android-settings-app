@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty'
 import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 import without from 'lodash/without'
@@ -30,6 +31,8 @@ export const runUserTest = async (user, dataEngine) => {
     let programs = {}
     let dataSets = {}
     let programRules = {}
+    let metadataSize = 0
+    const dataSize = 0
 
     await getTestElements(user, dataEngine).then(result => {
         console.log('result after then', { result })
@@ -47,6 +50,14 @@ export const runUserTest = async (user, dataEngine) => {
         trackedEntityTypeList: programs.trackedEntityTypeList,
         teaList: programs.trackedEntityAttribute,
         optionSetList: programs.optionSet,
+        dataSetList: dataSets.idList,
+        dataElementList: dataSets.dataElement,
+        categoryComboList: dataSets.categoryCombo,
+        categoryList: dataSets.category,
+        indicatorList: dataSets.indicator,
+    }).then(result => {
+        metadataSize = result
+        console.log('metadata size', { result })
     })
 
     return {
@@ -56,8 +67,8 @@ export const runUserTest = async (user, dataEngine) => {
         dataSets: dataSets.total,
         programRules: programRules.total,
 
-        metadata: '',
-        data: '',
+        metadata: metadataSize,
+        data: dataSize,
     }
 }
 
@@ -88,31 +99,53 @@ const getOrgUnit = (orgUnits, dataEngine) => {
         const optionSetId = []
         const trackedEntityTypeId = []
         const trackedEntityAttributeId = []
+        const dataElementId = []
+        const categoryComboId = []
+        const categoriesId = []
+        const indicatorsId = []
         uniqOrgUnit.map(ou => orgUnitId.push(ou.id))
 
         const programList = []
         uniqOrgUnit.map(ou =>
-            ou.programs.map(program => {
-                programList.push(program.id)
-                trackedEntityTypeId.push(
-                    program.trackedEntityType && program.trackedEntityType.id
-                )
-                if (program.programTrackedEntityAttributes) {
-                    program.programTrackedEntityAttributes.map(tea => {
-                        trackedEntityAttributeId.push(tea.id)
-                        optionSetId.push(
-                            tea.trackedEntityAttribute.optionSet &&
-                                tea.trackedEntityAttribute.optionSet.id
-                        )
-                    })
+            ou.programs.map(
+                ({ id, trackedEntityType, programTrackedEntityAttributes }) => {
+                    programList.push(id)
+                    !isEmpty(trackedEntityType) &&
+                        trackedEntityTypeId.push(trackedEntityType.id)
+                    if (!isEmpty(programTrackedEntityAttributes)) {
+                        programTrackedEntityAttributes.map(tea => {
+                            trackedEntityAttributeId.push(tea.id)
+                            !isEmpty(tea.trackedEntityAttribute.optionSet) &&
+                                optionSetId.push(
+                                    tea.trackedEntityAttribute.optionSet.id
+                                )
+                        })
+                    }
                 }
-                //console.log({program})
-            })
+            )
         )
 
         const dataSetList = []
         uniqOrgUnit.map(ou =>
-            ou.dataSets.map(dataSet => dataSetList.push(dataSet.id))
+            ou.dataSets.map(
+                ({ id, dataSetElements, indicators, categoryCombo }) => {
+                    dataSetList.push(id)
+                    !isEmpty(dataSetElements.dataElement) &&
+                        dataElementId.push(dataSetElements.dataElement.id)
+
+                    if (!isEmpty(indicators)) {
+                        indicators.map(indicator =>
+                            indicatorsId.push(indicator.id)
+                        )
+                    }
+                    if (!isEmpty(categoryCombo)) {
+                        categoryComboId.push(categoryCombo.id)
+                        categoryCombo.categories.map(categories => {
+                            categoriesId.push(categories.id)
+                        })
+                    }
+                }
+            )
         )
 
         return {
@@ -134,6 +167,10 @@ const getOrgUnit = (orgUnits, dataEngine) => {
             dataSet: {
                 total: uniq(dataSetList).length,
                 idList: uniq(dataSetList),
+                dataElement: uniq(without(dataElementId, undefined)),
+                categoryCombo: uniq(without(categoryComboId, undefined)),
+                category: uniq(without(categoriesId, undefined)),
+                indicator: uniq(without(indicatorsId, undefined)),
             },
         }
     })
@@ -193,7 +230,3 @@ const getTestElements = async (user, dataEngine) => {
         dataSet,
     }
 }
-
-export const getSize = element => Buffer.byteLength(JSON.stringify(element))
-
-const getDataSize = () => {}
