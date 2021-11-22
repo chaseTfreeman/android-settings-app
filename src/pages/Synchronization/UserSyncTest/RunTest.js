@@ -4,7 +4,7 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import TestTable from './TestTable'
 import { AddNewSetting } from '../../../components/field'
 import { runUserTest } from './helper'
-import { useReadSettings } from './userSyncQueries'
+import { useReadSettings } from './queries/userSyncQueries'
 
 const RunTest = ({ disabled, user }) => {
     const dataEngine = useDataEngine()

@@ -22,7 +22,7 @@ import {
     apiFetchTrackedEntityInstanceFilter,
     apiFetchTrackedEntityType,
     apiFetchUserSettings,
-} from './metadataQueries'
+} from './queries/metadataQueries'
 import { formatByteSize, getByteLength } from '../../../utils/getByteLength'
 
 export const getMetadataSize = async ({

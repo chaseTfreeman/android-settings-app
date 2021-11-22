@@ -3,7 +3,7 @@ import { Popover, FlyoutMenu } from '@dhis2/ui'
 import { useDataEngine } from '@dhis2/app-runtime'
 import ItemSearchField from './ItemSearchField'
 import ContentMenuItem from './ContentMenuItem'
-import { getUserQuery } from '../userSyncQueries'
+import { getUserQuery } from '../queries/userSyncQueries'
 import useDebounce from '../../../../utils/useDebounce'
 import classes from './styles/ItemSelector.module.css'
 

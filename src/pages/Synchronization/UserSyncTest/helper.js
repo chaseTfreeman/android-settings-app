@@ -6,7 +6,7 @@ import {
     apiFetchOU,
     apiFetchOUSearch,
     apiFetchProgramRulesBasic,
-} from './syncQueries'
+} from './queries/syncQueries'
 import { getMetadataSize } from './getMetadata'
 
 export const runUserTest = async (user, dataEngine) => {
