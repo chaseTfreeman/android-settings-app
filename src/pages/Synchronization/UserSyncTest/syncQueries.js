@@ -24,7 +24,8 @@ export const apiFetchOUSearch = async (dataEngine, ou) => {
 const orgUnitQuery = query => ({
     resource: 'organisationUnits',
     params: {
-        fields: 'id,name,programs[id,name],dataSets[id,name]',
+        fields:
+            'id,name,programs[id,name,trackedEntityType[id],programTrackedEntityAttributes[id,trackedEntityAttribute[id,optionSet[id]]]],dataSets[id,name,categoryCombo[id,categories[id]],indicators[id,indicatorType[id]],dataSetElements[dataElement[id]]]',
         filter: `path:like:${query}`,
         paging: false,
     },

@@ -1,29 +1,64 @@
 import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
+import without from 'lodash/without'
 import {
     apiFetchOU,
     apiFetchOUSearch,
     apiFetchProgramRulesBasic,
 } from './syncQueries'
+import { getMetadataSize } from './getMetadata'
 
-export const runUserTest = (user, dataEngine) => {
+export const runUserTest = async (user, dataEngine) => {
     /*
      * get org unit search
      * get org unit capture
-     * get programs
+     * get programs -->
+     * using program query: trackedEntityType (get: TrackedEntityAttribute),
+     * using programId = programRules, programStages (get: DataElements (optionSet --> oprion --> optionGroup), TrackedEntityInstanceAttributes), TrackedEntityInstanceFilters, EventFilters
      * get program rules
-     * get data sets
+     * get data sets (DataSetElement --> dataElement --> optionSet --> option
+     * categoryCombo --> category --> categoryOptions
+     * using dataset id: validationRules
      * get reserved values
      *
      * get metadata size
      * get data size
      * **/
 
-    getTestElements(user, dataEngine).then(result => {
+    let orgUnitSearch = 0
+    let orgUnit = {}
+    let programs = {}
+    let dataSets = {}
+    let programRules = {}
+
+    await getTestElements(user, dataEngine).then(result => {
         console.log('result after then', { result })
+        orgUnitSearch = result.orgUnitSearch
+        orgUnit = result.orgUnit
+        programs = result.program
+        dataSets = result.dataSet
+        programRules = result.programRule
     })
 
-    console.log('result')
+    await getMetadataSize({
+        dataEngine,
+        orgUnitList: orgUnit.idList,
+        programList: programs.idList,
+        trackedEntityTypeList: programs.trackedEntityTypeList,
+        teaList: programs.trackedEntityAttribute,
+        optionSetList: programs.optionSet,
+    })
+
+    return {
+        orgUnitSearch,
+        orgUnitCapture: orgUnit.total,
+        programs: programs.total,
+        dataSets: dataSets.total,
+        programRules: programRules.total,
+
+        metadata: '',
+        data: '',
+    }
 }
 
 const getSearchOrgUnit = (orgUnits, dataEngine) => {
@@ -50,11 +85,29 @@ const getOrgUnit = (orgUnits, dataEngine) => {
         result.map(ouList => ouList.map(ou => orgUnitCapture.push(ou)))
         const uniqOrgUnit = uniqBy(orgUnitCapture, 'id')
         const orgUnitId = []
+        const optionSetId = []
+        const trackedEntityTypeId = []
+        const trackedEntityAttributeId = []
         uniqOrgUnit.map(ou => orgUnitId.push(ou.id))
 
         const programList = []
         uniqOrgUnit.map(ou =>
-            ou.programs.map(program => programList.push(program.id))
+            ou.programs.map(program => {
+                programList.push(program.id)
+                trackedEntityTypeId.push(
+                    program.trackedEntityType && program.trackedEntityType.id
+                )
+                if (program.programTrackedEntityAttributes) {
+                    program.programTrackedEntityAttributes.map(tea => {
+                        trackedEntityAttributeId.push(tea.id)
+                        optionSetId.push(
+                            tea.trackedEntityAttribute.optionSet &&
+                                tea.trackedEntityAttribute.optionSet.id
+                        )
+                    })
+                }
+                //console.log({program})
+            })
         )
 
         const dataSetList = []
@@ -70,6 +123,13 @@ const getOrgUnit = (orgUnits, dataEngine) => {
             program: {
                 total: uniq(programList).length,
                 idList: uniq(programList),
+                trackedEntityType: uniq(
+                    without(trackedEntityTypeId, undefined)
+                ),
+                trackedEntityAttribute: uniq(
+                    without(trackedEntityAttributeId, undefined)
+                ),
+                optionSet: uniq(without(optionSetId, undefined)),
             },
             dataSet: {
                 total: uniq(dataSetList).length,
@@ -134,6 +194,6 @@ const getTestElements = async (user, dataEngine) => {
     }
 }
 
-const getMetadataSize = () => {}
+export const getSize = element => Buffer.byteLength(JSON.stringify(element))
 
 const getDataSize = () => {}
