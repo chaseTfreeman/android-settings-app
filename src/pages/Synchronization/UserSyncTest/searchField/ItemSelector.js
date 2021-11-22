@@ -27,7 +27,7 @@ const ItemSelector = ({ selection }) => {
     const closeMenu = () => {
         setIsOpen(false)
         setFilter('')
-        selection('')
+        selection({})
         setMaxOptions(new Set())
     }
 
@@ -37,7 +37,7 @@ const ItemSelector = ({ selection }) => {
         setDisable(true)
         closeMenu()
         setFilter(item.name)
-        selection(item.id)
+        selection(item)
     }
 
     const clearField = () => {
