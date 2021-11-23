@@ -10,6 +10,18 @@ import {
 import { getMetadataSize } from './getMetadata'
 import { getDataSize } from './getData'
 
+export const createInitialValues = initialValues => ({
+    organisationUnitsNumber: initialValues.organisationUnitsNumber || 0,
+    organisationUnitSearchNumber:
+        initialValues.organisationUnitSearchNumber || 0,
+    datasetNumber: initialValues.datasetNumber || 0,
+    programNumber: initialValues.programNumber || 0,
+    programRuleNumber: initialValues.programRuleNumber || 0,
+    reservedValueNumber: initialValues.reservedValueNumber || 0,
+    metadataSize: initialValues.metadataSize || 0,
+    dataSize: initialValues.dataSize || 0,
+})
+
 export const runUserTest = async ({
     user,
     dataEngine,
@@ -55,15 +67,14 @@ export const runUserTest = async ({
     }).then(result => (dataSize = result))
 
     return {
-        orgUnitSearch,
-        orgUnitCapture: orgUnit.total,
-        programs: programs.total,
-        dataSets: dataSets.total,
-        programRules: programRules.total,
-        reservedValues: reservedValues,
-
-        metadata: metadataSize,
-        data: dataSize,
+        organisationUnitsNumber: orgUnit.total,
+        organisationUnitSearchNumber: orgUnitSearch,
+        datasetNumber: dataSets.total,
+        programNumber: programs.total,
+        programRuleNumber: programRules.total,
+        reservedValueNumber: reservedValues,
+        metadataSize,
+        dataSize,
     }
 }
 

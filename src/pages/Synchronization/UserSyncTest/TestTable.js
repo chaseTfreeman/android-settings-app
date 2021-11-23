@@ -17,9 +17,8 @@ const TestResult = ({ load, state, test }) => (
             <CircularLoader small />
         ) : (
             <p
-                className={cx(classes.subItemTitle, {
-                    [classes.maxValue]:
-                        state[test.state] >= state[test.maxValueState],
+                className={cx(classes.mainItem, {
+                    [classes.maxValue]: state[test.state] >= test.maxValue,
                 })}
             >
                 {state[test.state]}
@@ -28,30 +27,37 @@ const TestResult = ({ load, state, test }) => (
     </>
 )
 
-const TestRow = ({ test }) => (
+const TestRow = ({ test, load, state }) => (
     <DataTableRow>
         <DataTableCell large className={classes.tableCell}>
-            20
+            <TestResult load={load} state={state} test={test} />
         </DataTableCell>
         <DataTableCell large className={classes.tableCell}>
-            {test.title}
+            <p className={classes.subItemTitle}>{test.title}</p>
         </DataTableCell>
         <DataTableCell large className={classes.tableCell}>
-            {i18n.t('Recommended maximum: {{maxValue}}', {
-                nsSeparator: '---',
-                maxValue: test.maxValue,
-            })}
+            <p className={classes.subItemItem}>
+                {i18n.t('Recommended maximum: {{maxValue}}', {
+                    nsSeparator: '---',
+                    maxValue: test.maxValue,
+                })}
+            </p>
         </DataTableCell>
     </DataTableRow>
 )
 
-const TestTable = () => {
+const TestTable = ({ loading, state }) => {
     return (
         <div className={classes.topMargin}>
             <DataTable className={classes.table}>
                 <TableBody>
                     {testAndroidDataConstants.map(test => (
-                        <TestRow test={test} key={test.state} />
+                        <TestRow
+                            test={test}
+                            key={test.state}
+                            load={loading}
+                            state={state}
+                        />
                     ))}
                 </TableBody>
             </DataTable>
